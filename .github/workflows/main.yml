@@ -38,8 +38,8 @@ jobs:
           echo 'Auto Update Version DONE!';
 
       - name: 获取 GIT 权限
-         run: |
-          go env -w GOPRIVATE="github.com/fuicou"
+        run: |
+         go env -w GOPRIVATE="github.com/fuicou"
           git config --global url."https://fuicou:${{ secrets.GH_TOKEN }}@github.com".insteadOf "https://github.com"
           go get -v -t -d ./...
           git config --global user.email "lf@furry.icu"
