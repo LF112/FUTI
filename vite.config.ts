@@ -3,10 +3,9 @@ import reactRefresh from '@vitejs/plugin-react-refresh'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import svgr from 'vite-plugin-svgr'
 
-// https://vitejs.dev/config/
 export default defineConfig({
 	plugins: [tsconfigPaths(), reactRefresh(), svgr()],
 	server: {
-		port: 10248
+		port: 10240
 	}
 })

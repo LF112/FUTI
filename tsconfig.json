@@ -23,7 +23,7 @@
 		"typeRoots": ["./node_modules/@types"],
 		"baseUrl": "src"
 	},
-	"include": ["./src/**/*.ts", "./src/**/*.tsx", "src/theme/index.tsx"],
+	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
 	"exclude": ["node_modules"],
 	"files": ["custom.d.ts"]
 }
