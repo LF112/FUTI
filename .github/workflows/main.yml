@@ -49,7 +49,7 @@ jobs:
         run: |
           rename=$(git log --pretty=format:"%an" $reid -1)
           BGV=$(node -e "console.log(require('./package.json').version.split('-')[0])");
-          git add . && git commit -m "🚀 V$BGV ↑ [$rename - $sreid]";
+          git add . && git commit -m "🚀 V$BGV ↑ [$rename - $sreid]" && git push -u;
           echo ' 更新成功！'; \
           echo "---------- MAIN ----------"
           echo ' 作业完毕。'
