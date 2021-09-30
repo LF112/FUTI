@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 import './index.less'
 //[ style ]
 
-import Loading from 'pages/loading/main'
+//import Loading from 'pages/loading/main'
 //[ Component ]
 
 //=> Main Component
@@ -16,7 +16,7 @@ const APP = () => {
 ReactDOM.render(
 	<React.StrictMode>
 		<APP />
-		<Loading />
+		{/* <Loading /> */}
 	</React.StrictMode>,
 	document.getElementById('FUTIWOLF')
 )
