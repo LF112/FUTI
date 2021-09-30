@@ -1,20 +1,29 @@
 {
 	"compilerOptions": {
-		"target": "ESNext",
+		"target": "esnext",
 		"lib": ["DOM", "DOM.Iterable", "ESNext"],
 		"allowJs": false,
-		"skipLibCheck": false,
+		"skipLibCheck": true,
 		"esModuleInterop": false,
 		"allowSyntheticDefaultImports": true,
-		"strict": true,
+		"strict": false,
 		"forceConsistentCasingInFileNames": true,
-		"module": "ESNext",
+		"noFallthroughCasesInSwitch": true,
+		"module": "esnext",
 		"moduleResolution": "Node",
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"noEmit": true,
-		"jsx": "react"
+		"jsx": "react",
+		"plugins": [
+			{
+				"name": "typescript-styled-plugin"
+			}
+		],
+		"typeRoots": ["./node_modules/@types"],
+		"baseUrl": "src"
 	},
-	"include": ["./src", "./src/**/*.ts", "./src/**/*.tsx"],
-	"exclude": ["node_modules"]
+	"include": ["./src/**/*.ts", "./src/**/*.tsx", "src/theme/index.tsx"],
+	"exclude": ["node_modules"],
+	"files": ["custom.d.ts"]
 }

@@ -1,6 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+//[ package ]
 import './index.less'
+//[ style ]
+
+import Loading from 'pages/loading/main'
+//[ Component ]
 
 //=> Main Component
 const APP = () => {
@@ -11,6 +16,7 @@ const APP = () => {
 ReactDOM.render(
 	<React.StrictMode>
 		<APP />
+		<Loading />
 	</React.StrictMode>,
 	document.getElementById('FUTIWOLF')
 )
