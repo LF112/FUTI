@@ -11,7 +11,7 @@ on:
     branches: [master]
   pull_request:
     branches: [master]
-    
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -21,7 +21,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      
+
       - name: 使用 Node.js 14.x
         uses: actions/setup-node@v1
         with:
@@ -33,13 +33,12 @@ jobs:
           echo ' 正在安装依赖...';
           npm i child_process;
           echo ' 正在更新版本号...';
-          sreid=$(git rev-parse --short HEAD)
-          node autoUpdateVersion.js COMMIT="$sreid";
+          node autoUpdateVersion.js COMMIT="$(git rev-parse --short HEAD)";
           echo 'Auto Update Version DONE!';
 
       - name: 获取 GIT 权限
         run: |
-         go env -w GOPRIVATE="github.com/fuicou"
+          go env -w GOPRIVATE="github.com/fuicou"
           git config --global url."https://fuicou:${{ secrets.GH_TOKEN }}@github.com".insteadOf "https://github.com"
           go get -v -t -d ./...
           git config --global user.email "lf@furry.icu"
@@ -47,6 +46,7 @@ jobs:
 
       - name: 推送
         run: |
+          sreid=$(git rev-parse --short HEAD)
           rename=$(git log --pretty=format:"%an" $reid -1)
           BGV=$(node -e "console.log(require('./package.json').version.split('-')[0])");
           git add . && git commit -m "🚀 V$BGV ↑ [$rename - $sreid]" && git push -u;
