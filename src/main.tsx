@@ -5,11 +5,17 @@ import './index.less'
 //[ style ]
 
 //import Loading from 'pages/loading/main'
+import GA1 from 'components/Background/GA1'
 //[ Component ]
 
 //=> Main Component
 const APP = () => {
-	return <main></main>
+	return (
+		<>
+			<main></main>
+			<GA1 />
+		</>
+	)
 }
 
 //=> Render
