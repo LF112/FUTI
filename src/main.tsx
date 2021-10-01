@@ -6,26 +6,19 @@ import './index.less'
 
 //import Loading from 'page/loading/main'
 import GA1 from 'components/Background/GA1'
-import Ribbon from 'components/Ribbon'
-import HeadernContainer from 'page/header'
-import MainContainer from 'page/main'
-import FooternContainer from 'page/footer'
+import Header from 'page/header'
+import Main from 'page/main'
+import Footer from 'page/footer'
 //[ Component ]
 
 //=> Main Component
 const APP = () => {
 	return (
 		<>
-			<header>
-				<Ribbon />
-				<HeadernContainer />
-			</header>
-			<main>
-				<MainContainer />
-			</main>
-			<footer>
-				<FooternContainer />
-			</footer>
+			<Header />
+			<Main />
+			<Footer />
+
 			<GA1 />
 		</>
 	)
