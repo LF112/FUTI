@@ -7,8 +7,9 @@ import './index.less'
 //import Loading from 'page/loading/main'
 import GA1 from 'components/Background/GA1'
 import Ribbon from 'components/Ribbon'
+import HeadernContainer from 'page/header'
 import MainContainer from 'page/main'
-import FooterMain from 'page/footer'
+import FooternContainer from 'page/footer'
 //[ Component ]
 
 //=> Main Component
@@ -17,12 +18,13 @@ const APP = () => {
 		<>
 			<header>
 				<Ribbon />
+				<HeadernContainer />
 			</header>
 			<main>
 				<MainContainer />
 			</main>
 			<footer>
-				<FooterMain />
+				<FooternContainer />
 			</footer>
 			<GA1 />
 		</>
