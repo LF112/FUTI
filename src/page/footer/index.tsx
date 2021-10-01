@@ -1,10 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
+import Package from '../../../package.json'
 //[ package ]
 import './index.less'
 //[ style ]
 
 import { ReactComponent as FUTI_Icon } from 'assets/svg/futi.svg'
+import Ribbon from 'components/Ribbon'
 //[ Assets ]
 
 //=> DOM
@@ -18,7 +20,48 @@ export default (props: any) => {
 						Drawn by NAVILAB
 					</div>
 				</a>
-				<main></main>
+				<main>
+					<div>
+						<Ribbon />
+						<p>
+							Copyright &copy; 2017 - {new Date().getFullYear()}
+							<a
+								className='LF TIP'
+								href='https://www.lf112.net/'
+								data-tooltip='🙃 Independent Websites Developer'
+							>
+								&nbsp;LF112&nbsp;
+							</a>
+							All Rights Reserved.
+						</p>
+						<span className='Nbsp'>/</span>
+						<p>
+							<a
+								className='TIP'
+								href='http://beian.miit.gov.cn'
+								rel='noopener noreferrer'
+								target='_blank'
+								data-tooltip='ICP'
+							>
+								琼 ICP 备 2021000434 号 - 2
+							</a>
+						</p>
+						<span className='Nbsp'>/</span>
+						<p>
+							<a
+								className='TIP'
+								href='http://www.beian.gov.cn/portal/registerSystemInfo'
+								rel='noopener noreferrer'
+								target='_blank'
+								data-tooltip='Public Security Beian'
+							>
+								琼公安备 46010702000093 号
+							</a>
+						</p>
+						<span className='Nbsp'>/</span>
+						<p>V{Package.version}</p>
+					</div>
+				</main>
 			</div>
 		</Footer>
 	)

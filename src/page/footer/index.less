@@ -21,7 +21,7 @@
 				user-select: none;
 			}
 		}
-		.mainFoo {
+		> main {
 			height: 32px;
 			position: relative;
 			padding-left: 20px;
@@ -30,6 +30,20 @@
 			> div {
 				display: flex;
 				position: relative;
+				> div:first-child {
+					position: absolute;
+					> div {
+						height: 3px;
+						background: linear-gradient(
+							90deg,
+							hsla(0, 0%, 46.7%, 0.2),
+							rgba(72, 72, 72, 0.2),
+							hsla(0, 0%, 40.4%, 0.2),
+							rgba(60, 60, 60, 0.2)
+						);
+						box-shadow: unset;
+					}
+				}
 				> p,
 				span {
 					line-height: 28px;
@@ -39,7 +53,7 @@
 					user-select: none;
 				}
 				.LF {
-					font-family: fontOne;
+					font-family: RuiZi;
 					color: hsla(0, 0%, 100%, 0.26);
 					font-weight: 700;
 					user-select: none;
@@ -57,7 +71,7 @@
 	footer {
 		> div {
 			display: inline-grid;
-			.mainFoo {
+			> main {
 				padding: 0 10%;
 				border-left: unset;
 				> div {
