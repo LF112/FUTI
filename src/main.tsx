@@ -6,12 +6,16 @@ import './index.less'
 
 //import Loading from 'pages/loading/main'
 import GA1 from 'components/Background/GA1'
+import Ribbon from 'components/Ribbon'
 //[ Component ]
 
 //=> Main Component
 const APP = () => {
 	return (
 		<>
+			<header>
+				<Ribbon />
+			</header>
 			<main></main>
 			<GA1 />
 		</>
