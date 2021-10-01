@@ -3,7 +3,14 @@ import React from 'react'
 import './index.less'
 //[ style ]
 
+import Motto from 'components/Motto'
+//[ component ]
+
 //=> DOM
 export default (props: any) => {
-	return <nav></nav>
+	return (
+		<nav>
+			<Motto />
+		</nav>
+	)
 }
