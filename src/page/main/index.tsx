@@ -4,6 +4,9 @@ import styled from 'styled-components'
 import './index.less'
 //[ style ]
 
+import SocialLink from 'components/SocialLink'
+//[ component ]
+
 //=> DOM
 export default (props: any) => {
 	return (
@@ -12,7 +15,9 @@ export default (props: any) => {
 				<div>
 					<article className='IsLF'>
 						<div>
-							<div className='PROFILE'></div>
+							<div className='PROFILE'>
+								<SocialLink />
+							</div>
 						</div>
 					</article>
 				</div>
