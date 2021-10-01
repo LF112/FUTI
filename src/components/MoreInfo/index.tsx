@@ -108,10 +108,11 @@ const Info = styled.div`
 		> div:not(.divider) {
 			color: #fff;
 			font-size: 12px;
-			line-height: 16px;
+			line-height: 20px;
 			font-weight: lighter;
 			padding-left: 5px;
-			font-family: 'Noto Sans SC';
+			font-family: 'Stick No Bills';
+			letter-spacing: 1px;
 			user-select: none;
 		}
 		.divider {
