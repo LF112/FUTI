@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import './index.less'
 //[ style ]
 
+import MoreInfo from 'components/MoreInfo'
 import SocialLink from 'components/SocialLink'
 //[ component ]
 
@@ -16,6 +17,7 @@ export default (props: any) => {
 					<article className='IsLF'>
 						<div>
 							<div className='PROFILE'>
+								<MoreInfo />
 								<SocialLink />
 							</div>
 						</div>
