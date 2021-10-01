@@ -2,9 +2,11 @@ import React from 'react'
 import styled from 'styled-components'
 //[ package ]
 
-import { ReactComponent as Code } from 'assets/svg/info_Code.svg'
 import Ribbon from 'components/Ribbon'
 //[ component ]
+
+import { AuoutMe } from 'constants/global/moreInfo'
+//[ constants & types ]
 
 //=> DOM
 export default (props: any) => {
@@ -21,10 +23,15 @@ export default (props: any) => {
 					</div>
 				</Introduce>
 				<Info>
-					<div>
-						<Code />
-						<div>Dev</div>
-					</div>
+					{AuoutMe.map((item: any, index: number) => {
+						return (
+							<div key={index}>
+								{item.icon}
+								<div>{item.name}</div>
+								<div className='divider' />
+							</div>
+						)
+					})}
 				</Info>
 			</div>
 		</MoreInfo>
@@ -98,7 +105,7 @@ const Info = styled.div`
 			color: #fff;
 			font-size: 16px;
 		}
-		> div:not(.el-divider) {
+		> div:not(.divider) {
 			color: #fff;
 			font-size: 12px;
 			line-height: 16px;
@@ -107,12 +114,21 @@ const Info = styled.div`
 			font-family: 'Noto Sans SC';
 			user-select: none;
 		}
-		.el-divider {
+		.divider {
+			display: inline-block;
+			width: 1px;
+			height: 1em;
+			background-color: #dcdfe6;
 			margin: 0 0 0 8px;
 		}
 		> svg {
 			width: 16px;
 			height: 16px;
+		}
+	}
+	> div:last-child {
+		.divider {
+			display: none;
 		}
 	}
 `

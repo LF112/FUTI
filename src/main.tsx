@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 //[ package ]
 import './index.less'
+import 'assets/element-ui-icon/index.less'
 //[ style ]
 
 //import Loading from 'page/loading/main'
