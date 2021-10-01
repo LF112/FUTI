@@ -2,5 +2,28 @@
 	> div {
 		width: 100%;
 		padding: 0 25px;
+		> div {
+			margin: 0 auto;
+			position: relative;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			.IsLF {
+				position: relative;
+				height: calc(100vh - 140px);
+				display: flex;
+				align-items: center;
+				padding: 0 10px 0 15px;
+				> div {
+					width: 100%;
+					position: relative;
+					.PROFILE {
+						width: 100%;
+						padding: 10px 0;
+						border-radius: 4px;
+					}
+				}
+			}
+		}
 	}
 }

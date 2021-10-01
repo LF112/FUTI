@@ -8,7 +8,15 @@ import './index.less'
 export default (props: any) => {
 	return (
 		<Main className='MAIN'>
-			<div></div>
+			<div>
+				<div>
+					<article className='IsLF'>
+						<div>
+							<div className='PROFILE'></div>
+						</div>
+					</article>
+				</div>
+			</div>
 		</Main>
 	)
 }
