@@ -37,11 +37,13 @@ const Main = styled.main`
 	width: 100%;
 	height: 100px;
 	overflow: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	> div {
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		text-align: center;
 		padding: 0 15px;
 		a + a {
 			margin: 0 2px;
