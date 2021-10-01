@@ -6,8 +6,10 @@ import './index.less'
 //[ style ]
 
 import { ReactComponent as FUTI_Icon } from 'assets/svg/futi.svg'
-import Ribbon from 'components/Ribbon'
 //[ Assets ]
+
+import Ribbon from 'components/Ribbon'
+//[ component ]
 
 //=> DOM
 export default (props: any) => {
