@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 import './index.less'
 //[ style ]
 
-//import Loading from 'pages/loading/main'
+//import Loading from 'page/loading/main'
 import GA1 from 'components/Background/GA1'
 import Ribbon from 'components/Ribbon'
 //[ Component ]
