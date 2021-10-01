@@ -8,6 +8,7 @@ export default (props: any) => {
 
 	useEffect(() => {
 		new Parallax(container.current)
+		return () => Parallax.disable()
 	}, [container])
 
 	return (
