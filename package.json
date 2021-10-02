@@ -11,6 +11,7 @@
 		"@types/styled-components": "^5.1.14",
 		"child_process": "^1.0.2",
 		"parallax-js": "^3.1.0",
+		"pixi.js": "^6.1.3",
 		"react": "^17.0.0",
 		"react-dom": "^17.0.0",
 		"styled-components": "^5.3.1",

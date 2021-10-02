@@ -2,16 +2,19 @@ import React from 'react'
 import styled from 'styled-components'
 //[ package ]
 
+import Live2D from 'components/Live2D'
+
 //=> DOM
 export default (props: any) => {
 	return (
 		<Main>
 			<div>
 				<IMGCentered>
-					<img
+					{/* <img
 						alt='伏太,LF112,futiwolf,futi'
 						src='https://cdn.lfio.net/lf112.png'
-					/>
+					/> */}
+					<Live2D />
 				</IMGCentered>
 				<Frame>
 					<div></div>
