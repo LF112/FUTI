@@ -20,7 +20,7 @@ const CSM_JSON_ERROR_INDEX_OF_BOUNDS = 'Error: index out of bounds'
  */
 export abstract class Value {
 	/**
-	 * コンストラクタ
+	 * constructor
 	 */
 	public constructor() {}
 
@@ -327,7 +327,7 @@ export class CubismJson {
 			CubismLogInfo('{0}', this._root.getRawString())
 			return false
 		} else if (this._root == null) {
-			this._root = new JsonError(new csmString(this._error), false) // rootは解放されるのでエラーオブジェクトを別途作成する
+			this._root = new JsonError(new csmString(this._error), false) // 错误对象被单独创建，因为root已释放
 			return false
 		}
 		return true
@@ -915,13 +915,6 @@ export class JsonString extends Value {
  */
 export class JsonError extends JsonString {
 	/**
-	 * Valueの値が静的ならtrue、静的なら解放しない
-	 */
-	public isStatic(): boolean {
-		return this._isStatic
-	}
-
-	/**
 	 * エラー情報をセットする
 	 */
 	public setErrorNotForClientCall(s: string): Value {
@@ -938,7 +931,6 @@ export class JsonError extends JsonString {
 		} else {
 			super(s)
 		}
-		this._isStatic = isStatic
 	}
 
 	/**
@@ -947,8 +939,6 @@ export class JsonError extends JsonString {
 	public isError(): boolean {
 		return true
 	}
-
-	protected _isStatic: boolean // 静的なValueかどうか
 }
 
 /**
