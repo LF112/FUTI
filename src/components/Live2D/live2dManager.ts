@@ -4,10 +4,11 @@ import axios from 'axios'
 import { Live2DState } from 'state/live2d/slice'
 //[ state ]
 
+import { l2dModel } from './l2dModel'
+
 import { CubismMatrix44 } from 'libs/live2dFramework/src/math/cubismmatrix44'
 import { ACubismMotion } from 'libs/live2dFramework/src/motion/acubismmotion'
 import { csmVector } from 'libs/live2dFramework/src/type/csmvector'
-import { CubismUserModel } from 'libs/live2dFramework/src/model/cubismusermodel'
 //[ libs ]
 
 //=> 下载模型
@@ -35,15 +36,15 @@ export const CubismLogFn = (message: string): void => {
 
 //=> MAIN
 export const _viewMatrix = new CubismMatrix44()
-export const _models = new csmVector<CubismUserModel>()
+export const _models = new csmVector<l2dModel>()
 
 //=> 装载模型
 export const initModel = () => {
 	// 清理模型
 	releaseModel()
 	CubismLogFn('已清理模型')
-    
-    // Coding more...
+
+	// Coding more...
 }
 
 //=> 释放模型
