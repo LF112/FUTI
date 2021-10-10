@@ -6,12 +6,11 @@ import { useUpdateModel3, useModel3 } from 'state/live2d/hooks'
 import { Live2DState } from 'state/live2d/slice'
 //[ state ]
 
-import { downloadModel, CubismLogFn } from 'utils/getLive2d'
+import { downloadModel, CubismLogFn, initModel } from './live2dManager'
 //[ utils ]
 
 import {
 	CubismFramework,
-	Option,
 	LogLevel
 } from 'libs/live2dFramework/src/live2dcubismframework'
 //[ libs ]
@@ -42,6 +41,8 @@ export default (props: any) => {
 			// 初始化 cubism SDK
 			CubismFramework.initialize()
 
+			//=> 装载模型
+			initModel()
 			return () => {
 				//=> 释放 Cubism SDK 实例
 				CubismFramework.dispose()
