@@ -3,6 +3,7 @@ import axios from 'axios'
 import { Live2DState } from 'state/live2d/slice'
 //[ state ]
 
+//=> 下载模型
 export const downloadModel = () => {
 	return new Promise((resolve, reject) => {
 		axios
@@ -18,4 +19,9 @@ export const downloadModel = () => {
 				err => reject(err)
 			)
 	})
+}
+
+//=> Live2DCubismCore 日志输出
+export const CubismLogFn = (message: string): void => {
+	console.log('[FuTi-Live2D]=>', message)
 }
