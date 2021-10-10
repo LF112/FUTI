@@ -1,3 +1,5 @@
+import 'whatwg-fetch'
+
 import { CubismDefaultParameterId } from 'libs/live2dFramework/src/cubismdefaultparameterid'
 import { ICubismModelSetting } from 'libs/live2dFramework/src/icubismmodelsetting'
 import { CubismIdHandle } from 'libs/live2dFramework/src/id/cubismid'
@@ -105,7 +107,7 @@ export class l2dModel extends CubismUserModel {
 	}
 
 	_modelSetting: ICubismModelSetting //=> 模型配置
-	_modelHomeDir: string //=> 放置模型配置的目录
+	_modelHomeDir: string //=> 模型路径
 	_userTimeSeconds: number //=> 过渡时间 (s)
 
 	_eyeBlinkIds: csmVector<CubismIdHandle> //=> 眼部组件 ID 表
@@ -130,4 +132,32 @@ export class l2dModel extends CubismUserModel {
 	_motionCount: number //=> 运动数据计数
 	_allMotionCount: number //=> 总运动数据计数
 	//_wavFileHandler: LAppWavFileHandler //=> WAV文件处理 | '通过 wav 文件让模型动嘴'
+
+	//------ Main >---
+	/**
+	 * 读取 model3.json 中模型数据
+	 *  @param dir
+	 *  @param fileName
+	 */
+	public loadAssets(dir: string, fileName: string): void {
+		this._modelHomeDir = dir
+
+		//=> Fetch 下载模型 (arrayBuffer)
+		fetch(`${this._modelHomeDir}${fileName}`)
+			.then(response => response.arrayBuffer())
+			.then(arrayBuffer => {
+				//=> 模型配置预处理
+				const setting: ICubismModelSetting = new CubismModelSettingJson(
+					arrayBuffer,
+					arrayBuffer.byteLength
+				)
+
+				//=> 更新状态
+				this._state = LoadStep.LoadModel
+
+				//=> 载入模型 (MAIN)
+				//this.setupModel(setting)
+			})
+	}
+	//---< Main ------
 }

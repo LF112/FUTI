@@ -11,7 +11,8 @@ import { ACubismMotion } from 'libs/live2dFramework/src/motion/acubismmotion'
 import { csmVector } from 'libs/live2dFramework/src/type/csmvector'
 //[ libs ]
 
-//=> 下载模型
+//=> 前置方法 ---------------------------------------
+//=> 下载模型 | '预下载，重复的网络请求浏览器将自动叠加'
 export const downloadModel = () => {
 	return new Promise((resolve, reject) => {
 		axios
@@ -23,7 +24,9 @@ export const downloadModel = () => {
 				axios.get('./live2d/futi.2048/texture_00.png')
 			])
 			.then(
-				res => resolve(res[0].data as Live2DState),
+				res => {
+					resolve(res[0].data as Live2DState)
+				},
 				err => reject(err)
 			)
 	})
@@ -34,16 +37,19 @@ export const CubismLogFn = (message: string): void => {
 	console.log('[FuTi-Live2D]=>', message)
 }
 
-//=> MAIN
+//=> MAIN ----------------------------------------
 export const _viewMatrix = new CubismMatrix44()
 export const _models = new csmVector<l2dModel>()
 
 //=> 装载模型
-export const initModel = () => {
+export const initModel = (dir: string, fileName: string) => {
 	// 清理模型
 	releaseModel()
 	CubismLogFn('已清理模型')
 
+	//=> MAIN 加载模型
+	_models.pushBack(new l2dModel())
+	_models.at(0).loadAssets(dir, fileName)
 	// Coding more...
 }
 

@@ -42,7 +42,7 @@ export default (props: any) => {
 			CubismFramework.initialize()
 
 			//=> 装载模型
-			initModel()
+			initModel('./live2d/', 'futi.model3.json')
 			return () => {
 				//=> 释放 Cubism SDK 实例
 				CubismFramework.dispose()
