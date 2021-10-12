@@ -331,7 +331,50 @@ export class l2dModel extends CubismUserModel {
 				//=> 调用 Cubism Core CubismEyeBlink 方法创建眼部
 				this._eyeBlink = CubismEyeBlink.create(this._modelSetting)
 				CubismLogFn('[5/11] 模型眼部数据载入成功！')
+				//=> 载入模型呼吸效果
+				this._state = LoadStep.SetupBreath
 			} else CubismLogFn('[5/11] 模型眼部数据不存在！')
+
+			// 4 | 载入模型呼吸效果
+			setupBreath()
+		}
+
+		/**
+		 * 载入模型呼吸效果 (非配置，代码内置)
+		 */
+		const setupBreath = (): void => {
+			//=> 创建呼吸效果
+			this._breath = CubismBreath.create()
+
+			//=> 增加循环动作
+			const breathParameters: csmVector<BreathParameterData> = new csmVector()
+			breathParameters.pushBack(
+				new BreathParameterData(this._idParamAngleX, 0.0, 15.0, 6.5345, 0.5)
+			)
+			breathParameters.pushBack(
+				new BreathParameterData(this._idParamAngleY, 0.0, 8.0, 3.5345, 0.5)
+			)
+			breathParameters.pushBack(
+				new BreathParameterData(this._idParamAngleZ, 0.0, 10.0, 5.5345, 0.5)
+			)
+			breathParameters.pushBack(
+				new BreathParameterData(this._idParamBodyAngleX, 0.0, 4.0, 15.5345, 0.5)
+			)
+			breathParameters.pushBack(
+				new BreathParameterData(
+					CubismFramework.getIdManager().getId(
+						CubismDefaultParameterId.ParamBreath
+					),
+					0.0,
+					0.5,
+					3.2345,
+					0.5
+				)
+			)
+
+			//=> START
+			this._breath.setParameters(breathParameters)
+			CubismLogFn('[6/11] 模型呼吸载入成功！')
 		}
 	}
 	//---< Main ------
