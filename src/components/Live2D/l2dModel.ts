@@ -308,12 +308,30 @@ export class l2dModel extends CubismUserModel {
 
 						this._state = LoadStep.SetupEyeBlink
 						CubismLogFn('[4/11] 模型姿势载入成功！')
+
+						// 3 | 载入模型眼部
+						setupEyeBlink()
 					})
 				this._state = LoadStep.WaitLoadPose
 			} else {
 				this._state = LoadStep.SetupEyeBlink
 				CubismLogFn('[4/11] 模型姿势文件不存在！')
+
+				// 3 | 载入模型眼部
+				setupEyeBlink()
 			}
+		}
+
+		/**
+		 * 载入模型眼部
+		 */
+		const setupEyeBlink = (): void => {
+			//=> 判断眼部数据是否存在
+			if (this._modelSetting.getEyeBlinkParameterCount() > 0) {
+				//=> 调用 Cubism Core CubismEyeBlink 方法创建眼部
+				this._eyeBlink = CubismEyeBlink.create(this._modelSetting)
+				CubismLogFn('[5/11] 模型眼部数据载入成功！')
+			} else CubismLogFn('[5/11] 模型眼部数据不存在！')
 		}
 	}
 	//---< Main ------
