@@ -1,5 +1,8 @@
 import 'whatwg-fetch'
 
+import { CubismLogFn } from './live2dManager'
+//[utils]
+
 import { CubismDefaultParameterId } from 'libs/live2dFramework/src/cubismdefaultparameterid'
 import { ICubismModelSetting } from 'libs/live2dFramework/src/icubismmodelsetting'
 import { CubismIdHandle } from 'libs/live2dFramework/src/id/cubismid'
@@ -114,7 +117,7 @@ export class l2dModel extends CubismUserModel {
 	_lipSyncIds: csmVector<CubismIdHandle> //=> 唇部组件 ID 表
 
 	_motions: csmMap<string, ACubismMotion> //=> 运动参数
-	_expressions: csmMap<string, ACubismMotion> //=> 表情参数
+	_expressions: csmMap<string, ACubismMotion> //=> 面部参数
 
 	_hitArea: csmVector<csmRect>
 	_userArea: csmVector<csmRect>
@@ -127,7 +130,7 @@ export class l2dModel extends CubismUserModel {
 	_idParamBodyAngleX: CubismIdHandle //=> 参数 ID: ParamBodyAngleX
 
 	_state: number //=> 模型状态
-	_expressionCount: number //=> 表情计数
+	_expressionCount: number //=> 面部计数
 	_textureCount: number //=> 纹理计数
 	_motionCount: number //=> 运动数据计数
 	_allMotionCount: number //=> 总运动数据计数
@@ -156,8 +159,43 @@ export class l2dModel extends CubismUserModel {
 				this._state = LoadStep.LoadModel
 
 				//=> 载入模型 (MAIN)
-				//this.setupModel(setting)
+				this.setupModel(setting)
 			})
+	}
+
+	/**
+	 * 生成 Live2D 模型 (MAIN)
+	 * @param setting ICubismModelSetting 实例
+	 */
+	private setupModel(setting: ICubismModelSetting): void {
+		this._updating = true
+		this._initialized = false
+
+		this._modelSetting = setting
+
+		//=> MAIN
+		//=> Cubism 事件
+		//-----------------------------------------------------
+		/**
+		 * 载入模型 (文件)
+		 */
+		if (this._modelSetting.getModelFileName() != '') {
+			// 从模型配置中获取模型文件名
+			const modelFileName = this._modelSetting.getModelFileName()
+
+			//=> Fetch 下载模型 (arrayBuffer)
+			fetch(`${this._modelHomeDir}${modelFileName}`)
+				.then(response => response.arrayBuffer())
+				.then(arrayBuffer => {
+					//=> MAIN
+					//=> 载入模型
+					this.loadModel(arrayBuffer)
+					this._state = LoadStep.LoadExpression
+					CubismLogFn('[1/11] 模型数据装载成功！')
+				})
+
+			this._state = LoadStep.WaitLoadModel
+		} else CubismLogFn('[1/11] 模型数据不存在!')
 	}
 	//---< Main ------
 }
