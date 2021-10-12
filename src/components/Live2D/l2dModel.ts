@@ -375,6 +375,37 @@ export class l2dModel extends CubismUserModel {
 			//=> START
 			this._breath.setParameters(breathParameters)
 			CubismLogFn('[6/11] 模型呼吸载入成功！')
+
+			// 5 | 载入自定义配置
+			this._state = LoadStep.LoadUserData
+			loadUserData()
+		}
+
+		/**
+		 * 载入自定义配置
+		 */
+		const loadUserData = (): void => {
+			//=> 判断自定义配置是否存在
+			if (this._modelSetting.getUserDataFile() != '') {
+				// 获取自定义配置文件名
+				const userDataFile = this._modelSetting.getUserDataFile()
+
+				//=> Fetch 下载自定义配置文件 (arrayBuffer)
+				fetch(`${this._modelHomeDir}${userDataFile}`)
+					.then(response => response.arrayBuffer())
+					.then(arrayBuffer => {
+						//=> 调用 Cubism Core 载入自定义配置
+						this.loadUserData(arrayBuffer, arrayBuffer.byteLength)
+						CubismLogFn('[7/11] 自定义配置载入成功！')
+
+						this._state = LoadStep.SetupEyeBlinkIds
+					})
+
+				this._state = LoadStep.WaitLoadUserData
+			} else {
+				this._state = LoadStep.SetupEyeBlinkIds
+				CubismLogFn('[7/11] 自定义配置文件不存在！')
+			}
 		}
 	}
 	//---< Main ------
