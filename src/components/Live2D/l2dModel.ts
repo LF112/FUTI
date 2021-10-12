@@ -445,6 +445,21 @@ export class l2dModel extends CubismUserModel {
 				this._lipSyncIds.pushBack(this._modelSetting.getLipSyncParameterId(i))
 			}
 			CubismLogFn('[9/11] 唇部 ID 绑定完成！')
+
+			// 8 | 创建模型布局
+			this._state = LoadStep.SetupLayout
+			setupLayout()
+		}
+
+		/**
+		 * 创建模型布局
+		 */
+		const setupLayout = (): void => {
+			//=> 创建 csmMap
+			const layout: csmMap<string, number> = new csmMap<string, number>()
+			this._modelSetting.getLayoutMap(layout)
+			this._modelMatrix.setupFromLayout(layout)
+			CubismLogFn('[10/11] 模型布局创建完成！')
 		}
 	}
 	//---< Main ------
