@@ -240,6 +240,9 @@ export class l2dModel extends CubismUserModel {
 							if (this._expressionCount >= count) {
 								this._state = LoadStep.LoadPhysics
 								CubismLogFn('[2/11] 面部数据载入成功！')
+
+								// 2 | 载入模型物理运动
+								loadCubismPhysics()
 							}
 						})
 				}
@@ -248,6 +251,36 @@ export class l2dModel extends CubismUserModel {
 				//=> 面部数据不存在时
 				this._state = LoadStep.LoadPhysics
 				CubismLogFn('[2/11] 面部数据文件不存在！')
+
+				// 2 | 载入模型物理运动
+				loadCubismPhysics()
+			}
+		}
+
+		/**
+		 * 载入模型物理运动效果
+		 */
+		const loadCubismPhysics = (): void => {
+			//=> 检测物理运动文件是否存在
+			if (this._modelSetting.getPhysicsFileName() != '') {
+				// 获取物理运动文件名
+				const physicsFileName = this._modelSetting.getPhysicsFileName()
+
+				//=> Fetch 下载模型运动文件 (arrayBuffer)
+				fetch(`${this._modelHomeDir}${physicsFileName}`)
+					.then(response => response.arrayBuffer())
+					.then(arrayBuffer => {
+						//=> 调用 Cubism Core 载入物理运动
+						this.loadPhysics(arrayBuffer, arrayBuffer.byteLength)
+
+						this._state = LoadStep.LoadPose
+						CubismLogFn('[3/11] 物理运动载入成功！')
+					})
+				this._state = LoadStep.WaitLoadPhysics
+			} else {
+				//=> 無物理运动时
+				this._state = LoadStep.LoadPose
+				CubismLogFn('[3/11] 物理运动文件不存在！')
 			}
 		}
 	}
