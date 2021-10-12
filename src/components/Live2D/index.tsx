@@ -6,7 +6,14 @@ import { useUpdateModel3, useModel3 } from 'state/live2d/hooks'
 import { Live2DState } from 'state/live2d/slice'
 //[ state ]
 
-import { downloadModel, CubismLogFn, initModel } from './live2dManager'
+import {
+	downloadModel,
+	CubismLogFn,
+	initModel,
+	WebGl2Canvas,
+	renderModel
+} from './live2dManager'
+
 //[ utils ]
 
 import {
@@ -41,8 +48,13 @@ export default (props: any) => {
 			// 初始化 cubism SDK
 			CubismFramework.initialize()
 
+			const CANVAS = WebGl2Canvas(node.current, 800, 700)
 			//=> 装载模型
-			initModel('./live2d/', 'futi.model3.json')
+			initModel(CANVAS, './live2d/', 'futi.model3.json')
+
+			//=> 渲染模型
+			renderModel(CANVAS)
+
 			return () => {
 				//=> 释放 Cubism SDK 实例
 				CubismFramework.dispose()
@@ -59,15 +71,14 @@ export default (props: any) => {
 
 //=> Style
 const Main = styled.main`
-	left: -82px;
-	top: 68px;
+	top: 245px;
+	right: -38px;
 	width: 410px;
 	position: relative;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	canvas {
-		transform: scale(0.48);
 		pointer-events: none;
 		touch-action: none;
 		width: 800px;

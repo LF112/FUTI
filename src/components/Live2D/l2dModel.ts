@@ -1,5 +1,6 @@
 import 'whatwg-fetch'
 
+import { TextureInfo, TextureManager } from './l2dTextureManager'
 import { CubismLogFn } from './live2dManager'
 //[utils]
 
@@ -26,9 +27,7 @@ import {
 import { CubismModelSettingJson } from 'libs/live2dFramework/src/cubismmodelsettingjson'
 import { CubismEyeBlink } from 'libs/live2dFramework/src/effect/cubismeyeblink'
 import { CubismMotion } from 'libs/live2dFramework/src/motion/cubismmotion'
-import { csmString } from 'libs/live2dFramework/src/type/csmstring'
 import { CubismMatrix44 } from 'libs/live2dFramework/src/math/cubismmatrix44'
-import { CubismLogInfo } from 'libs/live2dFramework/src/utils/cubismdebug'
 //[ libs ]
 
 /**
@@ -107,6 +106,8 @@ export class l2dModel extends CubismUserModel {
 		this._motionCount = 0
 		this._allMotionCount = 0
 		//this._wavFileHandler = new LAppWavFileHandler()
+		this._textureManager = new TextureManager()
+		this._gl = null
 	}
 
 	_modelSetting: ICubismModelSetting //=> 模型配置
@@ -135,6 +136,9 @@ export class l2dModel extends CubismUserModel {
 	_motionCount: number //=> 运动数据计数
 	_allMotionCount: number //=> 总运动数据计数
 	//_wavFileHandler: LAppWavFileHandler //=> WAV文件处理 | '通过 wav 文件让模型动嘴'
+	_textureManager: TextureManager
+
+	_gl: any
 
 	//------ Main >---
 	/**
@@ -142,8 +146,9 @@ export class l2dModel extends CubismUserModel {
 	 *  @param dir
 	 *  @param fileName
 	 */
-	public loadAssets(dir: string, fileName: string): void {
+	public loadAssets(gl: any, dir: string, fileName: string): void {
 		this._modelHomeDir = dir
+		this._gl = gl[0]
 
 		//=> Fetch 下载模型 (arrayBuffer)
 		fetch(`${this._modelHomeDir}${fileName}`)
@@ -500,9 +505,9 @@ export class l2dModel extends CubismUserModel {
 				this._initialized = true
 
 				//=> 绘制模型
-				//this.createRenderer()
-				//this.setupTextures()
-				//this.getRenderer().startUp(gl)
+				this.createRenderer()
+				this.setupTextures()
+				this.getRenderer().startUp(this._gl)
 			}
 		}
 		// END !
@@ -564,12 +569,294 @@ export class l2dModel extends CubismUserModel {
 						this._initialized = true
 
 						//=> 绘制模型
-						//this.createRenderer()
-						//this.setupTextures()
-						//this.getRenderer().startUp(gl)
+						this.createRenderer()
+						this.setupTextures()
+						this.getRenderer().startUp(this._gl)
 					}
 				})
 		}
 	}
+
+	/**
+	 * 绘制纹理
+	 */
+	private setupTextures(): void {
+		// 使用 Premultipliedalpha，以提高 iPhone中的 Alpha通道渲染质量
+		const usePremultiply = true
+
+		if (this._state == LoadStep.LoadTexture) {
+			//=> 获取纹理数量
+			const textureCount: number = this._modelSetting.getTextureCount()
+
+			for (
+				let modelTextureNumber = 0;
+				modelTextureNumber < textureCount;
+				modelTextureNumber++
+			) {
+				//=> 跳过文件名为空的纹理文件
+				if (this._modelSetting.getTextureFileName(modelTextureNumber) == '')
+					continue
+
+				//=> 在 WebGl 上载入纹理
+				let texturePath =
+					this._modelSetting.getTextureFileName(modelTextureNumber)
+				texturePath = this._modelHomeDir + texturePath
+
+				//=> 加载完成时调用回调函数
+				const onLoad = (textureInfo: TextureInfo): void => {
+					this.getRenderer().bindTexture(modelTextureNumber, textureInfo.id)
+
+					this._textureCount++
+
+					if (this._textureCount >= textureCount) {
+						this._state = LoadStep.CompleteSetup
+						CubismLogFn('纹理载入成功！')
+					}
+				}
+
+				//=> 调用绘制方法
+				this._textureManager.createTextureFromPngFile(
+					this._gl,
+					texturePath,
+					usePremultiply,
+					onLoad
+				)
+
+				this.getRenderer().setIsPremultipliedAlpha(usePremultiply)
+			}
+
+			this._state = LoadStep.WaitLoadTexture
+		}
+	}
 	//---< Main ------
+
+	/**
+	 * 在 Canvas 上绘制
+	 */
+	public draw(matrix: CubismMatrix44, frameBuffer: any, canvas: any): void {
+		//=> 仅模型存在时
+		if (this._model == null) return
+
+		//=> 一切就绪时
+		if (this._state == LoadStep.CompleteSetup) {
+			matrix.multiplyByMatrix(this._modelMatrix)
+
+			this.getRenderer().setMvpMatrix(matrix)
+
+			this.doDraw(frameBuffer, canvas)
+		}
+	}
+
+	/**
+	 * 绘制图形
+	 * 通过空间的视图投影矩阵以绘制模型
+	 */
+	public doDraw(frameBuffer: any, canvas: any): void {
+		if (this._model == null) return
+
+		//=> Canvas 尺寸
+		const viewport: number[] = [0, 0, canvas.width, canvas.height]
+
+		this.getRenderer().setRenderState(frameBuffer, viewport)
+		this.getRenderer().drawModel()
+	}
+
+	/**
+	 * 更新渲染
+	 */
+	public update(): void {
+		if (this._state != LoadStep.CompleteSetup) return
+
+		this._dragX = this._dragManager.getX()
+		this._dragY = this._dragManager.getY()
+
+		//=> 帧
+		const deltaTimeSeconds: number = l2dModel.getDeltaTime()
+		this._userTimeSeconds += deltaTimeSeconds
+
+		this._dragManager.update(deltaTimeSeconds)
+		//======
+
+		//=> 运动更新锁
+		let motionUpdated = false
+
+		//--------------------------------------------------------------------------
+		//=> 加载最后保存的状态
+		this._model.loadParameters()
+		//=> 运动准备完成时
+		if (this._motionManager.isFinished()) this.startRandomMotion('Idle', 1)
+		// 没有运动时，从运动组中随机播放
+		else
+			motionUpdated = this._motionManager.updateMotion(
+				this._model,
+				deltaTimeSeconds
+			) // Update motion
+		//=> 保存状态
+		this._model.saveParameters()
+		//--------------------------------------------------------------------------
+
+		//=> 更新眼部运动
+		if (!motionUpdated)
+			if (this._eyeBlink != null)
+				this._eyeBlink.updateParameters(this._model, deltaTimeSeconds)
+
+		//=> 更新表情
+		if (this._expressionManager != null)
+			this._expressionManager.updateMotion(this._model, deltaTimeSeconds)
+
+		//=> 拖动事件
+		// 通过拖动调整面部方向
+		this._model.addParameterValueById(this._idParamAngleX, this._dragX * 30) // -30 / 30
+		this._model.addParameterValueById(this._idParamAngleY, this._dragY * 30)
+		this._model.addParameterValueById(
+			this._idParamAngleZ,
+			this._dragX * this._dragY * -30
+		)
+
+		// 通过拖动调整身体方向
+		this._model.addParameterValueById(this._idParamBodyAngleX, this._dragX * 10) // -10 / 10
+		// ↑ 以上仅有完整面部变形器才有效果 ↑
+
+		// 通过拖动调整眼睛方向
+		this._model.addParameterValueById(this._idParamEyeBallX, this._dragX) // -1 / 1
+		this._model.addParameterValueById(this._idParamEyeBallY, this._dragY)
+
+		//=> 呼吸运动
+		if (this._breath != null)
+			this._breath.updateParameters(this._model, deltaTimeSeconds)
+
+		//=> 物理运动
+		if (this._physics != null)
+			this._physics.evaluate(this._model, deltaTimeSeconds)
+
+		//=> 唇部运动
+		// if (this._lipsync) {
+		// 	let value = 0.0
+
+		// 	this._wavFileHandler.update(deltaTimeSeconds)
+		// 	value = this._wavFileHandler.getRms()
+
+		// 	for (let i = 0; i < this._lipSyncIds.getSize(); ++i)
+		// 		this._model.addParameterValueById(this._lipSyncIds.at(i), value, 0.8)
+		// }
+
+		//=> 姿势
+		if (this._pose != null)
+			this._pose.updateParameters(this._model, deltaTimeSeconds)
+
+		this._model.update()
+	}
+
+	/**
+	 * 播放随机运动
+	 * @param group 运动组
+	 * @param priority 优先级
+	 * @param onFinishedMotionHandler 完成时的回调
+	 * @return 返回开始动作的标识，用于确定各个动作是否已执行完成，无法执行时为 [-1]
+	 */
+	public startRandomMotion(
+		group: string,
+		priority: number,
+		onFinishedMotionHandler?: FinishedMotionCallback
+	): CubismMotionQueueEntryHandle {
+		//=> 运动组不存在时
+		if (this._modelSetting.getMotionCount(group) == 0)
+			return InvalidMotionQueueEntryHandleValue
+
+		//=> 根据已有的运动数量创建随机运动 ID
+		const no: number = Math.floor(
+			Math.random() * this._modelSetting.getMotionCount(group)
+		)
+
+		return this.startMotion(group, no, priority, onFinishedMotionHandler)
+	}
+
+	/**
+	 * 播放指定的运动
+	 * @param group 运动组
+	 * @param no 运动 ID
+	 * @param priority 优先级
+	 * @param onFinishedMotionHandler 运动播放结束回调
+	 * @return 返回开始动作的标识，用于确定各个动作是否已执行完成，无法执行时为 [-1]
+	 */
+	public startMotion(
+		group: string,
+		no: number,
+		priority: number,
+		onFinishedMotionHandler?: FinishedMotionCallback
+	): CubismMotionQueueEntryHandle {
+		//=> 运动优先级 def: 3
+		if (priority == 3) this._motionManager.setReservePriority(priority)
+		else if (!this._motionManager.reserveMotion(priority))
+			return InvalidMotionQueueEntryHandleValue
+
+		//=> 获取运动文件名
+		const motionFileName = this._modelSetting.getMotionFileName(group, no)
+
+		// ex => idle_0
+		const name = `${group}_${no}`
+		let motion: CubismMotion = this._motions.getValue(name) as CubismMotion
+		let autoDelete = false
+
+		if (motion == null) {
+			//=> Fetch 下载运动数据文件 (arrayBuffer)
+			fetch(`${this._modelHomeDir}${motionFileName}`)
+				.then(response => response.arrayBuffer())
+				.then(arrayBuffer => {
+					//=> 调用 Cubism Core 加载运动
+					motion = this.loadMotion(
+						arrayBuffer,
+						arrayBuffer.byteLength,
+						null,
+						onFinishedMotionHandler
+					)
+
+					//=> 过渡动画
+					// 渐入
+					let fadeTime: number = this._modelSetting.getMotionFadeInTimeValue(
+						group,
+						no
+					)
+					if (fadeTime >= 0.0) motion.setFadeInTime(fadeTime)
+
+					// 渐出
+					fadeTime = this._modelSetting.getMotionFadeOutTimeValue(group, no)
+					if (fadeTime >= 0.0) motion.setFadeOutTime(fadeTime)
+
+					//=> 绑定效果器 ID
+					motion.setEffectIds(this._eyeBlinkIds, this._lipSyncIds)
+					autoDelete = true
+				})
+		} else motion.setFinishedMotionHandler(onFinishedMotionHandler)
+
+		//voice
+		// const voice = this._modelSetting.getMotionSoundFileName(group, no)
+		// if (voice.localeCompare('') != 0) {
+		// 	let path = voice
+		// 	path = this._modelHomeDir + path
+		// 	this._wavFileHandler.start(path)
+		// }
+
+		return this._motionManager.startMotionPriority(motion, autoDelete, priority)
+	}
+
+	/**
+	 * 获得 Delta 时间（与上一帧的差异）
+	 * @return ms
+	 */
+	public static getDeltaTime(): number {
+		return this.s_deltaTime
+	}
+
+	public static updateTime(): void {
+		this.s_currentFrame = Date.now()
+		this.s_deltaTime = (this.s_currentFrame - this.s_lastFrame) / 1000
+		this.s_lastFrame = this.s_currentFrame
+	}
+
+	static lastUpdate = Date.now()
+
+	static s_currentFrame = 0.0
+	static s_lastFrame = 0.0
+	static s_deltaTime = 0.0
 }
