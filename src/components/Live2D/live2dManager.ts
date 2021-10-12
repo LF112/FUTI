@@ -34,7 +34,7 @@ export const downloadModel = () => {
 
 //=> Live2DCubismCore 日志输出
 export const CubismLogFn = (message: string): void => {
-	console.log('[FuTi-Live2D]=>', message)
+	console.log(`[FuTi-Live2D]${message}`)
 }
 
 //=> MAIN ----------------------------------------
