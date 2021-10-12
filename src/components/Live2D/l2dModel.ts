@@ -399,13 +399,34 @@ export class l2dModel extends CubismUserModel {
 						CubismLogFn('[7/11] 自定义配置载入成功！')
 
 						this._state = LoadStep.SetupEyeBlinkIds
+
+						// 6 | 创建并绑定眼部 ID
+						setupEyeBlinkIds()
 					})
 
 				this._state = LoadStep.WaitLoadUserData
 			} else {
 				this._state = LoadStep.SetupEyeBlinkIds
 				CubismLogFn('[7/11] 自定义配置文件不存在！')
+
+				// 6 | 创建并绑定眼部 ID
+				setupEyeBlinkIds()
 			}
+		}
+
+		/**
+		 * 创建并绑定眼部 ID
+		 */
+		const setupEyeBlinkIds = (): void => {
+			// 获取眼部 ID 列表
+			const eyeBlinkIdCount: number =
+				this._modelSetting.getEyeBlinkParameterCount()
+
+			for (let i = 0; i < eyeBlinkIdCount; ++i) {
+				//=> 绑定 ID
+				this._eyeBlinkIds.pushBack(this._modelSetting.getEyeBlinkParameterId(i))
+			}
+			CubismLogFn('[7/11] 眼部 ID 绑定完成！')
 		}
 	}
 	//---< Main ------
