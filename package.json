@@ -1,6 +1,6 @@
 {
 	"name": "FUTI",
-	"version": "0.0.11-50cc065",
+	"version": "0.0.12-8b1074a",
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc && vite build",
