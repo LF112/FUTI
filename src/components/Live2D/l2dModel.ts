@@ -460,6 +460,115 @@ export class l2dModel extends CubismUserModel {
 			this._modelSetting.getLayoutMap(layout)
 			this._modelMatrix.setupFromLayout(layout)
 			CubismLogFn('[10/11] 模型布局创建完成！')
+
+			// 9 | 加载模型动画
+			this._state = LoadStep.LoadMotion
+			loadCubismMotion()
+		}
+
+		/**
+		 * 加载模型动画
+		 */
+		const loadCubismMotion = (): void => {
+			this._state = LoadStep.WaitLoadMotion
+			this._model.saveParameters()
+			this._allMotionCount = 0
+			this._motionCount = 0
+			const group: string[] = []
+
+			//=> 获取模型运动组计数
+			const motionGroupCount: number = this._modelSetting.getMotionGroupCount()
+
+			//=> 根据运动组创建全部运动组
+			for (let i = 0; i < motionGroupCount; i++) {
+				group[i] = this._modelSetting.getMotionGroupName(i)
+				this._allMotionCount += this._modelSetting.getMotionCount(group[i])
+			}
+
+			//=> 模型运动装载
+			for (let i = 0; i < motionGroupCount; i++)
+				this.preLoadMotionGroup(group[i]) //=> 调用装载方法
+
+			//=> 没有运动组时
+			if (motionGroupCount == 0) {
+				this._state = LoadStep.LoadTexture
+
+				//=> 停止所有动作
+				this._motionManager.stopAllMotions()
+
+				this._updating = false
+				this._initialized = true
+
+				//=> 绘制模型
+				//this.createRenderer()
+				//this.setupTextures()
+				//this.getRenderer().startUp(gl)
+			}
+		}
+		// END !
+	}
+
+	/**
+	 * 载入模型动画
+	 *
+	 * @param group 动作组 Array<string>
+	 */
+	public preLoadMotionGroup(group: string): void {
+		for (let i = 0; i < this._modelSetting.getMotionCount(group); i++) {
+			//=> 获取运动文件名
+			const motionFileName = this._modelSetting.getMotionFileName(group, i)
+
+			const name = `${group}_${i}`
+			CubismLogFn(`加载运动: ${motionFileName} => [${name}]`)
+
+			//=> Fetch 下载运动文件 (arrayBuffer)
+			fetch(`${this._modelHomeDir}${motionFileName}`)
+				.then(response => response.arrayBuffer())
+				.then(arrayBuffer => {
+					//=> 调用 Cubism Core 加载运动
+					const tmpMotion: CubismMotion = this.loadMotion(
+						arrayBuffer,
+						arrayBuffer.byteLength,
+						name
+					)
+
+					//=> 渐入
+					let fadeTime = this._modelSetting.getMotionFadeInTimeValue(group, i)
+					if (fadeTime >= 0.0) tmpMotion.setFadeInTime(fadeTime)
+
+					//=> 渐出
+					fadeTime = this._modelSetting.getMotionFadeOutTimeValue(group, i)
+					if (fadeTime >= 0.0) tmpMotion.setFadeOutTime(fadeTime)
+
+					//=> 绑定效果器
+					tmpMotion.setEffectIds(this._eyeBlinkIds, this._lipSyncIds)
+
+					//=> 移除无效的动作
+					if (this._motions.getValue(name) != null)
+						ACubismMotion.delete(this._motions.getValue(name))
+
+					//=> 绑定运动
+					this._motions.setValue(name, tmpMotion)
+
+					this._motionCount++
+					if (this._motionCount >= this._allMotionCount) {
+						//=> 运动载入完成！
+						CubismLogFn('[11/11] 运动载入完成！')
+
+						this._state = LoadStep.LoadTexture
+
+						//=> 停止所有动作
+						this._motionManager.stopAllMotions()
+
+						this._updating = false
+						this._initialized = true
+
+						//=> 绘制模型
+						//this.createRenderer()
+						//this.setupTextures()
+						//this.getRenderer().startUp(gl)
+					}
+				})
 		}
 	}
 	//---< Main ------
