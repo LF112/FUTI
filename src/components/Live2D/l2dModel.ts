@@ -192,10 +192,64 @@ export class l2dModel extends CubismUserModel {
 					this.loadModel(arrayBuffer)
 					this._state = LoadStep.LoadExpression
 					CubismLogFn('[1/11] 模型数据装载成功！')
+
+					// 1 | 载入面部数据
+					loadCubismExpression()
 				})
 
 			this._state = LoadStep.WaitLoadModel
 		} else CubismLogFn('[1/11] 模型数据不存在!')
+
+		/**
+		 * 载入模型面部数据 (表情)
+		 */
+		const loadCubismExpression = (): void => {
+			//=> 检测面部数据数量
+			if (this._modelSetting.getExpressionCount() > 0) {
+				// 获取面部数据计数
+				const count: number = this._modelSetting.getExpressionCount()
+
+				for (let i = 0; i < count; i++) {
+					//=> Expression Main
+					// 获取面部数据名 / 文件名
+					const expressionName = this._modelSetting.getExpressionName(i)
+					const expressionFileName = this._modelSetting.getExpressionFileName(i)
+
+					//=> Fetch 下载面部数据文件 (arrayBuffer)
+					fetch(`${this._modelHomeDir}${expressionFileName}`)
+						.then(response => response.arrayBuffer())
+						.then(arrayBuffer => {
+							//=> 调用 Cubism Core 载入面部数据
+							const motion: ACubismMotion = this.loadExpression(
+								arrayBuffer,
+								arrayBuffer.byteLength,
+								expressionName
+							)
+
+							// 移除无法检索的面部数据 ID
+							if (this._expressions.getValue(expressionName) != null) {
+								ACubismMotion.delete(this._expressions.getValue(expressionName))
+								this._expressions.setValue(expressionName, null)
+							}
+
+							//=> LOAD
+							this._expressions.setValue(expressionName, motion)
+
+							this._expressionCount++
+
+							if (this._expressionCount >= count) {
+								this._state = LoadStep.LoadPhysics
+								CubismLogFn('[2/11] 面部数据载入成功！')
+							}
+						})
+				}
+				this._state = LoadStep.WaitLoadExpression
+			} else {
+				//=> 面部数据不存在时
+				this._state = LoadStep.LoadPhysics
+				CubismLogFn('[2/11] 面部数据文件不存在！')
+			}
+		}
 	}
 	//---< Main ------
 }
