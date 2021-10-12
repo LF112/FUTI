@@ -426,7 +426,25 @@ export class l2dModel extends CubismUserModel {
 				//=> 绑定 ID
 				this._eyeBlinkIds.pushBack(this._modelSetting.getEyeBlinkParameterId(i))
 			}
-			CubismLogFn('[7/11] 眼部 ID 绑定完成！')
+			CubismLogFn('[8/11] 眼部 ID 绑定完成！')
+
+			// 7 | 创建并绑定唇部 ID
+			this._state = LoadStep.SetupLipSyncIds
+			setupLipSyncIds()
+		}
+
+		/**
+		 * 创建并绑定唇部 ID
+		 */
+		const setupLipSyncIds = (): void => {
+			// 获取唇部 ID 表
+			const lipSyncIdCount = this._modelSetting.getLipSyncParameterCount()
+
+			for (let i = 0; i < lipSyncIdCount; ++i) {
+				//=> 绑定 ID
+				this._lipSyncIds.pushBack(this._modelSetting.getLipSyncParameterId(i))
+			}
+			CubismLogFn('[9/11] 唇部 ID 绑定完成！')
 		}
 	}
 	//---< Main ------
