@@ -23,7 +23,7 @@
 		"typeRoots": ["./node_modules/@types"],
 		"baseUrl": "src"
 	},
-	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
+	"include": ["./src/**/*.ts", "./src/**/*.tsx", "src/libs/live2dcubismcore.min.js"],
 	"exclude": ["node_modules"],
 	"files": ["custom.d.ts"]
 }

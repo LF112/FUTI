@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
 //[ package ]
 import './index.less'
 import 'assets/element-ui-icon/index.less'
@@ -11,6 +12,9 @@ import Header from 'page/header'
 import Main from 'page/main'
 import Footer from 'page/footer'
 //[ Component ]
+
+import store from 'state'
+//[ store ]
 
 //=> Main Component
 const APP = () => {
@@ -28,8 +32,10 @@ const APP = () => {
 //=> Render
 ReactDOM.render(
 	<React.StrictMode>
-		<APP />
-		{/* <Loading /> */}
+		<Provider store={store}>
+			<APP />
+			{/* <Loading /> */}
+		</Provider>
 	</React.StrictMode>,
 	document.getElementById('FUTIWOLF')
 )
