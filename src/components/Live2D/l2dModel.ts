@@ -275,12 +275,44 @@ export class l2dModel extends CubismUserModel {
 
 						this._state = LoadStep.LoadPose
 						CubismLogFn('[3/11] 物理运动载入成功！')
+
+						// 2 | 载入模型姿势
+						loadCubismPose()
 					})
 				this._state = LoadStep.WaitLoadPhysics
 			} else {
 				//=> 無物理运动时
 				this._state = LoadStep.LoadPose
 				CubismLogFn('[3/11] 物理运动文件不存在！')
+
+				// 2 | 载入模型姿势
+				loadCubismPose()
+			}
+		}
+
+		/**
+		 * 载入模型姿势
+		 */
+		const loadCubismPose = (): void => {
+			//=> 判断模型姿势文件是否存在
+			if (this._modelSetting.getPoseFileName() != '') {
+				// 获取模型姿势文件名
+				const poseFileName = this._modelSetting.getPoseFileName()
+
+				//=> Fetch 下载模型运动文件 (arrayBuffer)
+				fetch(`${this._modelHomeDir}${poseFileName}`)
+					.then(response => response.arrayBuffer())
+					.then(arrayBuffer => {
+						//=> 调用 Cubism Core 载入模型姿势
+						this.loadPose(arrayBuffer, arrayBuffer.byteLength)
+
+						this._state = LoadStep.SetupEyeBlink
+						CubismLogFn('[4/11] 模型姿势载入成功！')
+					})
+				this._state = LoadStep.WaitLoadPose
+			} else {
+				this._state = LoadStep.SetupEyeBlink
+				CubismLogFn('[4/11] 模型姿势文件不存在！')
 			}
 		}
 	}
