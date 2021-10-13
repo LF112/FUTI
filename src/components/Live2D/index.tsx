@@ -39,7 +39,7 @@ export default (props: any) => {
 		// 初始化 cubism SDK
 		CubismFramework.initialize()
 
-		const CANVAS = WebGl2Canvas(node.current, 800, 700)
+		const CANVAS = WebGl2Canvas(node.current, 2048, 2048)
 		//=> 装载模型
 		initModel(CANVAS, './live2d/', 'futi.model3.json', () => {
 			closePopup(popupId)
@@ -63,7 +63,7 @@ export default (props: any) => {
 
 //=> Style
 const Main = styled.main`
-	top: 245px;
+	top: 125px;
 	right: -38px;
 	width: 410px;
 	position: relative;
@@ -73,8 +73,9 @@ const Main = styled.main`
 	canvas {
 		pointer-events: none;
 		touch-action: none;
-		width: 800px;
-		height: 700px;
+		width: 1048px;
+		height: 1048px;
+		transform: scale(0.68);
 		cursor: inherit;
 	}
 `

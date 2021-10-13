@@ -664,7 +664,7 @@ export class l2dModel extends CubismUserModel {
 		if (this._model == null) return
 
 		//=> Canvas 尺寸
-		const viewport: number[] = [0, 0, canvas.width, canvas.height]
+		const viewport: number[] = [0, -320, canvas.width, canvas.height]
 
 		this.getRenderer().setRenderState(frameBuffer, viewport)
 		this.getRenderer().drawModel()
