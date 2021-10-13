@@ -19,6 +19,7 @@ export default (props: any) => {
 						type={item.type}
 						content={item.content}
 						timeout={item.timeout}
+						close={item.close}
 						//callback={item.callback} | 纯懒狗，晚点再做
 					/>
 				))}

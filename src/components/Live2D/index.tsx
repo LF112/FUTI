@@ -8,8 +8,10 @@ import {
 	WebGl2Canvas,
 	renderModel
 } from './live2dManager'
-
 //[ utils ]
+
+import { useAddPopup, useClosePopup } from 'state/popup/hooks'
+//[ hooks ]
 
 import {
 	CubismFramework,
@@ -20,9 +22,13 @@ import {
 //=> DOM
 export default (props: any) => {
 	const node = useRef<HTMLDivElement>()
+	const [addPopup, popupId] = useAddPopup()
+	const closePopup = useClosePopup()
 
 	useEffect(() => {
 		//=> Main
+
+		addPopup('load', '正在加载模型', 0)
 
 		//=> 装载 Cubism SDK
 		// 配置 Cubism SDK
@@ -35,7 +41,9 @@ export default (props: any) => {
 
 		const CANVAS = WebGl2Canvas(node.current, 800, 700)
 		//=> 装载模型
-		initModel(CANVAS, './live2d/', 'futi.model3.json')
+		initModel(CANVAS, './live2d/', 'futi.model3.json', () => {
+			closePopup(popupId)
+		})
 
 		//=> 渲染模型
 		renderModel(CANVAS)

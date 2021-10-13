@@ -21,15 +21,21 @@ export const _models = new csmVector<l2dModel>()
  * @param gl Live2D 必要的 webgl, 通过 WebGl2Canvas 获取
  * @param dir 模型路径
  * @param fileName 模型文件名
+ * @param callback 模型装载完毕回调
  */
-export const initModel = (gl: any, dir: string, fileName: string) => {
+export const initModel = (
+	gl: any,
+	dir: string,
+	fileName: string,
+	callback: () => void
+) => {
 	// 清理模型
 	releaseModel()
 	CubismLogFn('已清理模型')
 
 	//=> MAIN 加载模型
 	_models.pushBack(new l2dModel())
-	_models.at(0).loadAssets(gl, dir, fileName)
+	_models.at(0).loadAssets(gl, dir, fileName, callback)
 	// Coding more...
 }
 

@@ -7,6 +7,7 @@ export type popupsState = [
 		type?: string
 		content?: string
 		timeout?: number
+		close?: boolean
 	}
 ]
 
@@ -31,8 +32,13 @@ export const popupsSlice = createSlice({
 			state.push({
 				type: type,
 				content: content,
-				timeout: timeout
+				timeout: timeout,
+				close: false
 			})
+		},
+		closePopup: (state, action: PayloadAction<{ id: number }>) => {
+			const { id } = action.payload
+			state[id + 1].close = true
 		},
 		removePopup: (state, action: PayloadAction<{ id: number }>) => {
 			const { id } = action.payload
@@ -42,6 +48,7 @@ export const popupsSlice = createSlice({
 	}
 })
 
-export const { addPopup, removePopup, clearAllPopups } = popupsSlice.actions
+export const { addPopup, removePopup, clearAllPopups, closePopup } =
+	popupsSlice.actions
 
 export default popupsSlice.reducer

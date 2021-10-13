@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react'
 import { AppState } from 'state'
 import { useAppDispatch, useAppSelector } from 'state/hooks'
-import { addPopup, removePopup, clearAllPopups } from './slice'
+import { addPopup, removePopup, closePopup } from './slice'
 
 //=> 获取弹窗列表
 export function useActivePopups() {
@@ -10,14 +10,14 @@ export function useActivePopups() {
 }
 
 //=> 添加弹窗
-export function useAddPopup(): (
-	type: string,
-	content: string,
-	timeout: number
-) => void {
+export function useAddPopup(): [
+	(type: string, content: string, timeout: number) => void,
+	number
+] {
 	const dispatch = useAppDispatch()
+	const List = useActivePopups()
 
-	return useCallback(
+	const callback = useCallback(
 		(type: string, content: string, timeout: number) =>
 			dispatch(
 				addPopup({
@@ -26,6 +26,17 @@ export function useAddPopup(): (
 					timeout: timeout
 				})
 			),
+		[dispatch]
+	)
+	return [callback, List.length]
+}
+
+//=> 带动画关闭弹窗
+export function useClosePopup(): (id: number) => void {
+	const dispatch = useAppDispatch()
+
+	return useCallback(
+		(id: number) => dispatch(closePopup({ id: id })),
 		[dispatch]
 	)
 }

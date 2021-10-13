@@ -39,6 +39,10 @@ export default (props: any) => {
 		}, 10)
 	}, [props.timeout])
 
+	useEffect(() => {
+		if (props.close) Close()
+	}, [props.close])
+
 	const Close = () => {
 		const DOM = node.current.style
 		DOM.paddingLeft = '100%'
