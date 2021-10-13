@@ -11,6 +11,7 @@ import GA1 from 'components/Background/GA1'
 import Header from 'page/header'
 import Main from 'page/main'
 import Footer from 'page/footer'
+import Popups from 'components/Popups'
 //[ Component ]
 
 import store from 'state'
@@ -20,6 +21,8 @@ import store from 'state'
 const APP = () => {
 	return (
 		<>
+			<Popups />
+
 			<Header />
 			<Main />
 			<Footer />
