@@ -1,9 +1,3 @@
-import axios from 'axios'
-//[ package ]
-
-import { Live2DState } from 'state/live2d/slice'
-//[ state ]
-
 import { l2dModel } from './l2dModel'
 
 import { CubismMatrix44 } from 'libs/live2dFramework/src/math/cubismmatrix44'
@@ -12,25 +6,6 @@ import { csmVector } from 'libs/live2dFramework/src/type/csmvector'
 //[ libs ]
 
 //=> 前置方法 ---------------------------------------
-//=> 下载模型 | '预下载，重复的网络请求浏览器将自动叠加'
-export const downloadModel = () => {
-	return new Promise((resolve, reject) => {
-		axios
-			.all([
-				axios.get('./live2d/futi.model3.json'),
-				axios.get('./live2d/futi.motion3.json'),
-				axios.get('./live2d/futi.moc3'),
-				axios.get('./live2d/futi.physics3.json'),
-				axios.get('./live2d/futi.2048/texture_00.png')
-			])
-			.then(
-				res => {
-					resolve(res[0].data as Live2DState)
-				},
-				err => reject(err)
-			)
-	})
-}
 
 //=> Live2DCubismCore 日志输出
 export const CubismLogFn = (message: string): void => {
@@ -46,15 +21,21 @@ export const _models = new csmVector<l2dModel>()
  * @param gl Live2D 必要的 webgl, 通过 WebGl2Canvas 获取
  * @param dir 模型路径
  * @param fileName 模型文件名
+ * @param callback 模型装载完毕回调
  */
-export const initModel = (gl: any, dir: string, fileName: string) => {
+export const initModel = (
+	gl: any,
+	dir: string,
+	fileName: string,
+	callback: () => void
+) => {
 	// 清理模型
 	releaseModel()
 	CubismLogFn('已清理模型')
 
 	//=> MAIN 加载模型
 	_models.pushBack(new l2dModel())
-	_models.at(0).loadAssets(gl, dir, fileName)
+	_models.at(0).loadAssets(gl, dir, fileName, callback)
 	// Coding more...
 }
 

@@ -108,6 +108,7 @@ export class l2dModel extends CubismUserModel {
 		//this._wavFileHandler = new LAppWavFileHandler()
 		this._textureManager = new TextureManager()
 		this._gl = null
+		this._successLoading = null
 	}
 
 	_modelSetting: ICubismModelSetting //=> 模型配置
@@ -139,6 +140,7 @@ export class l2dModel extends CubismUserModel {
 	_textureManager: TextureManager
 
 	_gl: any
+	_successLoading: () => void
 
 	//------ Main >---
 	/**
@@ -146,9 +148,15 @@ export class l2dModel extends CubismUserModel {
 	 *  @param dir
 	 *  @param fileName
 	 */
-	public loadAssets(gl: any, dir: string, fileName: string): void {
+	public loadAssets(
+		gl: any,
+		dir: string,
+		fileName: string,
+		callback: () => void
+	): void {
 		this._modelHomeDir = dir
 		this._gl = gl[0]
+		this._successLoading = callback
 
 		//=> Fetch 下载模型 (arrayBuffer)
 		fetch(`${this._modelHomeDir}${fileName}`)
@@ -611,6 +619,7 @@ export class l2dModel extends CubismUserModel {
 					if (this._textureCount >= textureCount) {
 						this._state = LoadStep.CompleteSetup
 						CubismLogFn('纹理载入成功！')
+						this._successLoading()
 					}
 				}
 
@@ -655,7 +664,7 @@ export class l2dModel extends CubismUserModel {
 		if (this._model == null) return
 
 		//=> Canvas 尺寸
-		const viewport: number[] = [0, 0, canvas.width, canvas.height]
+		const viewport: number[] = [0, -320, canvas.width, canvas.height]
 
 		this.getRenderer().setRenderState(frameBuffer, viewport)
 		this.getRenderer().drawModel()
