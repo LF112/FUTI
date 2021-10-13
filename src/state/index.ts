@@ -1,15 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 
-import live2d from './live2d/slice'
-
 import { save, load } from 'redux-localstorage-simple'
 
 const PERSISTED_KEYS: string[] = []
 
 const store = configureStore({
-	reducer: {
-		live2d
-	},
+	reducer: {},
 
 	middleware: getDefaultMiddleware =>
 		getDefaultMiddleware({ thunk: true }).concat(
