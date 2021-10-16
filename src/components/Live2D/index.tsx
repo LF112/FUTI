@@ -80,8 +80,8 @@ export default (props: any) => {
 
 //=> Style
 const Main = styled.main`
-	top: 125px;
-	right: -38px;
+	top: 140px;
+	right: -52px;
 	width: 410px;
 	position: relative;
 	display: flex;
@@ -92,7 +92,7 @@ const Main = styled.main`
 		touch-action: none;
 		width: 1048px;
 		height: 1048px;
-		transform: scale(0.68);
+		transform: scale(0.71);
 		cursor: inherit;
 	}
 `
