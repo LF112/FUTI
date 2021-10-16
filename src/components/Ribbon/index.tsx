@@ -4,7 +4,7 @@ import styled from 'styled-components'
 //=> DOM
 export default (props: any) => {
 	return (
-		<Ribbon>
+		<Ribbon className={props.className}>
 			<div></div>
 		</Ribbon>
 	)

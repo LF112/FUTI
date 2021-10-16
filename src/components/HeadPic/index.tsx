@@ -8,7 +8,8 @@ import Loading from 'components/Loading'
 import {
 	useL2dInitStatus,
 	useUpdateL2dInitStatus,
-	useUpdateL2dShowStatus
+	useUpdateL2dShowStatus,
+	useLoadStatus
 } from 'state/animation/hooks'
 //[ state ]
 
@@ -16,6 +17,8 @@ import {
 export default (props: any) => {
 	const node = useRef<HTMLDivElement>()
 	const maskNode = useRef<HTMLDivElement>()
+
+	const loadStatus = useLoadStatus()
 	const [l2dInitStatus, l2dDomInitStatus, l2dShow] = useL2dInitStatus()
 	const updateL2dInitStatus = useUpdateL2dInitStatus()
 	const updateL2dShowStatus = useUpdateL2dShowStatus()
@@ -31,11 +34,21 @@ export default (props: any) => {
 		)
 	}, [])
 
+	//=> 载入动画
+	useEffect(() => {
+		setTimeout(() => {
+			const MaskDOM = maskNode.current.style
+			MaskDOM.width = ''
+			MaskDOM.height = ''
+		}, 1000)
+	}, [])
+
+	//=> Live2D 载入动画
 	useEffect(() => {
 		// 此处应有判断爬虫
-		if (true) setTimeout(() => updateL2dShowStatus(true), 1000)
+		if (true && loadStatus) updateL2dShowStatus(true)
 		// Coding more...
-	}, [])
+	}, [loadStatus])
 
 	//=> 动画
 	useEffect(() => {
@@ -60,8 +73,8 @@ export default (props: any) => {
 	}, [l2dInitStatus, l2dDomInitStatus, l2dShow])
 
 	return (
-		<Main>
-			<div ref={maskNode as any}>
+		<Main className='An' data-futi-an='FadeIn'>
+			<div ref={maskNode as any} style={{ width: 0, height: 0 }}>
 				<IMGCentered>
 					{!l2dInitStatus ? (
 						<div ref={node as any}>

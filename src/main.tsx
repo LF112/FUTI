@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 //[ package ]
@@ -14,11 +14,20 @@ import Footer from 'page/footer'
 import Popups from 'components/Popups'
 //[ Component ]
 
+import { LoadAn } from 'utils/useLoadAn'
+//[ utils ]
+
 import store from 'state'
+import { useUpdateLoadStatus } from 'state/animation/hooks'
 //[ store ]
 
 //=> Main Component
 const APP = () => {
+	const updateLoadStatus = useUpdateLoadStatus()
+	useEffect(() => {
+		setTimeout(() => LoadAn(() => updateLoadStatus(true)), 500)
+	}, [])
+
 	return (
 		<>
 			<Popups />

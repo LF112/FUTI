@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 //=> State 类型表
 export type AnimationState = {
+	load: boolean
 	live2d: {
 		show: boolean
 		init: boolean
@@ -11,6 +12,7 @@ export type AnimationState = {
 
 //=> State 初始化
 export const initialState: AnimationState = {
+	load: false,
 	live2d: {
 		show: false,
 		init: false,
@@ -24,6 +26,10 @@ export const animationSlice = createSlice({
 	initialState,
 	reducers: {
 		//=> FUNCTIONS
+		updateLoadAn: (state, action: PayloadAction<{ status: boolean }>) => {
+			const { status } = action.payload
+			state.load = status
+		},
 		updateLive2dShow: (state, action: PayloadAction<{ status: boolean }>) => {
 			const { status } = action.payload
 			state.live2d.show = status
@@ -42,7 +48,11 @@ export const animationSlice = createSlice({
 	}
 })
 
-export const { updateLive2dInit, updateLive2dDomInit, updateLive2dShow } =
-	animationSlice.actions
+export const {
+	updateLoadAn,
+	updateLive2dInit,
+	updateLive2dDomInit,
+	updateLive2dShow
+} = animationSlice.actions
 
 export default animationSlice.reducer

@@ -15,17 +15,17 @@ export default (props: any) => {
 			<div>
 				<Introduce>
 					<div>
-						<nav>
+						<nav className='An'>
 							<p>Hi, I'm</p>
 							<p className='default'>LF112</p>
 						</nav>
-						<Ribbon />
+						<Ribbon className='An' data-futi-an='SideIn' />
 					</div>
 				</Introduce>
 				<Info>
 					{AuoutMe.map((item: any, index: number) => {
 						return (
-							<div key={index}>
+							<div key={index} className='An'>
 								{item.icon}
 								<div>{item.name}</div>
 								<div className='divider' />

@@ -14,9 +14,9 @@ import Ribbon from 'components/Ribbon'
 //=> DOM
 export default (props: any) => {
 	return (
-		<Footer className='FOOTER'>
+		<Footer className='FOOTER An'>
 			<div>
-				<a className='NAVIGATOR' href='https://www.futiwolf.com'>
+				<a className='NAVIGATOR An' href='https://www.futiwolf.com'>
 					<FUTI_Icon />
 					<div className='thank TIP' data-tooltip='⚡Navigator Kepler'>
 						Drawn by NAVILAB
@@ -25,7 +25,7 @@ export default (props: any) => {
 				<main>
 					<div>
 						<Ribbon />
-						<p>
+						<p className='An'>
 							Copyright &copy; 2017 - {new Date().getFullYear()}
 							<a
 								className='LF TIP'
@@ -37,7 +37,7 @@ export default (props: any) => {
 							All Rights Reserved.
 						</p>
 						<span className='Nbsp'>/</span>
-						<p>
+						<p className='An'>
 							<a
 								className='TIP'
 								href='http://beian.miit.gov.cn'
@@ -49,7 +49,7 @@ export default (props: any) => {
 							</a>
 						</p>
 						<span className='Nbsp'>/</span>
-						<p>
+						<p className='An'>
 							<a
 								className='TIP'
 								href='http://www.beian.gov.cn/portal/registerSystemInfo'
@@ -61,7 +61,7 @@ export default (props: any) => {
 							</a>
 						</p>
 						<span className='Nbsp'>/</span>
-						<p>V{Package.version}</p>
+						<p className='An'>V{Package.version}</p>
 					</div>
 				</main>
 			</div>

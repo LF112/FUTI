@@ -13,6 +13,7 @@ export default (props: any) => {
 				{Links.map((item: any, index: number) => {
 					return (
 						<Link
+							className='An'
 							href={item.url}
 							target='_blank'
 							rel='external noopener nofollow'
