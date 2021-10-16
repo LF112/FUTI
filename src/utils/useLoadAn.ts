@@ -20,6 +20,13 @@ export const LoadAn = (callback: () => void) => {
 						v.style.opacity = '1'
 						setTimeout(() => (v.style.width = '100%'), 1)
 					}, 250)
+				} else if (domAttr === 'Zoom') {
+					v.style.top = '0'
+					v.style.transform = 'scale(0.65)'
+					setTimeout(() => {
+						v.style.opacity = '1'
+						setTimeout(() => (v.style.transform = 'scale(1)'), 1)
+					}, 250)
 				} else {
 					v.style.opacity = '1'
 					v.style.top = '0'

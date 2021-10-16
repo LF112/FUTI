@@ -16,7 +16,11 @@ export default (props: any) => {
 	return (
 		<Footer className='FOOTER An'>
 			<div>
-				<a className='NAVIGATOR An' href='https://www.futiwolf.com'>
+				<a
+					className='NAVIGATOR An'
+					href='https://www.futiwolf.com'
+					data-futi-an='Zoom'
+				>
 					<FUTI_Icon />
 					<div className='thank TIP' data-tooltip='⚡Navigator Kepler'>
 						Drawn by NAVILAB
