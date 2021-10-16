@@ -11,6 +11,10 @@ import {
 //[ utils ]
 
 import { useAddPopup, useClosePopup } from 'state/popup/hooks'
+import {
+	useL2dInitStatus,
+	useUpdateL2dDomInitStatus
+} from 'state/animation/hooks'
 //[ hooks ]
 
 import {
@@ -22,8 +26,12 @@ import {
 //=> DOM
 export default (props: any) => {
 	const node = useRef<HTMLDivElement>()
+	const mainNode = useRef<HTMLDivElement>()
 	const [addPopup, popupId] = useAddPopup()
 	const closePopup = useClosePopup()
+
+	const [l2dInitStatus, l2dDomInitStatus] = useL2dInitStatus()
+	const updateL2dDomInitStatus = useUpdateL2dDomInitStatus()
 
 	useEffect(() => {
 		//=> Main
@@ -43,6 +51,7 @@ export default (props: any) => {
 		//=> 装载模型
 		initModel(CANVAS, './live2d/', 'futi.model3.json', () => {
 			closePopup(popupId)
+			updateL2dDomInitStatus(true)
 		})
 
 		//=> 渲染模型
@@ -54,8 +63,16 @@ export default (props: any) => {
 		}
 	}, [])
 
+	//=> 动画
+	useEffect(() => {
+		if (l2dInitStatus) setTimeout(() => (mainNode.current.style.opacity = '1'))
+	}, [l2dInitStatus])
+
 	return (
-		<Main>
+		<Main
+			ref={mainNode as any}
+			style={!l2dInitStatus ? { display: 'none' } : { opacity: 0 }}
+		>
 			<canvas ref={node as any}></canvas>
 		</Main>
 	)

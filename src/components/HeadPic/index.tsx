@@ -1,24 +1,82 @@
-import React, { Suspense } from 'react'
+import React, { Suspense, useMemo, useRef, useEffect } from 'react'
 import styled from 'styled-components'
 //[ package ]
 
+import Loading from 'components/Loading'
+//[ components ]
+
+import {
+	useL2dInitStatus,
+	useUpdateL2dInitStatus,
+	useUpdateL2dShowStatus
+} from 'state/animation/hooks'
+//[ state ]
+
 //=> DOM
 export default (props: any) => {
-	const live2dModel = import.meta.glob('../Live2D/*')
+	const node = useRef<HTMLDivElement>()
+	const maskNode = useRef<HTMLDivElement>()
+	const [l2dInitStatus, l2dDomInitStatus, l2dShow] = useL2dInitStatus()
+	const updateL2dInitStatus = useUpdateL2dInitStatus()
+	const updateL2dShowStatus = useUpdateL2dShowStatus()
 
+	//=> 懒加载 Live2d 组件
+	const live2dModel = import.meta.glob('../Live2D/*')
 	const LazyLive2D = React.lazy(live2dModel['../Live2D/index.tsx'] as any)
+	const LIVE2D = useMemo(() => {
+		return (
+			<Suspense fallback={<></>}>
+				<LazyLive2D />
+			</Suspense>
+		)
+	}, [])
+
+	useEffect(() => {
+		// 此处应有判断爬虫
+		if (true) setTimeout(() => updateL2dShowStatus(true), 1000)
+		// Coding more...
+	}, [])
+
+	//=> 动画
+	useEffect(() => {
+		if (l2dDomInitStatus && !l2dInitStatus) {
+			const DOM = node.current.style
+			DOM.opacity = '0'
+			setTimeout(() => {
+				DOM.display = 'none'
+				setTimeout(() => updateL2dInitStatus(true))
+				const MaskDOM = maskNode.current.style
+				MaskDOM.width = ''
+				MaskDOM.height = ''
+				MaskDOM.padding = ''
+			}, 200)
+		}
+		if (l2dShow && !l2dDomInitStatus && !l2dInitStatus) {
+			const MaskDOM = maskNode.current.style
+			MaskDOM.width = '260px'
+			MaskDOM.height = '260px'
+			MaskDOM.padding = '30px'
+		}
+	}, [l2dInitStatus, l2dDomInitStatus, l2dShow])
 
 	return (
 		<Main>
-			<div>
+			<div ref={maskNode as any}>
 				<IMGCentered>
-					{/* <img
-						alt='伏太,LF112,futiwolf,futi'
-						src='https://cdn.lfio.net/lf112.png'
-					/> */}
-					<Suspense fallback={<div>Loading...</div>}>
-						<LazyLive2D />
-					</Suspense>
+					{!l2dInitStatus ? (
+						<div ref={node as any}>
+							<img
+								alt=' 伏太，LF112,futiwolf,futi'
+								src='https://cdn.lfio.net/lf112.png'
+							/>
+							<LoadMask style={{ opacity: l2dShow ? 1 : 0 }}>
+								<Loading />
+							</LoadMask>
+						</div>
+					) : (
+						<></>
+					)}
+					{l2dShow ? LIVE2D : <></>}
 				</IMGCentered>
 				<Frame>
 					<div></div>
@@ -33,8 +91,8 @@ export default (props: any) => {
 //=> Style
 const Main = styled.main`
 	position: relative;
-	height: 230px;
-	width: 230px;
+	height: 260px;
+	width: 260px;
 	margin: 0 auto;
 	display: flex;
 	align-items: center;
@@ -51,16 +109,22 @@ const Main = styled.main`
 		/*border: 2px solid hsla(0, 0%, 53%, 0.4);*/
 		user-select: none;
 		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 `
 
 const IMGCentered = styled.div`
+	position: relative;
 	width: 100%;
 	height: 100%;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	> img {
+	> div {
+		transition: all 0.2s cubic-bezier(0.22, 0.58, 0.12, 0.98) !important;
+	}
+	img {
 		width: 220px;
 		height: 220px;
 		border-radius: 5px;
@@ -125,4 +189,16 @@ const Frame = styled.article`
 		left: 0;
 		border-width: 0 0 3px 3px;
 	}
+`
+
+const LoadMask = styled.div`
+	position: absolute;
+	width: 220px;
+	height: 220px;
+	top: 0;
+	border-radius: 5px;
+	background: hsla(0deg, 0%, 16%, 0.22);
+	display: flex;
+	align-items: center;
+	justify-content: center;
 `
