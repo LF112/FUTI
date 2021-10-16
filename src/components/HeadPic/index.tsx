@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import styled from 'styled-components'
 //[ package ]
 
-import Live2D from 'components/Live2D'
-
 //=> DOM
 export default (props: any) => {
+	const live2dModel = import.meta.glob('../Live2D/*')
+
+	const LazyLive2D = React.lazy(live2dModel['../Live2D/index.tsx'] as any)
+
 	return (
 		<Main>
 			<div>
@@ -14,7 +16,9 @@ export default (props: any) => {
 						alt='伏太,LF112,futiwolf,futi'
 						src='https://cdn.lfio.net/lf112.png'
 					/> */}
-					<Live2D />
+					<Suspense fallback={<div>Loading...</div>}>
+						<LazyLive2D />
+					</Suspense>
 				</IMGCentered>
 				<Frame>
 					<div></div>
