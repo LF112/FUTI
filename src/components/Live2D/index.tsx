@@ -30,7 +30,7 @@ export default (props: any) => {
 	const [addPopup, popupId] = useAddPopup()
 	const closePopup = useClosePopup()
 
-	const [l2dInitStatus, l2dDomInitStatus] = useL2dInitStatus()
+	const [l2dInitStatus, l2dDomInitStatus, , l2dUnfold] = useL2dInitStatus()
 	const updateL2dDomInitStatus = useUpdateL2dDomInitStatus()
 
 	useEffect(() => {
@@ -71,7 +71,15 @@ export default (props: any) => {
 	return (
 		<Main
 			ref={mainNode as any}
-			style={!l2dInitStatus ? { display: 'none' } : { opacity: 0 }}
+			style={
+				!l2dInitStatus
+					? { display: 'none' }
+					: {
+							opacity: 0,
+							marginLeft: l2dUnfold ? '-412px' : '',
+							top: l2dUnfold ? '72px' : ''
+					  }
+			}
 		>
 			<canvas ref={node as any}></canvas>
 		</Main>
