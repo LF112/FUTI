@@ -9,7 +9,8 @@ import {
 	useL2dInitStatus,
 	useUpdateL2dInitStatus,
 	useUpdateL2dShowStatus,
-	useLoadStatus
+	useLoadStatus,
+	useUpdateL2dUnfoldStatus
 } from 'state/animation/hooks'
 //[ state ]
 
@@ -19,9 +20,11 @@ export default (props: any) => {
 	const maskNode = useRef<HTMLDivElement>()
 
 	const loadStatus = useLoadStatus()
-	const [l2dInitStatus, l2dDomInitStatus, l2dShow] = useL2dInitStatus()
+	const [l2dInitStatus, l2dDomInitStatus, l2dShow, l2dUnfold] =
+		useL2dInitStatus()
 	const updateL2dInitStatus = useUpdateL2dInitStatus()
 	const updateL2dShowStatus = useUpdateL2dShowStatus()
+	const updateL2dUnfoldStatus = useUpdateL2dUnfoldStatus()
 
 	//=> 懒加载 Live2d 组件
 	const live2dModel = import.meta.glob('../Live2D/*')
@@ -73,7 +76,12 @@ export default (props: any) => {
 	}, [l2dInitStatus, l2dDomInitStatus, l2dShow])
 
 	return (
-		<Main className='An' data-futi-an='FadeIn'>
+		<Main
+			className='An'
+			data-futi-an='FadeIn'
+			onMouseEnter={() => updateL2dUnfoldStatus(true)}
+			onMouseLeave={() => updateL2dUnfoldStatus(false)}
+		>
 			<div ref={maskNode as any} style={{ width: 0, height: 0 }}>
 				<IMGCentered>
 					{!l2dInitStatus ? (
@@ -92,7 +100,7 @@ export default (props: any) => {
 					{l2dShow ? LIVE2D : <></>}
 				</IMGCentered>
 				<TouchMe>
-					<i className='el-icon-thumb'>
+					<i className='el-icon-thumb' style={{ opacity: l2dUnfold ? 0 : 1 }}>
 						<span>TOUCH</span>
 					</i>
 				</TouchMe>

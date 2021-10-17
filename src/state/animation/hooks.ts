@@ -5,7 +5,8 @@ import {
 	updateLoadAn,
 	updateLive2dInit,
 	updateLive2dDomInit,
-	updateLive2dShow
+	updateLive2dShow,
+	updateLive2dUnfold
 } from './slice'
 
 //=> 获取载入状态
@@ -24,11 +25,16 @@ export function useUpdateLoadStatus(): (status: boolean) => void {
 	)
 }
 
-//=> 获取 Live2d 状态 | 完全载入、 Dom 载入、是否载入
+//=> 获取 Live2d 状态 | 完全载入、 Dom 载入、是否载入、展开状态
 export function useL2dInitStatus() {
 	const status = useAppSelector((state: AppState) => state.animation)
 	return useMemo(
-		() => [status.live2d.init, status.live2d.domInit, status.live2d.show],
+		() => [
+			status.live2d.init,
+			status.live2d.domInit,
+			status.live2d.show,
+			status.live2d.unfold
+		],
 		[status]
 	)
 }
@@ -59,6 +65,16 @@ export function useUpdateL2dShowStatus(): (status: boolean) => void {
 
 	return useCallback(
 		(status: boolean) => dispatch(updateLive2dShow({ status: status })),
+		[dispatch]
+	)
+}
+
+//=> 更新 live2d 展开状态
+export function useUpdateL2dUnfoldStatus(): (status: boolean) => void {
+	const dispatch = useAppDispatch()
+
+	return useCallback(
+		(status: boolean) => dispatch(updateLive2dUnfold({ status: status })),
 		[dispatch]
 	)
 }

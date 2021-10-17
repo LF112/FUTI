@@ -7,6 +7,7 @@ export type AnimationState = {
 		show: boolean
 		init: boolean
 		domInit: boolean
+		unfold: boolean
 	}
 }
 
@@ -16,7 +17,8 @@ export const initialState: AnimationState = {
 	live2d: {
 		show: false,
 		init: false,
-		domInit: false
+		domInit: false,
+		unfold: false
 	}
 }
 
@@ -38,6 +40,10 @@ export const animationSlice = createSlice({
 			const { status } = action.payload
 			state.live2d.init = status
 		},
+		updateLive2dUnfold: (state, action: PayloadAction<{ status: boolean }>) => {
+			const { status } = action.payload
+			state.live2d.unfold = status
+		},
 		updateLive2dDomInit: (
 			state,
 			action: PayloadAction<{ status: boolean }>
@@ -52,7 +58,8 @@ export const {
 	updateLoadAn,
 	updateLive2dInit,
 	updateLive2dDomInit,
-	updateLive2dShow
+	updateLive2dShow,
+	updateLive2dUnfold
 } = animationSlice.actions
 
 export default animationSlice.reducer
