@@ -41,8 +41,8 @@ export default (props: any) => {
 	useEffect(() => {
 		setTimeout(() => {
 			const MaskDOM = maskNode.current.style
-			MaskDOM.width = ''
-			MaskDOM.height = ''
+			MaskDOM.width = '230px'
+			MaskDOM.height = '230px'
 		}, 1000)
 	}, [])
 
@@ -62,8 +62,8 @@ export default (props: any) => {
 				DOM.display = 'none'
 				setTimeout(() => updateL2dInitStatus(true))
 				const MaskDOM = maskNode.current.style
-				MaskDOM.width = ''
-				MaskDOM.height = ''
+				MaskDOM.width = '230px'
+				MaskDOM.height = '230px'
 				MaskDOM.padding = ''
 			}, 200)
 		}
@@ -79,10 +79,24 @@ export default (props: any) => {
 		<Main
 			className='An'
 			data-futi-an='FadeIn'
-			onMouseEnter={() => updateL2dUnfoldStatus(true)}
-			onMouseLeave={() => updateL2dUnfoldStatus(false)}
+			style={l2dUnfold ? { width: '100%', height: '400px' } : {}}
+			onMouseEnter={() => {
+				if (l2dInitStatus) updateL2dUnfoldStatus(true)
+			}}
+			onMouseLeave={() => {
+				if (l2dInitStatus) updateL2dUnfoldStatus(false)
+			}}
 		>
-			<div ref={maskNode as any} style={{ width: 0, height: 0 }}>
+			<div
+				ref={maskNode as any}
+				style={
+					l2dInitStatus
+						? l2dUnfold
+							? { width: '100%', height: '100%' }
+							: { width: '230px', height: '230px' }
+						: {}
+				}
+			>
 				<IMGCentered>
 					{!l2dInitStatus ? (
 						<div ref={node as any}>
@@ -100,7 +114,10 @@ export default (props: any) => {
 					{l2dShow ? LIVE2D : <></>}
 				</IMGCentered>
 				<TouchMe>
-					<i className='el-icon-thumb' style={{ opacity: l2dUnfold ? 0 : 1 }}>
+					<i
+						className='el-icon-thumb'
+						style={{ opacity: l2dInitStatus ? (l2dUnfold ? 0 : 1) : 0 }}
+					>
 						<span>TOUCH</span>
 					</i>
 				</TouchMe>
@@ -125,8 +142,8 @@ const Main = styled.main`
 	justify-content: center;
 	> div {
 		position: relative;
-		width: 230px;
-		height: 230px;
+		width: 0;
+		height: 0;
 		overflow: hidden;
 		border-radius: 5px;
 		padding: 5px;

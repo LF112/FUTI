@@ -5,10 +5,15 @@ import styled from 'styled-components'
 import { Links } from 'constants/global/socialLink'
 //[ constants & types ]
 
+import { useL2dInitStatus } from 'state/animation/hooks'
+//[ state ]
+
 //=> DOM
 export default (props: any) => {
+	const [, , , l2dUnfold] = useL2dInitStatus()
+
 	return (
-		<Main>
+		<Main style={l2dUnfold ? { height: 0 } : {}}>
 			<div>
 				{Links.map((item: any, index: number) => {
 					return (
@@ -18,6 +23,7 @@ export default (props: any) => {
 							target='_blank'
 							rel='external noopener nofollow'
 							key={index}
+							style={l2dUnfold ? { opacity: 0 } : {}}
 						>
 							<div>
 								<div>

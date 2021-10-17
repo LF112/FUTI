@@ -5,27 +5,39 @@ import styled from 'styled-components'
 import Ribbon from 'components/Ribbon'
 //[ component ]
 
+import { useL2dInitStatus } from 'state/animation/hooks'
+//[ state ]
+
 import { AuoutMe } from 'constants/global/moreInfo'
 //[ constants & types ]
 
 //=> DOM
 export default (props: any) => {
+	const [, , , l2dUnfold] = useL2dInitStatus()
+
 	return (
-		<MoreInfo>
+		<MoreInfo style={l2dUnfold ? { height: 0 } : {}}>
 			<div>
-				<Introduce>
+				<Introduce style={l2dUnfold ? { opacity: 0 } : {}}>
 					<div>
-						<nav className='An'>
+						<nav
+							className='An'
+							style={l2dUnfold ? { marginBottom: '-45px' } : {}}
+						>
 							<p>Hi, I'm</p>
 							<p className='default'>LF112</p>
 						</nav>
 						<Ribbon className='An' data-futi-an='SideIn' />
 					</div>
 				</Introduce>
-				<Info>
+				<Info style={l2dUnfold ? { opacity: 0 } : {}}>
 					{AuoutMe.map((item: any, index: number) => {
 						return (
-							<div key={index} className='An'>
+							<div
+								key={index}
+								className='An'
+								style={l2dUnfold ? { marginTop: '-20px' } : {}}
+							>
 								{item.icon}
 								<div>{item.name}</div>
 								<div className='divider' />
