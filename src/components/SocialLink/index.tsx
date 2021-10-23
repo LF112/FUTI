@@ -47,6 +47,9 @@ const Main = styled.main`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	* {
+		transition: all 0.5s cubic-bezier(0.22, 0.58, 0.12, 0.98) !important;
+	}
 	> div {
 		display: flex;
 		justify-content: center;

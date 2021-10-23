@@ -101,7 +101,7 @@ export default (props: any) => {
 					{!l2dInitStatus ? (
 						<div ref={node as any}>
 							<img
-								alt=' 伏太，LF112,futiwolf,futi'
+								alt='伏太，LF112,futiwolf,futi'
 								src='https://cdn.lfio.net/lf112.png'
 							/>
 							<LoadMask style={{ opacity: l2dShow ? 1 : 0 }}>
