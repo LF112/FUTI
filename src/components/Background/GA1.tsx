@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import Parallax from 'parallax-js'
 import fastdom from 'fastdom'
@@ -8,40 +8,32 @@ export default (props: any) => {
 	const node = useRef<HTMLDivElement>()
 	const container = useRef<HTMLDivElement>()
 
-	const [_backGroundLeft, _setBackGroundLeft] = useState<string>('')
-	const [_backGroundRight, _setBackGroundRight] = useState<string>('')
-	const LEFTURL = 'https://cdn.lfio.net/background/background_left_560.png'
-	const RIGHTURL = 'https://cdn.lfio.net/background/background_right_560.png'
-
 	useEffect(() => {
 		new Parallax(container.current)
 
-		const LEFTDOM = new Image()
-		const RIGHTDOM = new Image()
-		LEFTDOM.src = LEFTURL
-		RIGHTDOM.src = RIGHTURL
-
-		LEFTDOM.onload = () => _setBackGroundLeft(LEFTURL)
-		RIGHTDOM.onload = () => _setBackGroundRight(RIGHTURL)
+		fastdom.measure(() => {
+			const DOM = node.current.style
+			fastdom.mutate(() => {
+				DOM.opacity = '1'
+			})
+		})
 
 		return () => Parallax.disable()
 	}, [container])
 
-	useEffect(() => {
-		if (_backGroundRight !== '' && _backGroundLeft !== '')
-			fastdom.measure(() => {
-				const DOM = node.current.style
-				fastdom.mutate(() => {
-					DOM.opacity = '1'
-				})
-			})
-	}, [_backGroundLeft, _backGroundRight])
-
 	return (
 		<GA1 ref={node as any}>
 			<div ref={container as any}>
-				<LEFT data-depth='0.2' src={_backGroundLeft} alt='background' />
-				<RIGHT data-depth='0.3' src={_backGroundRight} alt='background' />
+				<LEFT
+					data-depth='0.2'
+					src='https://cdn.lfio.net/background/background_left_560.png'
+					alt='background'
+				/>
+				<RIGHT
+					data-depth='0.3'
+					src='https://cdn.lfio.net/background/background_right_560.png'
+					alt='background'
+				/>
 			</div>
 		</GA1>
 	)
