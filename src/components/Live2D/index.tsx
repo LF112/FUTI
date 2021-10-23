@@ -96,6 +96,9 @@ const Main = styled.main`
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	* {
+		transition: all 0.5s cubic-bezier(0.22, 0.58, 0.12, 0.98) !important;
+	}
 	canvas {
 		pointer-events: none;
 		touch-action: none;
