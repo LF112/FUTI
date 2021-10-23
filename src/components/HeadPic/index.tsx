@@ -1,5 +1,6 @@
 import React, { Suspense, useMemo, useRef, useEffect } from 'react'
 import styled from 'styled-components'
+import fastdom from 'fastdom'
 //[ package ]
 
 import Loading from 'components/Loading'
@@ -40,9 +41,13 @@ export default (props: any) => {
 	//=> 载入动画
 	useEffect(() => {
 		setTimeout(() => {
-			const MaskDOM = maskNode.current.style
-			MaskDOM.width = '230px'
-			MaskDOM.height = '230px'
+			fastdom.measure(() => {
+				const MaskDOM = maskNode.current.style
+				fastdom.mutate(() => {
+					MaskDOM.width = '230px'
+					MaskDOM.height = '230px'
+				})
+			})
 		}, 1000)
 	}, [])
 
@@ -55,24 +60,31 @@ export default (props: any) => {
 
 	//=> 动画
 	useEffect(() => {
-		if (l2dDomInitStatus && !l2dInitStatus) {
-			const DOM = node.current.style
-			DOM.opacity = '0'
-			setTimeout(() => {
-				DOM.display = 'none'
-				setTimeout(() => updateL2dInitStatus(true))
+		if (l2dDomInitStatus && !l2dInitStatus)
+			fastdom.measure(() => {
+				const DOM = node.current.style
+				DOM.opacity = '0'
+				setTimeout(() => {
+					fastdom.mutate(() => {
+						DOM.display = 'none'
+						setTimeout(() => updateL2dInitStatus(true))
+						const MaskDOM = maskNode.current.style
+						MaskDOM.width = '230px'
+						MaskDOM.height = '230px'
+						MaskDOM.padding = ''
+					})
+				}, 200)
+			})
+
+		if (l2dShow && !l2dDomInitStatus && !l2dInitStatus)
+			fastdom.measure(() => {
 				const MaskDOM = maskNode.current.style
-				MaskDOM.width = '230px'
-				MaskDOM.height = '230px'
-				MaskDOM.padding = ''
-			}, 200)
-		}
-		if (l2dShow && !l2dDomInitStatus && !l2dInitStatus) {
-			const MaskDOM = maskNode.current.style
-			MaskDOM.width = '260px'
-			MaskDOM.height = '260px'
-			MaskDOM.padding = '30px'
-		}
+				fastdom.mutate(() => {
+					MaskDOM.width = '260px'
+					MaskDOM.height = '260px'
+					MaskDOM.padding = '30px'
+				})
+			})
 	}, [l2dInitStatus, l2dDomInitStatus, l2dShow])
 
 	return (

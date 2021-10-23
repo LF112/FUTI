@@ -30,7 +30,7 @@ export default (props: any) => {
 	const [addPopup, popupId] = useAddPopup()
 	const closePopup = useClosePopup()
 
-	const [l2dInitStatus, l2dDomInitStatus, , l2dUnfold] = useL2dInitStatus()
+	const [l2dInitStatus, , , l2dUnfold] = useL2dInitStatus()
 	const updateL2dDomInitStatus = useUpdateL2dDomInitStatus()
 
 	useEffect(() => {
@@ -65,7 +65,8 @@ export default (props: any) => {
 
 	//=> 动画
 	useEffect(() => {
-		if (l2dInitStatus) setTimeout(() => (mainNode.current.style.opacity = '1'))
+		if (l2dInitStatus)
+			window.requestAnimationFrame(() => (mainNode.current.style.opacity = '1'))
 	}, [l2dInitStatus])
 
 	return (
