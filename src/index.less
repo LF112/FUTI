@@ -16,7 +16,7 @@ html {
 
 body {
 	position: relative;
-	background: #2e2e2c;
+	background: #21252b;
 }
 
 a,
@@ -30,8 +30,8 @@ span {
 }
 
 :not(body) {
-	/* transition: all 0.5s cubic-bezier(0.66, 0.09, 0.49, 1.21); */
-	transition: all 0.5s cubic-bezier(0.22, 0.58, 0.12, 0.98);
+	/* transition: all 0.5s cubic-bezier(0.22, 0.58, 0.12, 0.98); */
+	transition: all 0.5s cubic-bezier(0.66, 0.09, 0.49, 1.21);
 }
 
 @font-face {
@@ -46,6 +46,12 @@ span {
 		url('./assets/fonts/element-icons.ttf') format('truetype');
 	font-weight: normal;
 	font-style: normal;
+}
+
+.An {
+	position: relative;
+	top: -10px;
+	opacity: 0;
 }
 
 .TIP:after {

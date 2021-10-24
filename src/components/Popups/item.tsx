@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
+import fastdom from 'fastdom'
 
 import { useRemovePopup } from 'state/popup/hooks'
 
@@ -27,16 +28,20 @@ export default (props: any) => {
 	}
 
 	useEffect(() => {
-		const DOM = node.current.style
-		DOM.display = 'block'
-		setTimeout(() => {
-			DOM.paddingLeft = '0px'
-			DOM.opacity = '1'
-			if (props.timeout > 0)
+		fastdom.measure(() => {
+			const DOM = node.current.style
+			fastdom.mutate(() => {
+				DOM.display = 'block'
 				setTimeout(() => {
-					Close()
-				}, props.timeout)
-		}, 10)
+					DOM.paddingLeft = '0px'
+					DOM.opacity = '1'
+					if (props.timeout > 0)
+						setTimeout(() => {
+							Close()
+						}, props.timeout)
+				}, 10)
+			})
+		})
 	}, [props.timeout])
 
 	useEffect(() => {
@@ -44,12 +49,16 @@ export default (props: any) => {
 	}, [props.close])
 
 	const Close = () => {
-		const DOM = node.current.style
-		DOM.paddingLeft = '100%'
-		DOM.opacity = '0'
-		setTimeout(() => {
-			removePopup(props.iKey)
-		}, 501)
+		fastdom.measure(() => {
+			const DOM = node.current.style
+			fastdom.mutate(() => {
+				DOM.paddingLeft = '100%'
+				DOM.opacity = '0'
+				setTimeout(() => {
+					removePopup(props.iKey)
+				}, 501)
+			})
+		})
 	}
 
 	return (

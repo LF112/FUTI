@@ -11,6 +11,10 @@ import {
 //[ utils ]
 
 import { useAddPopup, useClosePopup } from 'state/popup/hooks'
+import {
+	useL2dInitStatus,
+	useUpdateL2dDomInitStatus
+} from 'state/animation/hooks'
 //[ hooks ]
 
 import {
@@ -22,8 +26,12 @@ import {
 //=> DOM
 export default (props: any) => {
 	const node = useRef<HTMLDivElement>()
+	const mainNode = useRef<HTMLDivElement>()
 	const [addPopup, popupId] = useAddPopup()
 	const closePopup = useClosePopup()
+
+	const [l2dInitStatus, , , l2dUnfold] = useL2dInitStatus()
+	const updateL2dDomInitStatus = useUpdateL2dDomInitStatus()
 
 	useEffect(() => {
 		//=> Main
@@ -43,6 +51,7 @@ export default (props: any) => {
 		//=> 装载模型
 		initModel(CANVAS, './live2d/', 'futi.model3.json', () => {
 			closePopup(popupId)
+			updateL2dDomInitStatus(true)
 		})
 
 		//=> 渲染模型
@@ -54,8 +63,25 @@ export default (props: any) => {
 		}
 	}, [])
 
+	//=> 动画
+	useEffect(() => {
+		if (l2dInitStatus)
+			window.requestAnimationFrame(() => (mainNode.current.style.opacity = '1'))
+	}, [l2dInitStatus])
+
 	return (
-		<Main>
+		<Main
+			ref={mainNode as any}
+			style={
+				!l2dInitStatus
+					? { display: 'none' }
+					: {
+							opacity: 0,
+							marginLeft: l2dUnfold ? '-412px' : '',
+							top: l2dUnfold ? '72px' : ''
+					  }
+			}
+		>
 			<canvas ref={node as any}></canvas>
 		</Main>
 	)
@@ -63,19 +89,22 @@ export default (props: any) => {
 
 //=> Style
 const Main = styled.main`
-	top: 125px;
-	right: -38px;
+	top: 140px;
+	right: -52px;
 	width: 410px;
 	position: relative;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	* {
+		transition: all 0.5s cubic-bezier(0.22, 0.58, 0.12, 0.98) !important;
+	}
 	canvas {
 		pointer-events: none;
 		touch-action: none;
 		width: 1048px;
 		height: 1048px;
-		transform: scale(0.68);
+		transform: scale(0.71);
 		cursor: inherit;
 	}
 `

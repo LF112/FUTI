@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 //[ package ]
@@ -6,37 +6,20 @@ import './index.less'
 import 'assets/element-ui-icon/index.less'
 //[ style ]
 
-//import Loading from 'page/loading/main'
-import GA1 from 'components/Background/GA1'
-import Header from 'page/header'
-import Main from 'page/main'
-import Footer from 'page/footer'
-import Popups from 'components/Popups'
-//[ Component ]
-
 import store from 'state'
 //[ store ]
 
-//=> Main Component
-const APP = () => {
-	return (
-		<>
-			<Popups />
-
-			<Header />
-			<Main />
-			<Footer />
-
-			<GA1 />
-		</>
-	)
-}
+//=> 懒加载 Main | '后期装载嵌入式博客可用'
+const mainModule = import.meta.glob('./App.tsx')
+const LazyMain = React.lazy(mainModule['./App.tsx'] as any)
 
 //=> Render
 ReactDOM.render(
 	<React.StrictMode>
 		<Provider store={store}>
-			<APP />
+			<Suspense fallback={<></>}>
+				<LazyMain />
+			</Suspense>
 			{/* <Loading /> */}
 		</Provider>
 	</React.StrictMode>,

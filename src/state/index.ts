@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 
 //
 import popup from './popup/slice'
+import animation from './animation/slice'
 //
 
 //import { save, load } from 'redux-localstorage-simple'
@@ -10,7 +11,8 @@ import popup from './popup/slice'
 
 const store = configureStore({
 	reducer: {
-		popup
+		popup,
+		animation
 	}
 
 	// middleware: getDefaultMiddleware =>
