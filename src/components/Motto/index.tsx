@@ -10,7 +10,10 @@ export default (props: any) => {
 	const node = useRef<HTMLDivElement>()
 
 	useEffect(() => {
-		SiRen(node.current, 'Copy and paste constant defaulting.')
+		setTimeout(
+			() => SiRen(node.current, 'Copy and paste constant defaulting.'),
+			250
+		)
 	}, [])
 
 	return (

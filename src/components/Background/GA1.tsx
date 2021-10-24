@@ -11,12 +11,14 @@ export default (props: any) => {
 	useEffect(() => {
 		new Parallax(container.current)
 
-		fastdom.measure(() => {
-			const DOM = node.current.style
-			fastdom.mutate(() => {
-				DOM.opacity = '1'
+		setTimeout(() => {
+			fastdom.measure(() => {
+				const DOM = node.current.style
+				fastdom.mutate(() => {
+					DOM.opacity = '1'
+				})
 			})
-		})
+		}, 300)
 
 		return () => Parallax.disable()
 	}, [container])
