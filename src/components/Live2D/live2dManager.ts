@@ -9,7 +9,8 @@ import { csmVector } from 'libs/live2dFramework/src/type/csmvector'
 
 //=> Live2DCubismCore 日志输出
 export const CubismLogFn = (message: string): void => {
-	console.log(`[FuTi-Live2D]${message}`)
+	if (process.env.NODE_ENV === 'development')
+		console.log(`[FuTi-Live2D]${message}`)
 }
 
 //=> MAIN ----------------------------------------
