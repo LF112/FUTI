@@ -6,7 +6,17 @@ export default (props: any) => {
 	return (
 		<Loader>
 			<div>
-				<Outer>
+				<Outer
+					style={
+						props.size !== undefined
+							? {
+									width: `${props.size}px`,
+									height: `${props.size}px`,
+									fontSize: `${props.size}px`
+							  }
+							: {}
+					}
+				>
 					<Inner />
 				</Outer>
 			</div>
