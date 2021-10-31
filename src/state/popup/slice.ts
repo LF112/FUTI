@@ -1,18 +1,22 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 //=> State 类型表
-export type popupsState = [
-	{
-		id?: string
-		type?: string
-		content?: string
-		timeout?: number
-		close?: boolean
-	}
-]
+export type popupsState = {
+	arr: [
+		{
+			id?: string
+			type?: string
+			content?: string
+			timeout?: number
+			close?: boolean
+		}
+	]
+}
 
 //=> State 初始化
-export const initialState: popupsState = [{}]
+export const initialState: popupsState = {
+	arr: [{}]
+}
 
 //=> SLICE
 export const popupsSlice = createSlice({
@@ -23,28 +27,35 @@ export const popupsSlice = createSlice({
 		addPopup: (
 			state,
 			action: PayloadAction<{
+				id?: string
 				type: string
 				content: string
 				timeout: number
 			}>
 		) => {
-			const { type, content, timeout } = action.payload
-			state.push({
+			const { id, type, content, timeout } = action.payload
+			state.arr.push({
+				id: id,
 				type: type,
 				content: content,
 				timeout: timeout,
 				close: false
 			})
 		},
-		closePopup: (state, action: PayloadAction<{ id: number }>) => {
+		closePopup: (state, action: PayloadAction<{ id: string }>) => {
 			const { id } = action.payload
-			state[id + 1].close = true
+			state.arr[state.arr.findIndex(item => item.id === id)].close = true
 		},
-		removePopup: (state, action: PayloadAction<{ id: number }>) => {
+		removePopup: (state, action: PayloadAction<{ id: string }>) => {
 			const { id } = action.payload
-			state.splice(id + 1, 1)
+			state.arr.splice(
+				state.arr.findIndex(item => item.id === id),
+				1
+			)
 		},
-		clearAllPopups: state => (state = [{}])
+		clearAllPopups: state => {
+			state.arr = [{}]
+		}
 	}
 })
 

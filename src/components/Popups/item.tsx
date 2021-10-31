@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import fastdom from 'fastdom'
 
@@ -6,7 +6,6 @@ import { useRemovePopup } from 'state/popup/hooks'
 
 //=> DOM
 export default (props: any) => {
-	const node = useRef<HTMLDivElement>()
 	const removePopup = useRemovePopup()
 
 	const icon = {
@@ -29,7 +28,7 @@ export default (props: any) => {
 
 	useEffect(() => {
 		fastdom.measure(() => {
-			const DOM = node.current.style
+			const DOM = document.getElementById(props.iKey).style
 			fastdom.mutate(() => {
 				DOM.display = 'block'
 				setTimeout(() => {
@@ -50,10 +49,11 @@ export default (props: any) => {
 
 	const Close = () => {
 		fastdom.measure(() => {
-			const DOM = node.current.style
+			const el = document.getElementById(props.iKey).style
 			fastdom.mutate(() => {
-				DOM.paddingLeft = '100%'
-				DOM.opacity = '0'
+				el.paddingLeft = '100%'
+				el.opacity = '0'
+				el.height = '0px'
 				setTimeout(() => {
 					removePopup(props.iKey)
 				}, 501)
@@ -62,7 +62,7 @@ export default (props: any) => {
 	}
 
 	return (
-		<Futice ref={node as any}>
+		<Futice id={props.iKey}>
 			<div>
 				<Main>
 					<div>
