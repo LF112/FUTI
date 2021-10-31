@@ -9,6 +9,7 @@ import { ReactComponent as FUTI_Icon } from 'assets/svg/futi.svg'
 //[ Assets ]
 
 import Ribbon from 'components/Ribbon'
+import LikeMe from 'components/LikeMe'
 //[ component ]
 
 //=> DOM
@@ -68,6 +69,7 @@ export default (props: any) => {
 						<p className='An'>V{Package.version}</p>
 					</div>
 				</main>
+				<LikeMe />
 			</div>
 		</Footer>
 	)

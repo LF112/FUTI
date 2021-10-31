@@ -12,17 +12,20 @@ export default (props: any) => {
 	return (
 		<>
 			<MAIN>
-				{activePopups.map((item: any, index: number) => (
-					<ITEM
-						key={index}
-						iKey={index}
-						type={item.type}
-						content={item.content}
-						timeout={item.timeout}
-						close={item.close}
-						//callback={item.callback} | 纯懒狗，晚点再做
-					/>
-				))}
+				{activePopups.map((item: any) => {
+					if (Object.keys(item).length > 0)
+						return (
+							<ITEM
+								key={item.id}
+								iKey={item.id}
+								type={item.type}
+								content={item.content}
+								timeout={item.timeout}
+								close={item.close}
+								//callback={item.callback} | 纯懒狗，晚点再做
+							/>
+						)
+				})}
 			</MAIN>
 		</>
 	)
