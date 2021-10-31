@@ -27,7 +27,7 @@ import {
 export default (props: any) => {
 	const node = useRef<HTMLDivElement>()
 	const mainNode = useRef<HTMLDivElement>()
-	const [addPopup, popupId] = useAddPopup()
+	const addPopup = useAddPopup()
 	const closePopup = useClosePopup()
 
 	const [l2dInitStatus, , , l2dUnfold] = useL2dInitStatus()
@@ -36,7 +36,8 @@ export default (props: any) => {
 	useEffect(() => {
 		//=> Main
 
-		addPopup('load', '正在加载模型', 0)
+		const popupId = Math.random().toString(36).slice(-8)
+		addPopup('load', '正在加载模型', 0, popupId)
 
 		//=> 装载 Cubism SDK
 		// 配置 Cubism SDK
