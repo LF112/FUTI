@@ -14,15 +14,18 @@ import { numberGrow, Rand } from 'utils/useAnimations'
 import { useLoadStatus } from 'state/animation/hooks'
 //[ store ]
 
-import { useAddPopup } from 'state/popup/hooks'
+import { useAddPopup, useAddRA9 } from 'state/popup/hooks'
 //[ hooks ]
 
 //=> DOM
 export default (props: any) => {
 	const addPopup = useAddPopup()
+	const addRA9 = useAddRA9()
 
+	const [likeLoad, setLikeLoad] = useState<boolean>(false)
 	const [clickLock, setClickLock] = useState<boolean>(false)
 	const [aixinShow, setAixinShow] = useState<boolean>(false)
+	const [firstClickRA9, setFirstClickRA9] = useState<boolean>(false)
 	const [likeCount, setLikeCount] = useState<number>(0)
 	const [likeIcon, setLikeIcon] = useState<string>('')
 
@@ -84,6 +87,7 @@ export default (props: any) => {
 				AV_Main.find().then(Results => {
 					CloneLoadAn()
 					numberGrow(Results[0].attributes.count, setLikeCount)
+					setLikeLoad(true)
 				})
 			} else {
 				numberGrow(400, setLikeCount)
@@ -97,29 +101,37 @@ export default (props: any) => {
 
 	//=> 点击
 	const Click = () => {
-		if (cacheLike == null || cacheLike == undefined || !loadStatus)
+		if (cacheLike == null || cacheLike == undefined || !loadStatus || !likeLoad)
 			addPopup('warn', 'LIKE 正在装填中···', 1500)
-		else if (!clickLock) {
-			setClickLock(true)
-			//=> 更新 LeanCloud 点赞数
-			if (process.env.NODE_ENV === 'production') {
-				const AV_ON = AV.Object.extend('LiCount')
-				new AV.Query(AV_ON).find().then((Results: any[]) => {
-					const AV_TO = Results[0]
-					AV_TO.fetchWhenSave(true)
-					AV_TO.increment('count')
-					AV_TO.save().then(
-						() => {
-							setLikeCount(likeCount + 1)
-							console.log('[Success] Like success!')
-						},
-						() => console.log('[ERR] Like failed!')
-					)
-				})
-			} else setLikeCount(likeCount + 1)
-			LikeAn()
-			reactLocalStorage.set('like', true)
-		} else if (cacheLike) {
+		else {
+			if (!clickLock) {
+				setClickLock(true)
+				//=> 更新 LeanCloud 点赞数
+				if (process.env.NODE_ENV === 'production') {
+					const AV_ON = AV.Object.extend('LiCount')
+					new AV.Query(AV_ON).find().then((Results: any[]) => {
+						const AV_TO = Results[0]
+						AV_TO.fetchWhenSave(true)
+						AV_TO.increment('count')
+						AV_TO.save().then(
+							() => {
+								setLikeCount(likeCount + 1)
+								console.log('[Success] Like success!')
+							},
+							() => console.log('[ERR] Like failed!')
+						)
+					})
+				} else setLikeCount(likeCount + 1)
+				LikeAn()
+				addRA9(true, '軟體不穩定')
+				reactLocalStorage.set('like', true)
+			} else if (cacheLike) {
+				if (!firstClickRA9) {
+					addRA9(false, 'I like you too!')
+					setFirstClickRA9(true)
+				} else addPopup('lover', 'I like you too!', 1500)
+			}
+			if (!aixinShow) LikeAn()
 		}
 	}
 

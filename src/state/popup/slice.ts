@@ -2,10 +2,19 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 //=> State 类型表
 export type popupsState = {
-	arr: [
+	popup: [
 		{
 			id?: string
 			type?: string
+			content?: string
+			timeout?: number
+			close?: boolean
+		}
+	]
+	RA9: [
+		{
+			id?: string
+			type?: boolean
 			content?: string
 			timeout?: number
 			close?: boolean
@@ -15,7 +24,8 @@ export type popupsState = {
 
 //=> State 初始化
 export const initialState: popupsState = {
-	arr: [{}]
+	popup: [{}],
+	RA9: [{}]
 }
 
 //=> SLICE
@@ -27,14 +37,15 @@ export const popupsSlice = createSlice({
 		addPopup: (
 			state,
 			action: PayloadAction<{
+				use: string
 				id?: string
-				type: string
+				type: any
 				content: string
 				timeout: number
 			}>
 		) => {
-			const { id, type, content, timeout } = action.payload
-			state.arr.push({
+			const { use, id, type, content, timeout } = action.payload
+			state[use].push({
 				id: id,
 				type: type,
 				content: content,
@@ -42,24 +53,23 @@ export const popupsSlice = createSlice({
 				close: false
 			})
 		},
-		closePopup: (state, action: PayloadAction<{ id: string }>) => {
-			const { id } = action.payload
-			state.arr[state.arr.findIndex(item => item.id === id)].close = true
+		closePopup: (state, action: PayloadAction<{ use: string; id: string }>) => {
+			const { use, id } = action.payload
+			state[use][state[use].findIndex(item => item.id === id)].close = true
 		},
-		removePopup: (state, action: PayloadAction<{ id: string }>) => {
-			const { id } = action.payload
-			state.arr.splice(
-				state.arr.findIndex(item => item.id === id),
+		removePopup: (
+			state,
+			action: PayloadAction<{ use: string; id: string }>
+		) => {
+			const { use, id } = action.payload
+			state[use].splice(
+				state[use].findIndex(item => item.id === id),
 				1
 			)
-		},
-		clearAllPopups: state => {
-			state.arr = [{}]
 		}
 	}
 })
 
-export const { addPopup, removePopup, clearAllPopups, closePopup } =
-	popupsSlice.actions
+export const { addPopup, removePopup, closePopup } = popupsSlice.actions
 
 export default popupsSlice.reducer

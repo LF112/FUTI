@@ -182,7 +182,7 @@ export default (props: any) => {
 				}
 			]
 
-			if (open) runAn(AN, () => {})
+			if (open) runAn(AN)
 		})
 	}, [open])
 

@@ -48,7 +48,7 @@ export default (props: any) => {
 								href='http://beian.miit.gov.cn'
 								rel='noopener noreferrer'
 								target='_blank'
-								data-tooltip='ICP'
+								data-tooltip='🔖 ICP'
 							>
 								琼 ICP 备 2021000434 号 - 2
 							</a>
@@ -60,13 +60,23 @@ export default (props: any) => {
 								href='http://www.beian.gov.cn/portal/registerSystemInfo'
 								rel='noopener noreferrer'
 								target='_blank'
-								data-tooltip='Public Security Beian'
+								data-tooltip='🔒️ Public Security Beian'
 							>
 								琼公安备 46010702000093 号
 							</a>
 						</p>
 						<span className='Nbsp'>/</span>
-						<p className='An'>V{Package.version}</p>
+						<p className='An'>
+							<a
+								className='TIP'
+								href='https://github.com/LF112/FUTI'
+								rel='noopener noreferrer'
+								target='_blank'
+								data-tooltip='✨ Github Repo'
+							>
+								V{Package.version}
+							</a>
+						</p>
 					</div>
 				</main>
 				<LikeMe />
