@@ -22,6 +22,7 @@ export default (props: any) => {
 	const addPopup = useAddPopup()
 	const addRA9 = useAddRA9()
 
+	const [likeLoad, setLikeLoad] = useState<boolean>(false)
 	const [clickLock, setClickLock] = useState<boolean>(false)
 	const [aixinShow, setAixinShow] = useState<boolean>(false)
 	const [firstClickRA9, setFirstClickRA9] = useState<boolean>(false)
@@ -86,6 +87,7 @@ export default (props: any) => {
 				AV_Main.find().then(Results => {
 					CloneLoadAn()
 					numberGrow(Results[0].attributes.count, setLikeCount)
+					setLikeLoad(true)
 				})
 			} else {
 				numberGrow(400, setLikeCount)
@@ -99,7 +101,7 @@ export default (props: any) => {
 
 	//=> 点击
 	const Click = () => {
-		if (cacheLike == null || cacheLike == undefined || !loadStatus)
+		if (cacheLike == null || cacheLike == undefined || !loadStatus || !likeLoad)
 			addPopup('warn', 'LIKE 正在装填中···', 1500)
 		else if (!clickLock) {
 			setClickLock(true)
