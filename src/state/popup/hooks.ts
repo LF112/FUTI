@@ -7,8 +7,8 @@ import { addPopup, removePopup, closePopup } from './slice'
 export function useActivePopups() {
 	const list = useAppSelector((state: AppState) => state.popup)
 	return useMemo(
-		() => list.arr.filter(v => Object.keys(v).length > 0),
-		[list.arr]
+		() => list['popup'].filter(v => Object.keys(v).length > 0),
+		[list['popup']]
 	)
 }
 
@@ -25,6 +25,7 @@ export function useAddPopup(): (
 		(type: string, content: string, timeout: number, id?: string) =>
 			dispatch(
 				addPopup({
+					use: 'popup',
 					id: id ? id : Math.random().toString(36).slice(-8),
 					type: type,
 					content: content,
@@ -41,7 +42,7 @@ export function useClosePopup(): (id: string) => void {
 	const dispatch = useAppDispatch()
 
 	return useCallback(
-		(id: string) => dispatch(closePopup({ id: id })),
+		(id: string) => dispatch(closePopup({ use: 'popup', id: id })),
 		[dispatch]
 	)
 }
@@ -51,7 +52,7 @@ export function useRemovePopup(): (id: string) => void {
 	const dispatch = useAppDispatch()
 
 	return useCallback(
-		(id: string) => dispatch(removePopup({ id: id })),
+		(id: string) => dispatch(removePopup({ use: 'popup', id: id })),
 		[dispatch]
 	)
 }
