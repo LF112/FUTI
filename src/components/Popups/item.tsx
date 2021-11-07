@@ -4,6 +4,8 @@ import fastdom from 'fastdom'
 
 import { useRemovePopup } from 'state/popup/hooks'
 
+import { Rand } from 'utils/useAnimations'
+
 //=> DOM
 export default memo((props: any) => {
 	const removePopup = useRemovePopup()
@@ -14,16 +16,39 @@ export default memo((props: any) => {
 	}
 
 	const type = props.type
-	if (type == 'info') {
+	if (type === 'info') {
 		icon.icon = 'el-icon-warning-outline'
 		icon.iconColor = '#909399'
-	} else if (type == 'success') {
+	} else if (type === 'success') {
 		icon.icon = 'el-icon-success'
 		icon.iconColor = '#67c23a'
-	} else if (type == 'warn') icon.iconColor = '#f56c6c'
-	else if (type == 'load') {
+	} else if (type === 'warn') icon.iconColor = '#f56c6c'
+	else if (type === 'load') {
 		icon.icon = 'el-icon-loading'
 		icon.iconColor = '#53a8ff'
+	} else if (type === 'lover') {
+		icon.iconColor = '#eb6349'
+		icon.icon = Rand([
+			'el-icon-food',
+			'el-icon-burger',
+			'el-icon-tableware',
+			'el-icon-sugar',
+			'el-icon-dessert',
+			'el-icon-ice-cream',
+			'el-icon-hot-water',
+			'el-icon-grape',
+			'el-icon-watermelon',
+			'el-icon-cherry',
+			'el-icon-apple',
+			'el-icon-pear',
+			'el-icon-orange',
+			'el-icon-coffee',
+			'el-icon-ice-tea',
+			'el-icon-potato-strips',
+			'el-icon-lollipop',
+			'el-icon-ice-cream-square',
+			'el-icon-ice-cream-round'
+		])[0]
 	}
 
 	useEffect(() => {

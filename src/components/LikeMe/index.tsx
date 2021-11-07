@@ -24,6 +24,7 @@ export default (props: any) => {
 
 	const [clickLock, setClickLock] = useState<boolean>(false)
 	const [aixinShow, setAixinShow] = useState<boolean>(false)
+	const [firstClickRA9, setFirstClickRA9] = useState<boolean>(false)
 	const [likeCount, setLikeCount] = useState<number>(0)
 	const [likeIcon, setLikeIcon] = useState<string>('')
 
@@ -98,7 +99,6 @@ export default (props: any) => {
 
 	//=> 点击
 	const Click = () => {
-		addRA9(true, '軟體不穩定')
 		if (cacheLike == null || cacheLike == undefined || !loadStatus)
 			addPopup('warn', 'LIKE 正在装填中···', 1500)
 		else if (!clickLock) {
@@ -120,9 +120,15 @@ export default (props: any) => {
 				})
 			} else setLikeCount(likeCount + 1)
 			LikeAn()
+			addRA9(true, '軟體不穩定')
 			reactLocalStorage.set('like', true)
 		} else if (cacheLike) {
+			if (!firstClickRA9) {
+				addRA9(false, 'I like you too!')
+				setFirstClickRA9(true)
+			} else addPopup('lover', 'I like you too!', 1500)
 		}
+		if (!aixinShow) LikeAn()
 	}
 
 	//=> 点击爱心动画
