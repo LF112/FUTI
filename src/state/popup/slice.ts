@@ -11,11 +11,21 @@ export type popupsState = {
 			close?: boolean
 		}
 	]
+	RA9: [
+		{
+			id?: string
+			type?: boolean
+			content?: string
+			timeout?: number
+			close?: boolean
+		}
+	]
 }
 
 //=> State 初始化
 export const initialState: popupsState = {
-	popup: [{}]
+	popup: [{}],
+	RA9: [{}]
 }
 
 //=> SLICE
@@ -29,7 +39,7 @@ export const popupsSlice = createSlice({
 			action: PayloadAction<{
 				use: string
 				id?: string
-				type: string
+				type: any
 				content: string
 				timeout: number
 			}>

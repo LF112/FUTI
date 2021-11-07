@@ -14,12 +14,13 @@ import { numberGrow, Rand } from 'utils/useAnimations'
 import { useLoadStatus } from 'state/animation/hooks'
 //[ store ]
 
-import { useAddPopup } from 'state/popup/hooks'
+import { useAddPopup, useAddRA9 } from 'state/popup/hooks'
 //[ hooks ]
 
 //=> DOM
 export default (props: any) => {
 	const addPopup = useAddPopup()
+	const addRA9 = useAddRA9()
 
 	const [clickLock, setClickLock] = useState<boolean>(false)
 	const [aixinShow, setAixinShow] = useState<boolean>(false)
@@ -97,6 +98,7 @@ export default (props: any) => {
 
 	//=> 点击
 	const Click = () => {
+		addRA9(true, '軟體不穩定')
 		if (cacheLike == null || cacheLike == undefined || !loadStatus)
 			addPopup('warn', 'LIKE 正在装填中···', 1500)
 		else if (!clickLock) {

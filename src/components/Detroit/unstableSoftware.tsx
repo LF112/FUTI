@@ -1,11 +1,14 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, memo, useRef } from 'react'
 import styled from 'styled-components'
 import fastdom from 'fastdom'
 
 import { runAn } from 'utils/useQueueAnimation'
 
+import { useRemoveRA9 } from 'state/popup/hooks'
+
 //=> DOM
-export default (props: any) => {
+export default memo((props: any) => {
+	const removeRA9 = useRemoveRA9()
 	let randText = ['R', '9', 'D', 'A', '', 'F', 'C', 'T', 'R', 'N']
 
 	//=> REFs
@@ -187,9 +190,15 @@ export default (props: any) => {
 							_randText_B5Dom.opacity = '0'
 						})
 					}
+				},
+				{
+					next: 501,
+					fn: () => {
+						removeRA9(props.iKey)
+					}
 				}
 			]
-			runAn(AN, () => {})
+			runAn(AN)
 		})
 	})
 
@@ -252,7 +261,7 @@ export default (props: any) => {
 			</RandTextBottom>
 		</RA9>
 	)
-}
+})
 
 //=> Style
 const RA9 = styled.div`
