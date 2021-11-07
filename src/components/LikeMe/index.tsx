@@ -103,34 +103,36 @@ export default (props: any) => {
 	const Click = () => {
 		if (cacheLike == null || cacheLike == undefined || !loadStatus || !likeLoad)
 			addPopup('warn', 'LIKE 正在装填中···', 1500)
-		else if (!clickLock) {
-			setClickLock(true)
-			//=> 更新 LeanCloud 点赞数
-			if (process.env.NODE_ENV === 'production') {
-				const AV_ON = AV.Object.extend('LiCount')
-				new AV.Query(AV_ON).find().then((Results: any[]) => {
-					const AV_TO = Results[0]
-					AV_TO.fetchWhenSave(true)
-					AV_TO.increment('count')
-					AV_TO.save().then(
-						() => {
-							setLikeCount(likeCount + 1)
-							console.log('[Success] Like success!')
-						},
-						() => console.log('[ERR] Like failed!')
-					)
-				})
-			} else setLikeCount(likeCount + 1)
-			LikeAn()
-			addRA9(true, '軟體不穩定')
-			reactLocalStorage.set('like', true)
-		} else if (cacheLike) {
-			if (!firstClickRA9) {
-				addRA9(false, 'I like you too!')
-				setFirstClickRA9(true)
-			} else addPopup('lover', 'I like you too!', 1500)
+		else {
+			if (!clickLock) {
+				setClickLock(true)
+				//=> 更新 LeanCloud 点赞数
+				if (process.env.NODE_ENV === 'production') {
+					const AV_ON = AV.Object.extend('LiCount')
+					new AV.Query(AV_ON).find().then((Results: any[]) => {
+						const AV_TO = Results[0]
+						AV_TO.fetchWhenSave(true)
+						AV_TO.increment('count')
+						AV_TO.save().then(
+							() => {
+								setLikeCount(likeCount + 1)
+								console.log('[Success] Like success!')
+							},
+							() => console.log('[ERR] Like failed!')
+						)
+					})
+				} else setLikeCount(likeCount + 1)
+				LikeAn()
+				addRA9(true, '軟體不穩定')
+				reactLocalStorage.set('like', true)
+			} else if (cacheLike) {
+				if (!firstClickRA9) {
+					addRA9(false, 'I like you too!')
+					setFirstClickRA9(true)
+				} else addPopup('lover', 'I like you too!', 1500)
+			}
+			if (!aixinShow) LikeAn()
 		}
-		if (!aixinShow) LikeAn()
 	}
 
 	//=> 点击爱心动画
