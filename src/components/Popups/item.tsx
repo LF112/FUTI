@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, memo } from 'react'
 import styled from 'styled-components'
 import fastdom from 'fastdom'
 
 import { useRemovePopup } from 'state/popup/hooks'
 
 //=> DOM
-export default (props: any) => {
+export default memo((props: any) => {
 	const removePopup = useRemovePopup()
 
 	const icon = {
@@ -93,7 +93,7 @@ export default (props: any) => {
 			</div>
 		</Futice>
 	)
-}
+})
 
 //=> Style
 const Futice = styled.div`
