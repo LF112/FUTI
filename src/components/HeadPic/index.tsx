@@ -4,6 +4,7 @@ import fastdom from 'fastdom'
 //[ package ]
 
 import Loading from 'components/Loading'
+import ExpandInfo from 'components/ExpandInfo'
 //[ components ]
 
 import {
@@ -124,6 +125,7 @@ export default (props: any) => {
 						<></>
 					)}
 					{l2dShow ? LIVE2D : <></>}
+					<ExpandInfo />
 				</IMGCentered>
 				<TouchMe>
 					<i
