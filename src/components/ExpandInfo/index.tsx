@@ -3,6 +3,9 @@ import styled from 'styled-components'
 
 import { useL2dInitStatus } from 'state/animation/hooks'
 
+import { isMobile } from 'utils/useTools'
+//[ utils ]
+
 //=> DOM
 export default (props: any) => {
 	const [, , , l2dUnfold] = useL2dInitStatus()
@@ -24,12 +27,14 @@ export default (props: any) => {
 	}, [l2dUnfold])
 
 	return (
-		<ExpandInfo>
+		<ExpandInfo style={isMobile ? { marginRight: 0 } : {}}>
 			<main>
 				<OneText>
-					<h1 style={open ? { marginTop: 0, opacity: 1 } : {}}>新年快乐</h1>
+					<h1 style={open && !isMobile ? { marginTop: 0, opacity: 1 } : {}}>
+						新年快乐
+					</h1>
 				</OneText>
-				<TwoText style={open ? { marginLeft: 0, opacity: 1 } : {}}>
+				<TwoText style={open && !isMobile ? { marginLeft: 0, opacity: 1 } : {}}>
 					<h1>HAPPY NEW YEAR!</h1>
 				</TwoText>
 				<L2dModelAuthor style={open ? { marginBottom: 0, opacity: 1 } : {}}>
@@ -38,6 +43,7 @@ export default (props: any) => {
 						<img alt='灯壹,reiky' src='https://cdn.lfio.net/avatar/reiky.jpg' />
 						<h2>灯壹 Reiky</h2>
 					</a>
+					<div></div>
 				</L2dModelAuthor>
 			</main>
 		</ExpandInfo>
@@ -132,5 +138,14 @@ const L2dModelAuthor = styled.div`
 			font-size: 20px;
 			font-family: 'ZCOOL KuaiLe';
 		}
+	}
+	> div {
+		position: absolute;
+		width: 172px;
+		height: 62px;
+		border-radius: 4px;
+		z-index: -1;
+		backdrop-filter: blur(4px);
+		background: hsl(0deg, 0%, 65%, 19%);
 	}
 `
