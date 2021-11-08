@@ -105,4 +105,21 @@ const Footer = styled.footer`
 	width: 100%;
 	display: flex;
 	align-items: center;
+	@media screen and (max-width: 780px) {
+		> div {
+			display: inline-grid;
+			> main {
+				padding: 0 10%;
+				border-left: unset;
+				> div {
+					display: inline-grid;
+					width: 100%;
+					text-align: center;
+					.Nbsp {
+						display: none;
+					}
+				}
+			}
+		}
+	}
 `

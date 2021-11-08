@@ -10,7 +10,7 @@ import Popups from 'components/Popups'
 //[ Component ]
 
 import { LoadAn } from 'utils/useLoadAn'
-import { isBaiduSpider } from 'utils/useTools'
+import { isBaiduSpider, isMobile } from 'utils/useTools'
 //[ utils ]
 
 import { useUpdateLoadStatus } from 'state/animation/hooks'
@@ -50,7 +50,7 @@ export default () => {
 			<Main />
 			<Footer />
 
-			{!isBaiduSpider ? <GA1 /> : <></>}
+			{!isBaiduSpider && !isMobile ? <GA1 /> : <></>}
 		</>
 	)
 }

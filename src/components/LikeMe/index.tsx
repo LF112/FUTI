@@ -247,6 +247,11 @@ const MAIN = styled.div`
 			}
 		}
 	}
+	@media screen and (max-width: 780px) {
+		position: fixed;
+		right: 25px;
+		bottom: 25px;
+	}
 `
 
 const Aixin = styled.div`

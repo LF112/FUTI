@@ -64,6 +64,9 @@ const LEFT = styled.img`
 	height: calc(100vh + 50px);
 	width: 35vw;
 	transition: all 0.5s cubic-bezier(0.22, 0.58, 0.12, 0.98);
+	@media screen and (max-width: 780px) {
+		width: 52vw;
+	}
 `
 
 const RIGHT = styled.img`
