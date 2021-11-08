@@ -59,6 +59,23 @@ const Main = styled.main`
 			margin: 0 2px;
 		}
 	}
+	@media screen and (max-width: 780px) {
+		height: 135px;
+		> div {
+			height: 100%;
+			width: 100%;
+			padding: 0;
+			margin-top: 25px;
+			display: block;
+			text-align: center;
+			a {
+				display: inline-flex;
+			}
+			a + a {
+				margin: auto 0px;
+			}
+		}
+	}
 `
 
 const Link = styled.a`

@@ -4,6 +4,7 @@ import fastdom from 'fastdom'
 //[ package ]
 
 import Loading from 'components/Loading'
+import ExpandInfo from 'components/ExpandInfo'
 //[ components ]
 
 import {
@@ -14,6 +15,9 @@ import {
 	useUpdateL2dUnfoldStatus
 } from 'state/animation/hooks'
 //[ state ]
+
+import { isBaiduSpider } from 'utils/useTools'
+//[ utils ]
 
 //=> DOM
 export default (props: any) => {
@@ -40,21 +44,26 @@ export default (props: any) => {
 
 	//=> 载入动画
 	useEffect(() => {
-		setTimeout(() => {
-			fastdom.measure(() => {
-				const MaskDOM = maskNode.current.style
-				fastdom.mutate(() => {
-					MaskDOM.width = '230px'
-					MaskDOM.height = '230px'
+		if (!isBaiduSpider)
+			setTimeout(() => {
+				fastdom.measure(() => {
+					const MaskDOM = maskNode.current.style
+					fastdom.mutate(() => {
+						MaskDOM.width = '230px'
+						MaskDOM.height = '230px'
+					})
 				})
-			})
-		}, 1000)
+			}, 1000)
+		else {
+			const MaskDOM = maskNode.current.style
+			MaskDOM.width = '230px'
+			MaskDOM.height = '230px'
+		}
 	}, [])
 
 	//=> Live2D 载入动画
 	useEffect(() => {
-		// 此处应有判断爬虫
-		if (true && loadStatus) updateL2dShowStatus(true)
+		if (!isBaiduSpider && loadStatus) updateL2dShowStatus(true)
 		// Coding more...
 	}, [loadStatus])
 
@@ -114,7 +123,11 @@ export default (props: any) => {
 						<div ref={node as any}>
 							<img
 								alt='伏太，LF112,futiwolf,futi'
-								src='https://cdn.lfio.net/lf112.png'
+								src={
+									isBaiduSpider
+										? 'https://cdn.lfio.net/futiwolf_bdi.png'
+										: 'https://cdn.lfio.net/lf112.png'
+								}
 							/>
 							<LoadMask style={{ opacity: l2dShow ? 1 : 0 }}>
 								<Loading />
@@ -124,6 +137,7 @@ export default (props: any) => {
 						<></>
 					)}
 					{l2dShow ? LIVE2D : <></>}
+					<ExpandInfo />
 				</IMGCentered>
 				<TouchMe>
 					<i
@@ -182,6 +196,7 @@ const IMGCentered = styled.div`
 	img {
 		width: 220px;
 		height: 220px;
+		margin-top: 8px;
 		border-radius: 5px;
 		object-fit: cover;
 		user-select: none;

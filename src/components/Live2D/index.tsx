@@ -8,6 +8,7 @@ import {
 	WebGl2Canvas,
 	renderModel
 } from './live2dManager'
+import { isMobile } from 'utils/useTools'
 //[ utils ]
 
 import { useAddPopup, useClosePopup } from 'state/popup/hooks'
@@ -78,7 +79,7 @@ export default (props: any) => {
 					? { display: 'none' }
 					: {
 							opacity: 0,
-							marginLeft: l2dUnfold ? '-412px' : '',
+							marginLeft: l2dUnfold ? (!isMobile ? '-412px' : '0') : '',
 							top: l2dUnfold ? '72px' : ''
 					  }
 			}

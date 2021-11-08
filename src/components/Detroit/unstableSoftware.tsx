@@ -270,6 +270,9 @@ const RA9 = styled.div`
 	height: 145px;
 	zoom: 0.75;
 	margin-bottom: 50px;
+	@media screen and (max-width: 780px) {
+		zoom: 0.55;
+	}
 `
 
 const ShapeLine = styled.div`

@@ -37,4 +37,11 @@ const Header = styled.header`
 	width: 100%;
 	height: 80px;
 	overflow: hidden;
+	@media screen and (max-width: 780px) {
+		> div:first-child {
+			position: fixed;
+			top: 0;
+			z-index: 20;
+		}
+	}
 `

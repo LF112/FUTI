@@ -138,6 +138,7 @@ const Futice = styled.div`
 		background: hsla(0, 0%, 76.5%, 0.18);
 		border-radius: 4px 0 0 4px;
 		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+		backdrop-filter: blur(4px);
 	}
 `
 const Main = styled.main`

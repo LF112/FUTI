@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import styled from 'styled-components'
 import Package from '../../../package.json'
 //[ package ]
@@ -9,11 +9,19 @@ import { ReactComponent as FUTI_Icon } from 'assets/svg/futi.svg'
 //[ Assets ]
 
 import Ribbon from 'components/Ribbon'
-import LikeMe from 'components/LikeMe'
 //[ component ]
+
+import { isBaiduSpider } from 'utils/useTools'
+//[ utils ]
 
 //=> DOM
 export default (props: any) => {
+	//=> 懒加载 Main | '后期装载嵌入式博客可用'
+	const likeMeModule = import.meta.glob('../../components/LikeMe/index.tsx')
+	const LazyLikeMe = React.lazy(
+		likeMeModule['../../components/LikeMe/index.tsx'] as any
+	)
+
 	return (
 		<Footer className='FOOTER An'>
 			<div>
@@ -79,7 +87,13 @@ export default (props: any) => {
 						</p>
 					</div>
 				</main>
-				<LikeMe />
+				{!isBaiduSpider ? (
+					<Suspense fallback={<></>}>
+						<LazyLikeMe />
+					</Suspense>
+				) : (
+					<></>
+				)}
 			</div>
 		</Footer>
 	)
@@ -91,4 +105,21 @@ const Footer = styled.footer`
 	width: 100%;
 	display: flex;
 	align-items: center;
+	@media screen and (max-width: 780px) {
+		> div {
+			display: inline-grid;
+			> main {
+				padding: 0 10%;
+				border-left: unset;
+				> div {
+					display: inline-grid;
+					width: 100%;
+					text-align: center;
+					.Nbsp {
+						display: none;
+					}
+				}
+			}
+		}
+	}
 `

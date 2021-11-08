@@ -90,6 +90,7 @@ export default (props: any) => {
 					setLikeLoad(true)
 				})
 			} else {
+				setLikeLoad(true)
 				numberGrow(400, setLikeCount)
 				CloneLoadAn()
 			}
@@ -246,6 +247,11 @@ const MAIN = styled.div`
 				transform: scale(1);
 			}
 		}
+	}
+	@media screen and (max-width: 780px) {
+		position: fixed;
+		right: 25px;
+		bottom: 25px;
 	}
 `
 

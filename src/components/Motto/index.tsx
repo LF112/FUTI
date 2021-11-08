@@ -3,6 +3,7 @@ import styled from 'styled-components'
 //[ package ]
 
 import { SiRen } from 'utils/useSirenAn'
+import { isBaiduSpider } from 'utils/useTools'
 //[ utils ]
 
 //=> DOM
@@ -10,10 +11,12 @@ export default (props: any) => {
 	const node = useRef<HTMLDivElement>()
 
 	useEffect(() => {
-		setTimeout(
-			() => SiRen(node.current, 'Copy and paste constant defaulting.'),
-			250
-		)
+		if (!isBaiduSpider)
+			setTimeout(
+				() => SiRen(node.current, 'Copy and paste constant defaulting.'),
+				250
+			)
+		else node.current.innerHTML = 'Copy and paste constant defaulting.'
 	}, [])
 
 	return (
