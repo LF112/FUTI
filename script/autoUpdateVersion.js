@@ -15,7 +15,7 @@ const args = process.argv.slice(2)
 
 fs.exists('./package.json', exists => {
 	if (exists) {
-		const { version: versionCurrent } = require('./package.json')
+		const { version: versionCurrent } = require('../package.json')
 
 		const V1 = 25 // 0.0.x 最大值
 		const V2 = 20 // 0.x.0 最大值

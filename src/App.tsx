@@ -21,6 +21,13 @@ export default () => {
 	const updateLoadStatus = useUpdateLoadStatus()
 
 	useEffect(() => {
+		if (isMobile)
+			fastdom.measure(() => {
+				const BODY = document.querySelector('body')
+				fastdom.mutate(() => {
+					BODY.style.overflow = 'auto'
+				})
+			})
 		if (isBaiduSpider) {
 			document.getElementById('LOADING').style.display = 'none'
 			document.querySelectorAll('.An').forEach(v => v.classList.remove('An'))
