@@ -33,7 +33,7 @@ jobs:
           echo ' 正在安装依赖...';
           npm i child_process;
           echo ' 正在更新版本号...';
-          node autoUpdateVersion.js COMMIT="$(git rev-parse --short HEAD)";
+          node ./script/autoUpdateVersion.js COMMIT="$(git rev-parse --short HEAD)";
           echo 'Auto Update Version DONE!';
 
       - name: 获取 GIT 权限
@@ -80,6 +80,12 @@ jobs:
 
       - name: Build dist
         run: yarn build
+
+      - name: 压缩 HMTL
+        run: |
+          echo '正在压缩文件...';
+          node ./script/compressionHtml.js
+          echo '压缩完毕！';
 
       - name: 上传
         uses: garygrossgarten/github-action-scp@release
