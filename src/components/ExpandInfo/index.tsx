@@ -11,7 +11,7 @@ export default (props: any) => {
 	useEffect(() => {
 		const Timer = setTimeout(() => {
 			setOpen(true)
-		}, 250)
+		}, 350)
 
 		if (!l2dUnfold) {
 			setOpen(false)
