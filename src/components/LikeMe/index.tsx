@@ -90,6 +90,7 @@ export default (props: any) => {
 					setLikeLoad(true)
 				})
 			} else {
+				setLikeLoad(true)
 				numberGrow(400, setLikeCount)
 				CloneLoadAn()
 			}
