@@ -53,3 +53,40 @@ jobs:
           echo ' 更新成功！'; \
           echo "---------- MAIN ----------"
           echo ' 作业完毕。'
+  pushWebsite:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: 使用 Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+
+      - name: 获取 yarn 缓存目录路径
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - uses: actions/cache@v2
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: ${{ runner.os }}-yarn-
+
+      - name: 安装依赖
+        run: yarn
+
+      - name: Build dist
+        run: yarn build
+
+      - name: 上传
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: dist
+          remote: /LF/site/LF/index
+          host: ${{ secrets.SERVERIP }}
+          port: ${{ secrets.SERVERPORT }}
+          username: ${{ secrets.SERVERUSERNAME }}
+          privateKey: ${{ secrets.SERVER_SSH_KEY }}
