@@ -74,8 +74,9 @@ export default (props: any) => {
 	useEffect(() => {
 		if (loadStatus) {
 			if (cacheLike) {
+				CloneLoadAn()
 				setClickLock(true)
-				//this.likeAn()
+				LikeAn()
 			} else if (isLike == null || isLike == undefined)
 				reactLocalStorage.set('like', false)
 			if (process.env.NODE_ENV === 'production') {
