@@ -1,6 +1,6 @@
 {
 	"name": "FUTI",
-  "version": "0.0.17-50c7112",
+	"version": "0.0.17-50c7112",
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc && vite build",
@@ -12,6 +12,7 @@
 		"@types/react-redux": "^7.1.18",
 		"@types/styled-components": "^5.1.14",
 		"axios": "^0.22.0",
+		"buffer": "^6.0.3",
 		"child_process": "^1.0.2",
 		"fastdom": "^1.0.10",
 		"leancloud-storage": "2",
