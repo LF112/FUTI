@@ -9,14 +9,16 @@ import MoreInfo from 'components/MoreInfo'
 import SocialLink from 'components/SocialLink'
 //[ component ]
 
-import { isMobile } from 'utils/useTools'
+import { isMobile, isFutiSite } from 'utils/useTools'
 //[ utils ]
 
 //=> DOM
 export default (props: any) => {
 	return (
 		<Main className='MAIN'>
-			<div className={isMobile ? 'MobileBackGround' : ''}>
+			<div
+				className={isMobile ? 'MobileBackGround' : isFutiSite ? 'FUTIWOLF' : ''}
+			>
 				<div>
 					<article className='IsLF'>
 						<div>
@@ -68,5 +70,17 @@ const Main = styled.main`
 		background-size: cover;
 		filter: blur(5px);
 		background-image: url('https://cdn.lfio.net/background/futiwolf_background.jpg');
+	}
+	.FUTIWOLF:before {
+		content: '';
+		position: fixed;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		z-index: -1;
+		background-size: cover;
+		background-image: url('https://cdn.lfio.net/background/detroit.jpg');
+		filter: blur(1px);
 	}
 `

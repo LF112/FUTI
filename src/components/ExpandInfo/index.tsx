@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { Trans } from 'react-i18next'
 
 import { useL2dInitStatus } from 'state/animation/hooks'
 
@@ -39,7 +40,9 @@ export default (props: any) => {
 				</TwoText>
 				<L2dModelAuthor style={open ? { marginBottom: 0, opacity: 1 } : {}}>
 					<a href='https://space.bilibili.com/22833244' target='_blank'>
-						<span>Model By Reiky With love</span>
+						<span>
+							<Trans>Model By Reiky With love</Trans>
+						</span>
 						<img alt='灯壹,reiky' src='https://cdn.lfio.net/avatar/reiky.jpg' />
 						<h2>灯壹 Reiky</h2>
 					</a>

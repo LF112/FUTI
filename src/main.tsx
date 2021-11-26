@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { Buffer } from 'buffer'
 //[ package ]
+
 import './index.less'
 import 'assets/element-ui-icon/index.less'
 //[ style ]

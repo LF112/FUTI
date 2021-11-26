@@ -1,7 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Trans } from 'react-i18next'
 //[ package ]
 
+import 'locales'
 import Ribbon from 'components/Ribbon'
 //[ component ]
 
@@ -10,6 +12,8 @@ import { useL2dInitStatus } from 'state/animation/hooks'
 
 import { AuoutMe } from 'constants/global/moreInfo'
 //[ constants & types ]
+
+import { isFutiSite } from 'utils/useTools'
 
 //=> DOM
 export default (props: any) => {
@@ -25,7 +29,9 @@ export default (props: any) => {
 							style={l2dUnfold ? { marginBottom: '-45px' } : {}}
 						>
 							<p>Hi, I'm</p>
-							<p className='default'>LF112</p>
+							<p className={isFutiSite ? 'addFont' : 'default'}>
+								<Trans>LF112</Trans>
+							</p>
 						</nav>
 						<Ribbon className='An' data-futi-an='SideIn' />
 					</div>
@@ -39,7 +45,9 @@ export default (props: any) => {
 								style={l2dUnfold ? { marginTop: '-20px' } : {}}
 							>
 								{item.icon}
-								<div>{item.name}</div>
+								<div>
+									<Trans>{item.name}</Trans>
+								</div>
 								<div className='divider' />
 							</div>
 						)

@@ -13,3 +13,6 @@ export const isSite = location.hostname
 	.split('.')
 	.map(x => x.toUpperCase())
 	.filter(x => ['LF112', 'FUTIWOLF', 'LOCALHOST'].includes(x))
+
+//=> 站点选择
+export const isFutiSite = isSite[0] === 'FUTIWOLF' ? true : false

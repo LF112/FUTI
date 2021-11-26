@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { reactLocalStorage } from 'reactjs-localstorage'
 import AV from 'leancloud-storage'
 import fastdom from 'fastdom'
+import { useTranslation } from 'react-i18next'
 
 import { ReactComponent as LikeIcon } from 'assets/svg/footer_like.svg'
 import Loading from 'components/Loading'
@@ -19,6 +20,7 @@ import { useAddPopup, useAddRA9 } from 'state/popup/hooks'
 
 //=> DOM
 export default (props: any) => {
+	const { t } = useTranslation()
 	const addPopup = useAddPopup()
 	const addRA9 = useAddRA9()
 
@@ -104,7 +106,7 @@ export default (props: any) => {
 	//=> 点击
 	const Click = () => {
 		if (cacheLike == null || cacheLike == undefined || !loadStatus || !likeLoad)
-			addPopup('warn', 'LIKE 正在装填中···', 1500)
+			addPopup('warn', t`Loading 'LIKEME' button···`, 1500)
 		else {
 			if (!clickLock) {
 				setClickLock(true)
@@ -129,9 +131,9 @@ export default (props: any) => {
 				reactLocalStorage.set('like', true)
 			} else if (cacheLike) {
 				if (!firstClickRA9) {
-					addRA9(false, 'I like you too!')
+					addRA9(false, t`I like you too!`)
 					setFirstClickRA9(true)
-				} else addPopup('lover', 'I like you too!', 1500)
+				} else addPopup('lover', t`I like you too!`, 1500)
 			}
 			if (!aixinShow) LikeAn()
 		}
@@ -145,7 +147,7 @@ export default (props: any) => {
 		fastdom.measure(() => {
 			const tipsDom = tipsNode.current
 			fastdom.mutate(() => {
-				tipsDom.setAttribute('data-tooltip', 'I like you too!')
+				tipsDom.setAttribute('data-tooltip', t`I like you too!`)
 				tipsDom.style.background = 'rgba(152, 89, 89, 0.4)'
 			})
 			setTimeout(() => {
@@ -154,13 +156,13 @@ export default (props: any) => {
 				fastdom.mutate(() => {
 					iconDom.opacity = '0'
 					likeCountDom.opacity = '0'
-					tipsDom.setAttribute('data-tooltip', 'Thank you~')
+					tipsDom.setAttribute('data-tooltip', t`Thank you~`)
 				})
 				const aixinDom = aixinNode.current.style
 				setTimeout(() => {
 					if (cacheLike)
 						tipsDom.setAttribute('data-tooltip', `${likeCount} love`)
-					else tipsDom.setAttribute('data-tooltip', 'Thank you~')
+					else tipsDom.setAttribute('data-tooltip', t`Thank you~`)
 					setAixinShow(true)
 				}, 1500)
 				aixinDom.opacity = '1'
@@ -182,7 +184,11 @@ export default (props: any) => {
 
 	return (
 		<MAIN onClick={() => Click()}>
-			<div ref={tipsNode as any} className='TIP' data-tooltip='Do you like me?'>
+			<div
+				ref={tipsNode as any}
+				className='TIP'
+				data-tooltip={t`Do you like me?`}
+			>
 				<main ref={node as any}>
 					<i ref={iconNode as any} className={likeIcon}></i>
 					<p ref={likeCountNode as any}>{likeCount}</p>

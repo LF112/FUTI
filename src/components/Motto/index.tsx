@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 import styled from 'styled-components'
+import { useTranslation } from 'react-i18next'
 //[ package ]
 
 import { SiRen } from 'utils/useSirenAn'
@@ -8,16 +9,14 @@ import { isBaiduSpider } from 'utils/useTools'
 
 //=> DOM
 export default (props: any) => {
+	const { t } = useTranslation()
 	const node = useRef<HTMLDivElement>()
 
 	useEffect(() => {
-		if (!isBaiduSpider)
-			setTimeout(
-				() => SiRen(node.current, 'Copy and paste constant defaulting.'),
-				250
-			)
-		else node.current.innerHTML = 'Copy and paste constant defaulting.'
-	}, [])
+		const TEXT = t`Copy and paste constant defaulting.`
+		if (!isBaiduSpider) setTimeout(() => SiRen(node.current, TEXT), 250)
+		else node.current.innerHTML = TEXT
+	}, [t])
 
 	return (
 		<Motto>
