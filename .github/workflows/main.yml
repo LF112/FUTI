@@ -88,11 +88,21 @@ jobs:
           node ./script/compressionHtml.js
           echo '压缩完毕！';
 
-      - name: 上传
+      - name: 更新 LF112.NET 站点
         uses: garygrossgarten/github-action-scp@release
         with:
           local: dist
           remote: /LF/site/LF/index
+          host: ${{ secrets.SERVERIP }}
+          port: ${{ secrets.SERVERPORT }}
+          username: ${{ secrets.SERVERUSERNAME }}
+          privateKey: ${{ secrets.SERVER_SSH_KEY }}
+
+      - name: 更新 FUTIWOLF.COM 站点
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: dist
+          remote: /LF/site/LF/futi
           host: ${{ secrets.SERVERIP }}
           port: ${{ secrets.SERVERPORT }}
           username: ${{ secrets.SERVERUSERNAME }}
