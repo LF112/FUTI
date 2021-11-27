@@ -1,6 +1,6 @@
 {
 	"name": "FUTI",
-  "version": "0.0.20-a9b59bb",
+	"version": "0.0.20-a9b59bb",
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc && vite build",
@@ -25,6 +25,7 @@
 		"reactjs-localstorage": "^1.0.1",
 		"redux-localstorage-simple": "^2.4.1",
 		"styled-components": "^5.3.1",
+		"tencentcloud-sdk-nodejs": "^4.0.245",
 		"vite-plugin-svgr": "^0.4.0",
 		"vite-tsconfig-paths": "^3.3.14",
 		"whatwg-fetch": "^3.6.2"
@@ -37,5 +38,6 @@
 		"typescript": "^4.3.2",
 		"vite": "^2.6.1",
 		"vite-plugin-compression": "^0.3.5"
-	}
+	},
+	"type": "module"
 }
