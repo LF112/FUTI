@@ -1,9 +1,9 @@
-const fs = require('fs')
-const minify = require('html-minifier').minify
+import { createReadStream, createWriteStream } from 'fs'
+import { minify } from 'html-minifier'
 
 //=> Main
 // 读取 html
-const read = fs.createReadStream('./dist/index.html')
+const read = createReadStream('./dist/index.html')
 
 read.setEncoding('utf-8')
 read.resume()
@@ -25,7 +25,7 @@ read.on('data', data => {
 	)
 	result = result.replace('</html>', CONFIG.copyright.bottom + '</html>')
 	console.log(result)
-	const write = fs.createWriteStream('./dist/index.html')
+	const write = createWriteStream('./dist/index.html')
 	write.write(result)
 })
 
