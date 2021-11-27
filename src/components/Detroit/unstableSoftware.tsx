@@ -194,6 +194,38 @@ export default memo((props: any) => {
 				{
 					next: 501,
 					fn: () => {
+						_frameStart.current.removeAttribute('style')
+						_frameStartDom.display = 'none'
+						_tipAn.current.removeAttribute('style')
+						_tipAnDom.display = 'none'
+						_frameOne.current.removeAttribute('style')
+						_frameOneDom.display = 'none'
+						_tipAn_1.current.removeAttribute('style')
+						_tipAn_1Dom.display = 'none'
+						_tipAn_2.current.removeAttribute('style')
+						_tipAn_2Dom.display = 'none'
+						_frameTwo.current.removeAttribute('style')
+						_frameTwoDom.display = 'none'
+						_tipAn_3.current.removeAttribute('style')
+						_randText_T1.current.removeAttribute('style')
+						_randText_T2.current.removeAttribute('style')
+						_randText_T3.current.removeAttribute('style')
+						_randText_T4.current.removeAttribute('style')
+						_randText_T5.current.removeAttribute('style')
+						_randText_B1.current.removeAttribute('style')
+						_randText_B2.current.removeAttribute('style')
+						_randText_B3.current.removeAttribute('style')
+						_randText_B4.current.removeAttribute('style')
+						_randText_B5.current.removeAttribute('style')
+						_frameEnd.current.removeAttribute('style')
+						_frameEndDom.display = 'none'
+						_frameEnd_3.current.removeAttribute('style')
+						_frameEnd_2.current.removeAttribute('style')
+						_frameEnd_2Dom.borderBottom = '145px solid hsl(0, 0%, 3%)'
+						_arrowAn.current.removeAttribute('style')
+						_arrowAn.current.style.display = 'none'
+						_arrowAn_Down.current.removeAttribute('style')
+						_arrowAn_DownDom.marginTop = props.down ? '-25px' : '85px'
 						removeRA9(props.iKey)
 					}
 				}
