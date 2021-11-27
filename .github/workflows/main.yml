@@ -132,7 +132,7 @@ jobs:
           restore-keys: ${{ runner.os }}-yarn-
 
       - name: 安装依赖
-        run: yarn add tencentcloud-sdk-nodejs chalk
+        run: yarn add tencentcloud-sdk-nodejs
 
       - name: 刷新
         run: node ./script/updateCDN.js secretid="${{ secrets.QCSDK_ID }}" secretkey="${{ secrets.QCSDK_SECRETS }}"
