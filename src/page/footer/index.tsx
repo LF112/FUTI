@@ -12,7 +12,7 @@ import { ReactComponent as FUTI_Icon } from 'assets/svg/futi.svg'
 import Ribbon from 'components/Ribbon'
 //[ component ]
 
-import { isBaiduSpider } from 'utils/useTools'
+import { isBaiduSpider, isFutiSite } from 'utils/useTools'
 //[ utils ]
 
 //=> DOM
@@ -30,7 +30,9 @@ export default (props: any) => {
 			<div>
 				<a
 					className='NAVIGATOR An'
-					href='https://www.futiwolf.com'
+					href={
+						isFutiSite ? 'https://www.lf112.net' : 'https://www.futiwolf.com'
+					}
 					data-futi-an='Zoom'
 				>
 					<FUTI_Icon />
