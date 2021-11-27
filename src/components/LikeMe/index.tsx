@@ -29,6 +29,7 @@ export default (props: any) => {
 	const [aixinShow, setAixinShow] = useState<boolean>(false)
 	const [firstClickRA9, setFirstClickRA9] = useState<boolean>(false)
 	const [likeCount, setLikeCount] = useState<number>(0)
+	const [likeCountOriginal, setLikeCountOriginal] = useState<number>(0)
 	const [likeIcon, setLikeIcon] = useState<string>('')
 
 	const node = useRef<HTMLDivElement>()
@@ -74,29 +75,35 @@ export default (props: any) => {
 	const cacheLike = isLike == null ? false : isLike == 'false' ? false : true
 
 	useEffect(() => {
+		if (process.env.NODE_ENV === 'production') {
+			//=> 从 LeanCloud 获取点赞数
+			const AV_ON = AV.Object.extend('LiCount')
+			const AV_Main = new AV.Query(AV_ON)
+
+			AV_Main.equalTo('ID', 'LF_LikeMe')
+			AV_Main.find().then(Results => {
+				CloneLoadAn()
+				setLikeCountOriginal(Results[0].attributes.count)
+			})
+		} else setLikeCountOriginal(400)
+	}, [])
+
+	useEffect(() => {
 		if (loadStatus) {
+			if (process.env.NODE_ENV === 'production') {
+				numberGrow(likeCountOriginal, setLikeCount)
+				setLikeLoad(true)
+			} else {
+				setLikeLoad(true)
+				numberGrow(400, setLikeCount)
+				CloneLoadAn()
+			}
 			if (cacheLike) {
 				CloneLoadAn()
 				setClickLock(true)
 				LikeAn()
 			} else if (isLike == null || isLike == undefined)
 				reactLocalStorage.set('like', false)
-			if (process.env.NODE_ENV === 'production') {
-				//=> 从 LeanCloud 获取点赞数
-				const AV_ON = AV.Object.extend('LiCount')
-				const AV_Main = new AV.Query(AV_ON)
-
-				AV_Main.equalTo('ID', 'LF_LikeMe')
-				AV_Main.find().then(Results => {
-					CloneLoadAn()
-					numberGrow(Results[0].attributes.count, setLikeCount)
-					setLikeLoad(true)
-				})
-			} else {
-				setLikeLoad(true)
-				numberGrow(400, setLikeCount)
-				CloneLoadAn()
-			}
 
 			//=> 随机点赞 Icon
 			setLikeIcon(randIcon)
@@ -119,13 +126,13 @@ export default (props: any) => {
 						AV_TO.increment('count')
 						AV_TO.save().then(
 							() => {
-								setLikeCount(likeCount + 1)
+								setLikeCountOriginal(likeCountOriginal + 1)
 								console.log('[Success] Like success!')
 							},
 							() => console.log('[ERR] Like failed!')
 						)
 					})
-				} else setLikeCount(likeCount + 1)
+				} else setLikeCountOriginal(likeCountOriginal + 1)
 				LikeAn()
 				addRA9(true, '軟體不穩定')
 				reactLocalStorage.set('like', true)
@@ -160,8 +167,9 @@ export default (props: any) => {
 				})
 				const aixinDom = aixinNode.current.style
 				setTimeout(() => {
+					console.log(likeCountOriginal)
 					if (cacheLike)
-						tipsDom.setAttribute('data-tooltip', `${likeCount} love`)
+						tipsDom.setAttribute('data-tooltip', `${likeCountOriginal} love`)
 					else tipsDom.setAttribute('data-tooltip', t`Thank you~`)
 					setAixinShow(true)
 				}, 1500)
