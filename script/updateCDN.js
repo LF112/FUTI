@@ -1,5 +1,5 @@
 // Depends on tencentcloud-sdk-nodejs version 4.0.3 or higher
-import * as tencentcloud from 'tencentcloud-sdk-nodejs'
+import { cdn } from 'tencentcloud-sdk-nodejs'
 
 console.log(
 	' _   _                 _        ' +
@@ -16,7 +16,7 @@ console.log(
 		'App start operation.'
 )
 
-const CdnClient = tencentcloud.cdn.v20180606.Client
+const CdnClient = cdn.v20180606.Client
 
 // 配置
 const args = process.argv.slice(2)
