@@ -1,27 +1,19 @@
 // Depends on tencentcloud-sdk-nodejs version 4.0.3 or higher
-const tencentcloud = require('tencentcloud-sdk-nodejs')
-const chalk = require('chalk')
-
-const isPrefix =
-	chalk.blue('[') +
-	chalk.white.underline.bold(process.env.npm_package_name) +
-	chalk.blue(']=> ')
+import * as tencentcloud from 'tencentcloud-sdk-nodejs'
 
 console.log(
-	chalk.blue(
-		' _   _                 _        ' +
-			'\n' +
-			'| | | | __ _ ___ _   _| | _____ ' +
-			'\n' +
-			'| |_| |/ _` / __| | | | |/ / _ \\' +
-			'\n' +
-			'|  _  | (_| \\__ \\ |_| |   <  __/' +
-			'\n' +
-			'|_| |_|\\__,_|___/\\__,_|_|\\_\\___|' +
-			'\n'
-	) +
-		chalk.yellow('----------------> ') +
-		chalk.red('App start operation.')
+	' _   _                 _        ' +
+		'\n' +
+		'| | | | __ _ ___ _   _| | _____ ' +
+		'\n' +
+		'| |_| |/ _` / __| | | | |/ / _ \\' +
+		'\n' +
+		'|  _  | (_| \\__ \\ |_| |   <  __/' +
+		'\n' +
+		'|_| |_|\\__,_|___/\\__,_|_|\\_\\___|' +
+		'\n' +
+		'----------------> ' +
+		'App start operation.'
 )
 
 const CdnClient = tencentcloud.cdn.v20180606.Client
@@ -47,7 +39,7 @@ const client = new CdnClient({
 })
 
 // 刷新 URL 预热
-console.log(isPrefix + chalk.cyan('正在刷新 URL 预热'))
+console.log('正在刷新 URL 预热')
 client
 	.PurgeUrlsCache({
 		Urls: [
@@ -60,16 +52,16 @@ client
 	.then(
 		data => {
 			console.log(data)
-			console.log(isPrefix + chalk.green('Success! √'))
+			console.log('Success! √')
 		},
 		err => {
 			console.error('error', err)
-			console.log(isPrefix + chalk.red('预热刷新失败 ×'))
+			console.log('预热刷新失败 ×')
 		}
 	)
 
 // 刷新 目录 预热
-console.log(isPrefix + chalk.cyan('正在刷新 目录 预热'))
+console.log('正在刷新 目录 预热')
 client
 	.PurgePathCache({
 		Paths: [
@@ -83,10 +75,10 @@ client
 	.then(
 		data => {
 			console.log(data)
-			console.log(isPrefix + chalk.green('Success! √'))
+			console.log('Success! √')
 		},
 		err => {
 			console.error('error', err)
-			console.log(isPrefix + chalk.red('预热刷新失败 ×'))
+			console.log('预热刷新失败 ×')
 		}
 	)
