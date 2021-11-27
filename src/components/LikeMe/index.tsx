@@ -126,13 +126,13 @@ export default (props: any) => {
 						AV_TO.increment('count')
 						AV_TO.save().then(
 							() => {
-								setLikeCount(likeCount + 1)
+								setLikeCountOriginal(likeCountOriginal + 1)
 								console.log('[Success] Like success!')
 							},
 							() => console.log('[ERR] Like failed!')
 						)
 					})
-				} else setLikeCount(likeCount + 1)
+				} else setLikeCountOriginal(likeCountOriginal + 1)
 				LikeAn()
 				addRA9(true, '軟體不穩定')
 				reactLocalStorage.set('like', true)
