@@ -1,6 +1,7 @@
 import React, { Suspense, useMemo, useRef, useEffect } from 'react'
 import styled from 'styled-components'
 import fastdom from 'fastdom'
+import { Trans } from 'react-i18next'
 //[ package ]
 
 import Loading from 'components/Loading'
@@ -16,7 +17,7 @@ import {
 } from 'state/animation/hooks'
 //[ state ]
 
-import { isBaiduSpider } from 'utils/useTools'
+import { isBaiduSpider, isFutiSite } from 'utils/useTools'
 //[ utils ]
 
 //=> DOM
@@ -126,6 +127,8 @@ export default (props: any) => {
 								src={
 									isBaiduSpider
 										? 'https://cdn.lfio.net/futiwolf_bdi.png'
+										: isFutiSite
+										? 'https://cdn.lfio.net/FUTIWOLF.png'
 										: 'https://cdn.lfio.net/lf112.png'
 								}
 							/>
@@ -144,7 +147,9 @@ export default (props: any) => {
 						className='el-icon-thumb'
 						style={{ opacity: l2dInitStatus ? (l2dUnfold ? 0 : 1) : 0 }}
 					>
-						<span>TOUCH</span>
+						<span>
+							<Trans>TOUCH</Trans>
+						</span>
 					</i>
 				</TouchMe>
 				<Frame>

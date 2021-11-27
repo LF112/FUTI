@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import fastdom from 'fastdom'
+import { useTranslation } from 'react-i18next'
 
 //import Loading from 'page/loading/main'
 import GA1 from 'components/Background/GA1'
@@ -10,7 +11,7 @@ import Popups from 'components/Popups'
 //[ Component ]
 
 import { LoadAn } from 'utils/useLoadAn'
-import { isBaiduSpider, isMobile } from 'utils/useTools'
+import { isBaiduSpider, isMobile, isFutiSite } from 'utils/useTools'
 //[ utils ]
 
 import { useUpdateLoadStatus } from 'state/animation/hooks'
@@ -18,9 +19,15 @@ import { useUpdateLoadStatus } from 'state/animation/hooks'
 
 //=> Main Component
 export default () => {
+	const { i18n } = useTranslation()
+
 	const updateLoadStatus = useUpdateLoadStatus()
 
 	useEffect(() => {
+		if (isFutiSite) {
+			i18n.changeLanguage('cn')
+			document.title = '伏太 - 个人主页 | 诗与兽'
+		}
 		if (isMobile)
 			fastdom.measure(() => {
 				const BODY = document.querySelector('body')
@@ -57,7 +64,7 @@ export default () => {
 			<Main />
 			<Footer />
 
-			{!isBaiduSpider && !isMobile ? <GA1 /> : <></>}
+			{!isBaiduSpider && !isMobile && !isFutiSite ? <GA1 /> : <></>}
 		</>
 	)
 }

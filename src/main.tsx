@@ -1,13 +1,25 @@
 import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
+import { Buffer } from 'buffer'
 //[ package ]
+
 import './index.less'
 import 'assets/element-ui-icon/index.less'
 //[ style ]
 
 import store from 'state'
 //[ store ]
+
+import { isSite } from 'utils/useTools'
+//[ utils ]
+
+//=> 防镜像站
+if (isSite.length <= 0)
+	window.location.href = `https://${Buffer.from(
+		'7777772e6c663131322e6e6574',
+		'hex'
+	).toString()}`
 
 //=> 懒加载 Main | '后期装载嵌入式博客可用'
 const mainModule = import.meta.glob('./App.tsx')

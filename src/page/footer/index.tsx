@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react'
 import styled from 'styled-components'
 import Package from '../../../package.json'
+import { useTranslation } from 'react-i18next'
 //[ package ]
 import './index.less'
 //[ style ]
@@ -16,7 +17,9 @@ import { isBaiduSpider } from 'utils/useTools'
 
 //=> DOM
 export default (props: any) => {
-	//=> 懒加载 Main | '后期装载嵌入式博客可用'
+	const { t } = useTranslation()
+
+	//=> 懒加载 LikeMe
 	const likeMeModule = import.meta.glob('../../components/LikeMe/index.tsx')
 	const LazyLikeMe = React.lazy(
 		likeMeModule['../../components/LikeMe/index.tsx'] as any
@@ -43,7 +46,7 @@ export default (props: any) => {
 							<a
 								className='LF TIP'
 								href='https://www.lf112.net/'
-								data-tooltip='🙃 Independent Websites Developer'
+								data-tooltip={t`🙃 Independent Websites Developer`}
 							>
 								&nbsp;LF112&nbsp;
 							</a>
@@ -56,7 +59,7 @@ export default (props: any) => {
 								href='http://beian.miit.gov.cn'
 								rel='noopener noreferrer'
 								target='_blank'
-								data-tooltip='🔖 ICP'
+								data-tooltip={t`🔖 ICP`}
 							>
 								琼 ICP 备 2021000434 号 - 2
 							</a>
@@ -68,7 +71,7 @@ export default (props: any) => {
 								href='http://www.beian.gov.cn/portal/registerSystemInfo'
 								rel='noopener noreferrer'
 								target='_blank'
-								data-tooltip='🔒️ Public Security Beian'
+								data-tooltip={t`🔒️ Public Security Beian`}
 							>
 								琼公安备 46010702000093 号
 							</a>
@@ -80,7 +83,7 @@ export default (props: any) => {
 								href='https://github.com/LF112/FUTI'
 								rel='noopener noreferrer'
 								target='_blank'
-								data-tooltip='✨ Github Repo'
+								data-tooltip={t`✨ Github Repo`}
 							>
 								V{Package.version}
 							</a>

@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Trans } from 'react-i18next'
 //[ package ]
 
 import { Links } from 'constants/global/socialLink'
@@ -28,7 +29,9 @@ export default (props: any) => {
 							<div>
 								<div>
 									{item.icon}
-									<p>{item.name}</p>
+									<p>
+										<Trans>{item.name}</Trans>
+									</p>
 								</div>
 							</div>
 						</Link>
