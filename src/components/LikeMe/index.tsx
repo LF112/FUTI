@@ -167,7 +167,6 @@ export default (props: any) => {
 				})
 				const aixinDom = aixinNode.current.style
 				setTimeout(() => {
-					console.log(likeCountOriginal)
 					if (cacheLike)
 						tipsDom.setAttribute('data-tooltip', `${likeCountOriginal} love`)
 					else tipsDom.setAttribute('data-tooltip', t`Thank you~`)
