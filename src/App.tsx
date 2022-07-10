@@ -6,12 +6,15 @@
  * 请注意，本项目使用 AGPL v3 开源协议开源，请严格依照开源协议进行不限于编辑、分发等操作。详见 https://www.chinasona.org/gnu/agpl-3.0-cn.html
  */
 import React, { useEffect } from 'react'
-import styled from 'styled-components'
 import fastdom from 'fastdom'
 //[ package ]
 
 import { useUpdateLoadStatus } from 'state/status/hooks'
 //[ store ]
+
+import Header from 'components/global/Header'
+import Main from 'page/main'
+//[ components ]
 
 //=> DOM
 export default () => {
@@ -33,18 +36,13 @@ export default () => {
 			})
 		})
 		//=> 更新页面载入状态
-		setTimeout(() => updateLoadStatus(true), 800)
+		setTimeout(() => updateLoadStatus(true), 250)
 	}, [''])
 
-	return <Main></Main>
+	return (
+		<>
+			<Header />
+			<Main />
+		</>
+	)
 }
-
-//=> Style
-const Main = styled.main`
-	position: relative;
-	width: 100vw;
-	height: 100vh;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-`
