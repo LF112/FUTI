@@ -17,6 +17,9 @@ import { GlobalStyle } from './style'
 import store from 'state'
 //[ store ]
 
+import App from './App'
+//[ pages ]
+
 //=> Render | 渲染页面
 //=> 绑定渲染组件↓
 createRoot(document.getElementById('FUTIWOLF')).render(
@@ -25,7 +28,7 @@ createRoot(document.getElementById('FUTIWOLF')).render(
 		<GlobalStyle />
 		{/* REACT REDUX */}
 		<Provider store={store}>
-			<></>
+			<App />
 		</Provider>
 	</React.StrictMode>
 )
