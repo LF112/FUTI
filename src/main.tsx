@@ -10,12 +10,15 @@ import { createRoot } from 'react-dom/client'
 //[ package ]
 
 import 'assets/element-ui-icon/index.css'
+import { GlobalStyle } from './style'
 //[ style ]
 
 //=> Render | 渲染页面
 //=> 绑定渲染组件↓
 createRoot(document.getElementById('FUTIWOLF')).render(
 	<React.StrictMode>
+		{/* 引用全局样式 */}
+		<GlobalStyle />
 		<></>
 	</React.StrictMode>
 )
