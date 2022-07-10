@@ -32,15 +32,13 @@ jobs:
           echo "---------- MAIN ----------"
           echo ' 正在安装依赖...';
           npm i child_process;
-          echo ' 正在更新版本号...';
-          node ./script/autoUpdateVersion.js COMMIT="$(git rev-parse --short HEAD)";
+          echo ' 正在执行更新脚本...';
+          node ./script/autoUpdateVersion.js COMMIT="$(git rev-parse --short HEAD)" BRANCH="$(git rev-parse --abbrev-ref HEAD)";
           echo 'Auto Update Version DONE!';
 
       - name: 获取 GIT 权限
         run: |
-          go env -w GOPRIVATE="github.com/fuicou"
           git config --global url."https://fuicou:${{ secrets.GH_TOKEN }}@github.com".insteadOf "https://github.com"
-          go get -v -t -d ./...
           git config --global user.email "lf@furry.icu"
           git config --global user.name "fuicou"
 
