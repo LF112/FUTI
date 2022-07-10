@@ -11,7 +11,7 @@ import { Provider } from 'react-redux'
 //[ package ]
 
 import 'assets/element-ui-icon/index.css'
-import { GlobalStyle } from './style'
+import { GlobalStyle } from './_html/style'
 //[ style ]
 
 import store from 'state'

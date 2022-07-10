@@ -8,6 +8,8 @@
 import { createGlobalStyle } from 'styled-components'
 //[ package ]
 
+import { AnimationCSS } from './animation'
+
 //=> Style | '全局样式'
 export const GlobalStyle = createGlobalStyle`
 *,
@@ -150,4 +152,7 @@ span {
 	background: #b2b8c1;
 	color: #0bf;
 }
+
+/* 引入其他 CSS */
+${AnimationCSS}
 `
