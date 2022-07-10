@@ -12,6 +12,13 @@ import { css } from 'styled-components'
 
 //=> Style
 export const AnimationCSS = css`
+	.an-active {
+		animation-play-state: running;
+	}
+	.an-paused {
+		animation-play-state: paused;
+	}
+
 	/* 渐入渐出 */
 	@keyframes FadeIn {
 		0% {
