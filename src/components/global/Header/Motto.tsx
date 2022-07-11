@@ -10,6 +10,9 @@ import React from 'react'
 import styled from 'styled-components'
 //[ package ]
 
+import SiRenText from 'components/reusable/SirenText'
+//[ components ]
+
 import { useLoadStatus } from 'state/status/hooks'
 //[ state ]
 
@@ -18,28 +21,29 @@ export default () => {
 	const loadStatus = useLoadStatus()
 
 	return (
-		<Ribbon className={loadStatus ? 'an-active' : 'an-paused'}>
-			<div />
-		</Ribbon>
+		<Main>
+			<div>
+				<SiRenText
+					text={'Copy and paste constant defaulting.'}
+					show={loadStatus}
+				/>
+			</div>
+		</Main>
 	)
 }
 
 //=> Style
-const Ribbon = styled.div`
+const Main = styled.div`
 	position: relative;
-	width: 100%;
-	height: 6px;
-	overflow: hidden;
-	animation: FadeIn_Top 250ms forwards;
+	display: inline-flex;
+	height: 100%;
+	text-align: center;
+	align-items: center;
 	> div {
-		width: 100%;
-		height: 3px;
-		background: linear-gradient(to right, #37eff9, #0091e4, #64c6f4, #64c0ec);
-		box-shadow: 0 1px 3px hsl(0deg, 0%, 10%, 10%);
-	}
-	@media screen and (max-width: 780px) {
-		position: fixed;
-		top: 0;
-		z-index: 20;
+		padding: 0 45px;
+		/* border-right: 1px solid rgba(255, 255, 255, 0.2); */
+		color: rgba(255, 255, 255, 55%);
+		font-weight: bold;
+		font-size: 20px;
 	}
 `

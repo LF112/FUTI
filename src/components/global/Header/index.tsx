@@ -11,12 +11,15 @@ import styled from 'styled-components'
 //[ package ]
 
 import Ribbon from './Ribbon'
+import Motto from './Motto'
+//[ components ]
 
 //=> DOM
 export default () => {
 	return (
 		<Header>
 			<Ribbon />
+			<Motto />
 		</Header>
 	)
 }
