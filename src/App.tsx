@@ -14,6 +14,7 @@ import { useUpdateLoadStatus } from 'state/status/hooks'
 
 import Header from 'components/global/Header'
 import Main from 'page/main'
+import Footer from 'components/global/Footer'
 //[ components ]
 
 //=> DOM
@@ -43,6 +44,7 @@ export default () => {
 		<>
 			<Header />
 			<Main />
+			<Footer />
 		</>
 	)
 }

@@ -9,17 +9,36 @@ import React from 'react'
 import styled from 'styled-components'
 //[ package ]
 
+import Logo from './Logo'
+//[ components ]
+
 //=> DOM
 export default () => {
-	return <Main></Main>
+	return (
+		<Footer>
+			<div>
+				<Logo />
+			</div>
+		</Footer>
+	)
 }
 
 //=> Style
-const Main = styled.main`
+const Footer = styled.footer`
 	position: relative;
-	width: 100vw;
-	height: calc(100vh - 136px);
+	width: 100%;
+	height: 55px;
 	display: flex;
-	justify-content: center;
 	align-items: center;
+	> div {
+		width: 100%;
+		position: relative;
+		display: flex;
+		align-items: center;
+	}
+	@media screen and (max-width: 780px) {
+		> div {
+			display: inline-grid;
+		}
+	}
 `
