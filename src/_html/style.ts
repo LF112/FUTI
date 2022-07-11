@@ -9,6 +9,12 @@ import { createGlobalStyle } from 'styled-components'
 //[ package ]
 
 import { AnimationCSS } from './animation'
+//[ css ]
+
+import _font_Ruizi from 'assets/fonts/ruizi.ttf'
+import _font_elementIcons_woff from 'assets/fonts/element-icons.woff'
+import _font_elementIcons from 'assets/fonts/element-icons.ttf'
+//[ assets ]
 
 //=> Style | '全局样式'
 export const GlobalStyle = createGlobalStyle`
@@ -49,25 +55,22 @@ span {
 	transition: all 0.5s cubic-bezier(0.66, 0.09, 0.49, 1.21);/* 全局非线性 */
 }
 
+/* 字体 */
 @font-face {
 	font-family: 'RuiZi';
 	font-display: swap;
-	src: url('./assets/fonts/ruizi.ttf') format('truetype');
+	src: url(${_font_Ruizi}) format('truetype');
 }
 
 @font-face {
 	font-family: 'element-icons';
-	src: url('./assets/fonts/element-icons.woff') format('woff'),
-		url('./assets/fonts/element-icons.ttf') format('truetype');
+	src: url(${_font_elementIcons_woff}) format('woff'),
+		url(${_font_elementIcons}) format('truetype');
 	font-weight: normal;
 	font-style: normal;
 }
 
-.An {
-	position: relative;
-	top: -10px;
-	opacity: 0;
-}
+/* 触摸提示框 */
 
 .TIP:after {
 	position: absolute;
@@ -100,6 +103,8 @@ span {
 	opacity: 1;
 	transform: translate(-50%, -0.2rem) scale(0.8);
 }
+
+/* 滚动条 & 选中 */
 
 ::-webkit-scrollbar {
 	width: 6px;
