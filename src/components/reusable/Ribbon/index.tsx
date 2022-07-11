@@ -10,15 +10,11 @@ import React from 'react'
 import styled from 'styled-components'
 //[ package ]
 
-import { useLoadStatus } from 'state/status/hooks'
-//[ state ]
-
 //=> DOM
-export default () => {
-	const loadStatus = useLoadStatus()
-
+export default (props: any) => {
+	const { className } = props
 	return (
-		<Ribbon className={loadStatus ? 'an-active' : 'an-paused'}>
+		<Ribbon className={className}>
 			<div />
 		</Ribbon>
 	)

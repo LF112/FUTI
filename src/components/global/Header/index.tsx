@@ -10,15 +10,20 @@ import React from 'react'
 import styled from 'styled-components'
 //[ package ]
 
-import Ribbon from './Ribbon'
+import Ribbon from '../../reusable/Ribbon'
 import Motto from './Motto'
 //[ components ]
 
+import { useLoadStatus } from 'state/status/hooks'
+//[ state ]
+
 //=> DOM
 export default () => {
+	const loadStatus = useLoadStatus()
+
 	return (
 		<Header>
-			<Ribbon />
+			<Ribbon className={loadStatus ? 'an-active' : 'an-paused'} />
 			<Motto />
 		</Header>
 	)
