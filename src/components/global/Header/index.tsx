@@ -23,7 +23,10 @@ export default () => {
 
 	return (
 		<Header>
-			<Ribbon className={loadStatus ? 'an-active' : 'an-paused'} />
+			<Ribbon
+				className={loadStatus ? 'an-active' : 'an-paused'}
+				style={{ animation: 'FadeIn_Top 250ms forwards' }}
+			/>
 			<Motto />
 		</Header>
 	)

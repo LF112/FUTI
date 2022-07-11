@@ -12,9 +12,9 @@ import styled from 'styled-components'
 
 //=> DOM
 export default (props: any) => {
-	const { className } = props
+	const { className, style } = props
 	return (
-		<Ribbon className={className}>
+		<Ribbon className={className} style={style}>
 			<div />
 		</Ribbon>
 	)
@@ -25,8 +25,8 @@ const Ribbon = styled.div`
 	position: relative;
 	width: 100%;
 	height: 6px;
+	border-radius: 20px;
 	overflow: hidden;
-	animation: FadeIn_Top 250ms forwards;
 	> div {
 		width: 100%;
 		height: 3px;

@@ -10,6 +10,7 @@ import styled from 'styled-components'
 //[ package ]
 
 import Logo from './Logo'
+import MoreInfo from './MoreInfo'
 //[ components ]
 
 //=> DOM
@@ -18,6 +19,7 @@ export default () => {
 		<Footer>
 			<div>
 				<Logo />
+				<MoreInfo />
 			</div>
 		</Footer>
 	)

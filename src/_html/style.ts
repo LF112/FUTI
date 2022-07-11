@@ -90,7 +90,7 @@ span {
 	font-weight: lighter;
 	font-size: 14px;
 	letter-spacing: 0.2px;
-	font-family: Poppins;
+	font-family: 'Poppins', 'Titillium Web';
 	line-height: 20px;
 	opacity: 0;
 	transition: opacity 0.2s, transform 0.2s;
