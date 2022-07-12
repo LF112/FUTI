@@ -36,6 +36,7 @@ export default () => {
 
 	return (
 		<GA1 ref={node}>
+			<Mask />
 			<div ref={container}>
 				<LEFT
 					data-depth='0.2'
@@ -68,6 +69,18 @@ const GA1 = styled.div`
 		justify-content: center;
 	}
 `
+
+const Mask = styled.div`
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	backdrop-filter: blur(5px);
+	pointer-events: none;
+	z-index: 10;
+`
+
 const LEFT = styled.img`
 	top: -25px !important;
 	left: -35vw !important;
