@@ -11,6 +11,7 @@ import styled from 'styled-components'
 
 import Frame from './Frame'
 import IMGCentered from './IMGCentered'
+import TouchMe from './TouchMe'
 //[ components ]
 
 import {
@@ -67,6 +68,7 @@ export default () => {
 					padding: containerPadding
 				}}>
 				<IMGCentered l2dInitStatus={l2dInitStatus} l2dShow={l2dShow} />
+				<TouchMe l2dInitStatus={l2dInitStatus} l2dUnfold={l2dUnfold} />
 				<Frame />
 			</div>
 		</Main>
