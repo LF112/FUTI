@@ -15,16 +15,15 @@ import { isSpider } from 'utils/useTools'
 
 //=> DOM
 export default (props: any) => {
-	const { show = false, text: TEXT, className, style } = props
+	const { text: TEXT, className, style } = props
 
 	const node = useRef<HTMLDivElement>(null)
 	useEffect(() => {
 		const DOM = node?.current
-		if (show && DOM) {
+		if (DOM)
 			if (!isSpider) setTimeout(() => SiRen(DOM, TEXT), 250)
 			else DOM.innerHTML = TEXT
-		}
-	}, [show])
+	}, [''])
 
 	return <TextMain ref={node} className={className} style={style} />
 }

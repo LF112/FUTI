@@ -14,18 +14,12 @@ import Ribbon from '../../reusable/Ribbon'
 import Motto from './Motto'
 //[ components ]
 
-import { useLoadStatus } from 'state/status/hooks'
-//[ state ]
-
 //=> DOM
 export default () => {
-	const loadStatus = useLoadStatus()
-
 	return (
 		<Header>
 			<Ribbon
-				className={loadStatus ? 'an-active' : 'an-paused'}
-				style={{ animation: 'FadeIn_Top 250ms forwards' }}
+				style={{ animation: 'FadeIn_Top 250ms forwards', borderRadius: 0 }}
 			/>
 			<Motto />
 		</Header>

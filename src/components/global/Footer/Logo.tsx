@@ -15,16 +15,10 @@ import { ReactComponent as ICON_FUTI } from 'assets/svg/futi.svg'
 import { isFutiSite } from 'utils/useTools'
 //[ utils ]
 
-import { useLoadStatus } from 'state/status/hooks'
-//[ state ]
-
 //=> DOM
 export default () => {
-	const loadStatus = useLoadStatus()
-
 	return (
 		<Main
-			className={loadStatus ? 'an-active' : 'an-paused'}
 			href={isFutiSite ? 'https://www.lf112.net' : 'https://www.futiwolf.com'}>
 			<ICON_FUTI />
 			<Thanks className='TIP' data-tooltip='⚡Navigator Kepler'>
