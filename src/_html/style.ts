@@ -12,6 +12,9 @@ import { AnimationCSS } from './animation'
 //[ css ]
 
 import _font_Ruizi from 'assets/fonts/ruizi.ttf'
+import _font_REEJI_PinboGB from 'assets/fonts/REEJI-PinboGB.ttf'
+import _font_REEJI_PinboGB_woff from 'assets/fonts/REEJI-PinboGB.woff'
+import _font_REEJI_PinboGB_woff2 from 'assets/fonts/REEJI-PinboGB.woff2'
 import _font_elementIcons_woff from 'assets/fonts/element-icons.woff'
 import _font_elementIcons from 'assets/fonts/element-icons.ttf'
 //[ assets ]
@@ -60,6 +63,16 @@ span {
 	font-family: 'RuiZi';
 	font-display: swap;
 	src: url(${_font_Ruizi}) format('truetype');
+}
+
+@font-face {
+    font-family: 'REEJI-PinboGB';
+    src: url(${_font_REEJI_PinboGB_woff2}) format('woff2'),
+        url(${_font_REEJI_PinboGB_woff}) format('woff'),
+        url(${_font_REEJI_PinboGB}) format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
 }
 
 @font-face {

@@ -45,7 +45,7 @@ const Main = styled.a`
 `
 
 const Thanks = styled.div`
-	font-family: 'Saira';
+	font-family: 'REEJI-PinboGB';
 	color: hsla(0, 0%, 45.1%, 0.12);
 	font-size: 12px;
 	margin-top: -20px;

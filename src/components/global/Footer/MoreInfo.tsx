@@ -115,7 +115,10 @@ const Main = styled.main<{ An: boolean }>`
 			color: hsla(0, 0%, 100%, 0.19);
 			font-weight: lighter;
 			user-select: none;
-			font-family: 'Poppins', 'Titillium Web';
+			font-family: 'REEJI-PinboGB', 'Titillium Web';
+		}
+		a {
+			font-family: 'REEJI-PinboGB', 'Titillium Web';
 		}
 		> p {
 			opacity: 0;
