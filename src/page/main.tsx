@@ -9,9 +9,21 @@ import React from 'react'
 import styled from 'styled-components'
 //[ package ]
 
+import Avatar from 'components/page/main/Avatar'
+
 //=> DOM
 export default () => {
-	return <Main></Main>
+	return (
+		<Main>
+			<div>
+				<Profile>
+					<div>
+						<Avatar />
+					</div>
+				</Profile>
+			</div>
+		</Main>
+	)
 }
 
 //=> Style
@@ -22,4 +34,26 @@ const Main = styled.main`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	padding: 0 25px;
+	> div {
+		position: relative;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin: 0 auto;
+	}
+`
+
+const Profile = styled.div`
+	position: relative;
+	height: calc(100vh - 140px);
+	display: flex;
+	align-items: center;
+	padding: 0 15px;
+	> div {
+		width: 100%;
+		position: relative;
+		padding: 10px 0;
+		border-radius: 4px;
+	}
 `
