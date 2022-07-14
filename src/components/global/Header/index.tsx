@@ -19,6 +19,7 @@ export default () => {
 	return (
 		<Header>
 			<Ribbon
+				className='Float'
 				style={{ animation: 'FadeIn_Top 250ms forwards', borderRadius: 0 }}
 			/>
 			<Motto />
@@ -31,4 +32,11 @@ const Header = styled.header`
 	width: 100%;
 	height: 80px;
 	overflow: hidden;
+	.Float {
+		@media screen and (max-width: 780px) {
+			position: fixed;
+			top: 0;
+			z-index: 20;
+		}
+	}
 `

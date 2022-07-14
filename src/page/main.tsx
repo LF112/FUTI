@@ -10,6 +10,8 @@ import styled from 'styled-components'
 //[ package ]
 
 import Avatar from 'components/page/main/Avatar'
+import PersonalInfo from 'components/page/main/PersonalInfo'
+//[ components ]
 
 //=> DOM
 export default () => {
@@ -19,6 +21,7 @@ export default () => {
 				<Profile>
 					<div>
 						<Avatar />
+						<PersonalInfo />
 					</div>
 				</Profile>
 			</div>

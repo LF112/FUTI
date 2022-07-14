@@ -9,6 +9,7 @@ import { createGlobalStyle } from 'styled-components'
 //[ package ]
 
 import { AnimationCSS } from './animation'
+import { ResponseCSS } from './response'
 //[ css ]
 
 import _font_Ruizi from 'assets/fonts/ruizi.ttf'
@@ -21,6 +22,10 @@ import _font_elementIcons from 'assets/fonts/element-icons.ttf'
 
 //=> Style | '全局样式'
 export const GlobalStyle = createGlobalStyle`
+/* 引入其他 CSS */
+${AnimationCSS}
+${ResponseCSS}
+
 *,
 body,
 html {
@@ -56,6 +61,7 @@ span {
 :not(body) {
 	/* transition: all 0.5s cubic-bezier(0.22, 0.58, 0.12, 0.98); *//* 全局线性 */
 	transition: all 0.5s cubic-bezier(0.66, 0.09, 0.49, 1.21);/* 全局非线性 */
+    animation-timing-function: cubic-bezier(0.66, 0.09, 0.49, 1.21);
 }
 
 /* 字体 */
@@ -170,7 +176,4 @@ span {
 	background: #b2b8c1;
 	color: #0bf;
 }
-
-/* 引入其他 CSS */
-${AnimationCSS}
 `
