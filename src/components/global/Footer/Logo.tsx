@@ -36,6 +36,7 @@ const Main = styled.a`
 	padding: 15px 5px;
 	animation: ScaleIn 250ms forwards;
 	animation-delay: 2316ms;
+	transform: scale(0.8);
 	opacity: 0;
 	> svg {
 		width: 62px;

@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import Package from '../../../../package.json'
 //[ package ]
 
 import Ribbon from 'components/reusable/Ribbon'
@@ -9,57 +8,46 @@ import Ribbon from 'components/reusable/Ribbon'
 import { useLoadStatus } from 'state/status/hooks'
 //[ state ]
 
+import CONFIG from '_config/index'
+//[ constants ]
+
 //=> DOM
 export default () => {
 	const loadStatus = useLoadStatus()
+	const { FooterInfo } = CONFIG
 
+	const FooterInfoCount = FooterInfo.length
 	return (
 		<Main An={loadStatus}>
 			<div>
 				<Ribbon />
-				<p style={{ animationDelay: '2426ms' }}>
-					Copyright &copy; 2017 - {new Date().getFullYear()}
-					<LF
-						className='LF TIP'
-						href='https://www.lf112.net/'
-						data-tooltip={'🙃 Independent Websites Developer'}>
-						&nbsp;LF112&nbsp;
-					</LF>
-					All Rights Reserved.
-				</p>
-				<Nbsp style={{ animationDelay: '2436ms' }}>/</Nbsp>
-				<p style={{ animationDelay: '2536ms' }}>
-					<a
-						className='TIP'
-						href='http://beian.miit.gov.cn'
-						rel='noopener noreferrer'
-						target='_blank'
-						data-tooltip={'🔖 ICP'}>
-						琼 ICP 备 2021000434 号
-					</a>
-				</p>
-				<Nbsp style={{ animationDelay: '2546ms' }}>/</Nbsp>
-				<p style={{ animationDelay: '2646ms' }}>
-					<a
-						className='TIP'
-						href='http://www.beian.gov.cn/portal/registerSystemInfo'
-						rel='noopener noreferrer'
-						target='_blank'
-						data-tooltip={'🔒️ Public Security Beian'}>
-						琼公安备 46010702000093 号
-					</a>
-				</p>
-				<Nbsp style={{ animationDelay: '2656ms' }}>/</Nbsp>
-				<p style={{ animationDelay: '2756ms' }}>
-					<a
-						className='TIP'
-						href='https://github.com/LF112/FUTI'
-						rel='noopener noreferrer'
-						target='_blank'
-						data-tooltip={'✨ Github Repo'}>
-						V{Package.version}
-					</a>
-				</p>
+				{FooterInfo.map(({ url, context, tips }, index: number) => {
+					index++
+					return (
+						<nav key={index}>
+							<p style={{ animationDelay: `${2416 + 100 * index}ms` }}>
+								{url ? (
+									<a
+										className='TIP'
+										href={url}
+										rel='noopener noreferrer'
+										target='_blank'
+										data-tooltip={tips}>
+										{context}
+									</a>
+								) : (
+									context
+								)}
+							</p>
+							{index < FooterInfoCount ? (
+								<Nbsp
+									style={{ animationDelay: `${2416 + 100 * index + 10}ms` }}>
+									/
+								</Nbsp>
+							) : null}
+						</nav>
+					)
+				})}
 			</div>
 		</Main>
 	)
@@ -92,21 +80,24 @@ const Main = styled.main<{ An: boolean }>`
 				box-shadow: unset;
 			}
 		}
-		> p,
-		span {
-			line-height: 28px;
-			font-size: 12px;
-			color: hsla(0, 0%, 100%, 0.19);
-			font-weight: lighter;
-			user-select: none;
-			font-family: 'REEJI-PinboGB', 'Titillium Web';
-		}
-		a {
-			font-family: 'REEJI-PinboGB', 'Titillium Web';
-		}
-		> p {
-			opacity: 0;
-			animation: FadeIn_Top 250ms forwards;
+		> nav {
+			display: flex;
+			> p,
+			span {
+				line-height: 28px;
+				font-size: 12px;
+				color: hsla(0, 0%, 100%, 0.19);
+				font-weight: lighter;
+				user-select: none;
+				font-family: 'REEJI-PinboGB', 'Titillium Web';
+			}
+			a {
+				font-family: 'REEJI-PinboGB', 'Titillium Web';
+			}
+			> p {
+				opacity: 0;
+				animation: FadeIn_Top 250ms forwards;
+			}
 		}
 	}
 	* {
@@ -124,7 +115,7 @@ const Main = styled.main<{ An: boolean }>`
 	}
 `
 
-const LF = styled.a`
+export const LF = styled.a`
 	font-family: 'RuiZi';
 	color: hsla(0, 0%, 100%, 0.26);
 	font-weight: 700;

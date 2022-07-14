@@ -8,9 +8,12 @@
 
 import { AuoutMe as $AuoutMe } from './PersonalInfo'
 import { Links as $Links } from './SocialLink'
+import { Info as $FooterInfo } from './FooterInfo'
+//[ constant ]
 
 //=> Main Constants
 export default {
 	PersonalInfo: $AuoutMe,
-	SocialLink: $Links
+	SocialLink: $Links,
+	FooterInfo: $FooterInfo
 }
