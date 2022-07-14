@@ -40,7 +40,7 @@ const Footer = styled.footer`
 	}
 	@media screen and (max-width: 780px) {
 		> div {
-			display: inline-grid;
+			flex-direction: column;
 		}
 	}
 `

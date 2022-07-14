@@ -11,6 +11,9 @@ import { css } from 'styled-components'
 //=> Style
 export const ResponseCSS = css`
 	@media screen and (max-width: 780px) {
+		body {
+			overflow: hidden auto !important;
+		}
 		.mobile-hide {
 			display: none !important;
 		}
