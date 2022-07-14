@@ -17,11 +17,7 @@ export default () => {
 		<Main An={loadStatus}>
 			<div>
 				<Ribbon />
-				<p
-					style={{
-						animation: 'FadeIn_Top 250ms forwards',
-						animationDelay: '2550ms'
-					}}>
+				<p style={{ animationDelay: '2426ms' }}>
 					Copyright &copy; 2017 - {new Date().getFullYear()}
 					<LF
 						className='LF TIP'
@@ -31,12 +27,8 @@ export default () => {
 					</LF>
 					All Rights Reserved.
 				</p>
-				<Nbsp>/</Nbsp>
-				<p
-					style={{
-						animation: 'FadeIn_Top 250ms forwards',
-						animationDelay: '2800ms'
-					}}>
+				<Nbsp style={{ animationDelay: '2436ms' }}>/</Nbsp>
+				<p style={{ animationDelay: '2536ms' }}>
 					<a
 						className='TIP'
 						href='http://beian.miit.gov.cn'
@@ -46,12 +38,8 @@ export default () => {
 						琼 ICP 备 2021000434 号
 					</a>
 				</p>
-				<Nbsp>/</Nbsp>
-				<p
-					style={{
-						animation: 'FadeIn_Top 250ms forwards',
-						animationDelay: '3050ms'
-					}}>
+				<Nbsp style={{ animationDelay: '2546ms' }}>/</Nbsp>
+				<p style={{ animationDelay: '2646ms' }}>
 					<a
 						className='TIP'
 						href='http://www.beian.gov.cn/portal/registerSystemInfo'
@@ -61,12 +49,8 @@ export default () => {
 						琼公安备 46010702000093 号
 					</a>
 				</p>
-				<Nbsp>/</Nbsp>
-				<p
-					style={{
-						animation: 'FadeIn_Top 250ms forwards',
-						animationDelay: '3300ms'
-					}}>
+				<Nbsp style={{ animationDelay: '2656ms' }}>/</Nbsp>
+				<p style={{ animationDelay: '2756ms' }}>
 					<a
 						className='TIP'
 						href='https://github.com/LF112/FUTI'
@@ -122,6 +106,7 @@ const Main = styled.main<{ An: boolean }>`
 		}
 		> p {
 			opacity: 0;
+			animation: FadeIn_Top 250ms forwards;
 		}
 	}
 	* {
@@ -149,6 +134,8 @@ const Nbsp = styled.span`
 	padding: 0 8px;
 	font-weight: lighter;
 	user-select: none;
+	opacity: 0;
+	animation: FadeIn 250ms forwards;
 	@media screen and (max-width: 780px) {
 		display: none;
 	}
