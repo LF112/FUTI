@@ -11,6 +11,7 @@ import styled from 'styled-components'
 
 import Avatar from 'components/page/main/Avatar'
 import PersonalInfo from 'components/page/main/PersonalInfo'
+import SocialLink from 'components/page/main/SocialLink'
 //[ components ]
 
 //=> DOM
@@ -22,6 +23,7 @@ export default () => {
 					<div>
 						<Avatar />
 						<PersonalInfo />
+						<SocialLink />
 					</div>
 				</Profile>
 			</div>
