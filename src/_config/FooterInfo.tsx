@@ -21,20 +21,24 @@ export interface Info {
 
 export const Info: Info[] = [
 	{
+		//=> 此条目请不要更改
 		url: null,
+		//=> 此条目请不要更改
 		context: (
 			<>
 				Copyright &copy; 2017 - {new Date().getFullYear()}
+				{/* 请尊重开源，不要替换原作者昵称。 */}
 				<LF
 					className='TIP'
 					href='https://www.lf112.net/'
 					data-tooltip={'🙃 Independent Websites Developer'}>
 					&nbsp;LF112&nbsp;
 				</LF>
+				{/* 请尊重开源，不要替换原作者昵称。 */}
 				All Rights Reserved.
 			</>
 		),
-		tips: null
+		tips: null //=> 此条目请不要更改
 	},
 	{
 		url: 'https://beian.miit.gov.cn',
@@ -47,8 +51,9 @@ export const Info: Info[] = [
 		tips: '🔒️ Public Security Beian'
 	},
 	{
-		url: 'https://github.com/LF112/FUTI',
+		//=> 此条目请不要更改
+		url: 'https://github.com/LF112/FUTI', // 请尊重开源，不要替换原仓库地址。
 		context: `V${Package.version}`,
 		tips: '✨ Github Repo'
-	}
+	} //=> 此条目请不要更改
 ]
