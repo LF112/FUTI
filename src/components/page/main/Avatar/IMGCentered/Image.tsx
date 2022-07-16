@@ -49,12 +49,13 @@ const Image = styled.div`
 
 const LoadMask = styled.div`
 	position: absolute;
-	width: 220px;
-	height: 220px;
+	width: 100%;
+	height: 100%;
 	top: 0;
 	border-radius: 5px;
 	background: hsla(0deg, 0%, 16%, 0.22);
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	backdrop-filter: blur(1px);
 `

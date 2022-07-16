@@ -5,7 +5,7 @@
  * that can be found at https://www.live2d.com/eula/live2d-open-software-license-agreement_en.html.
  */
 
-import Live2DCubismCore from 'libs/live2dCore/live2dcubismcore.min'
+import Live2DCubismCore from 'lib/live2dCore/live2dcubismcore.min'
 import { CubismIdHandle } from '../id/cubismid'
 import { CubismFramework } from '../live2dcubismframework'
 import { CubismBlendMode } from '../rendering/cubismrenderer'

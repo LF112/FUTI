@@ -13,7 +13,11 @@ import { Info as $FooterInfo } from './FooterInfo'
 
 //=> Main Constants
 export default {
-	PersonalInfo: $AuoutMe,
-	SocialLink: $Links,
-	FooterInfo: $FooterInfo
+	PersonalInfo: $AuoutMe, //=> 个人 TAG
+	SocialLink: $Links, //=> 社交平台
+	FooterInfo: $FooterInfo, //=> 底部信息
+	Live2D: {
+		l2dPath: './live2d/', //=> 存放 live2d 模型的绝对路径。 './' 是根目录
+		l2dFileName: 'futi.model3.json' //=> Live2d 模型的文件名，一般以 '.model3.json' 结尾
+	}
 }

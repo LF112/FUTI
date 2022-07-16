@@ -38,7 +38,7 @@ export default () => {
 			})
 		})
 		//=> 更新页面载入状态
-		//setTimeout(() => updateLoadStatus(true), 250)
+		setTimeout(() => updateLoadStatus(true), 2000)
 	}, [''])
 
 	return (

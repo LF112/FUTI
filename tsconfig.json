@@ -33,7 +33,7 @@
 	"include": [
 		"./src/**/*.ts",
 		"./src/**/*.tsx",
-		"src/libs/live2dcubismcore.min.js"
+		"src/lib/live2dcubismcore.min.js"
 	],
 	"exclude": ["node_modules"],
 	"files": ["custom.d.ts"]

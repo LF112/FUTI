@@ -60,14 +60,21 @@ export default () => {
 	}, [l2dInitStatus, l2dDomInitStatus, l2dShow])
 
 	return (
-		<Main>
+		<Main
+			style={l2dUnfold ? { width: '100%', height: '400px' } : {}}
+			onMouseEnter={() => {
+				if (l2dInitStatus) updateL2dUnfoldStatus(true)
+			}}
+			onMouseLeave={() => {
+				if (l2dInitStatus) updateL2dUnfoldStatus(false)
+			}}>
 			<div
 				style={{
 					width: containerWidth,
 					height: containerHeight,
 					padding: containerPadding
 				}}>
-				<IMGCentered l2dInitStatus={l2dInitStatus} l2dShow={l2dShow} />
+				<IMGCentered />
 				<TouchMe l2dInitStatus={l2dInitStatus} l2dUnfold={l2dUnfold} />
 				<Frame />
 			</div>
