@@ -82,6 +82,7 @@ const Main = styled.main<{ An: boolean }>`
 		}
 		> nav {
 			display: flex;
+			justify-content: center;
 			> p,
 			span {
 				line-height: 28px;
