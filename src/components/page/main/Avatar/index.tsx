@@ -33,8 +33,8 @@ export default () => {
 	const updateL2dUnfoldStatus = useUpdateL2dUnfoldStatus()
 
 	//=> STATE
-	const [containerWidth, setContainerWidth] = useState<number>(0)
-	const [containerHeight, setContainerHeight] = useState<number>(0)
+	const [containerWidth, setContainerWidth] = useState<string>('0')
+	const [containerHeight, setContainerHeight] = useState<string>('0')
 	const [containerPadding, setContainerPadding] = useState<string>('')
 
 	//=> Main
@@ -48,19 +48,24 @@ export default () => {
 		if (l2dDomInitStatus && !l2dInitStatus)
 			setTimeout(() => {
 				updateL2dInitStatus(true)
-				setContainerWidth(230)
-				setContainerHeight(230)
+				setContainerWidth('230px')
+				setContainerHeight('230px')
 				if (containerPadding !== '') setContainerPadding('')
 			}, 200)
 		if (l2dShow && !l2dDomInitStatus && !l2dInitStatus) {
-			setContainerWidth(260)
-			setContainerHeight(260)
+			setContainerWidth('260px')
+			setContainerHeight('260px')
 			setContainerPadding('30px')
 		}
-	}, [l2dInitStatus, l2dDomInitStatus, l2dShow])
+		if (l2dInitStatus && l2dUnfold) {
+			setContainerWidth('100%')
+			setContainerHeight('100%')
+		}
+	}, [l2dInitStatus, l2dDomInitStatus, l2dShow, l2dUnfold])
 
 	return (
 		<Main
+			cleanAn={loadStatus}
 			style={l2dUnfold ? { width: '100%', height: '400px' } : {}}
 			onMouseEnter={() => {
 				if (l2dInitStatus) updateL2dUnfoldStatus(true)
@@ -83,7 +88,7 @@ export default () => {
 }
 
 //=> Style
-const Main = styled.main`
+const Main = styled.main<{ cleanAn: boolean }>`
 	position: relative;
 	height: 260px;
 	width: 260px;
@@ -93,8 +98,8 @@ const Main = styled.main`
 	justify-content: center;
 	> div {
 		position: relative;
-		width: 0;
-		height: 0;
+		width: ${({ cleanAn }) => (cleanAn ? '230px' : 0)};
+		height: ${({ cleanAn }) => (cleanAn ? '230px' : 0)};
 		overflow: hidden;
 		border-radius: 5px;
 		padding: 5px;
@@ -103,9 +108,10 @@ const Main = styled.main`
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		opacity: 0;
-		animation: Init 250ms forwards;
-		animation-delay: 850ms;
+		${({ cleanAn }) =>
+			!cleanAn
+				? `opacity: 0;animation: Init 250ms forwards;animation-delay: 850ms;`
+				: null}
 		@keyframes Init {
 			0% {
 				opacity: 0;

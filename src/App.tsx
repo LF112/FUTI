@@ -16,6 +16,7 @@ import Header from 'components/global/Header'
 import Main from 'page/main'
 import Footer from 'components/global/Footer'
 import GA1 from 'components/global/Background/GA1'
+import Popups from 'components/global/Popups'
 //[ components ]
 
 //=> DOM
@@ -43,6 +44,8 @@ export default () => {
 
 	return (
 		<>
+			<Popups />
+
 			<Header />
 			<Main />
 			<Footer />

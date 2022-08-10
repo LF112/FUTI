@@ -38,8 +38,6 @@ export default () => {
 		)
 	}, [])
 
-	useEffect(() => console.log(l2dShow), [l2dShow])
-
 	return (
 		<Main>
 			{!l2dInitStatus ? <Image loading={l2dShow} /> : null}

@@ -23,14 +23,12 @@ import App from './App'
 //=> Render | 渲染页面
 //=> 绑定渲染组件↓
 createRoot(document.getElementById('FUTIWOLF')).render(
-	<React.StrictMode>
+	<Provider store={store}>
+		{/* REACT REDUX */}
 		{/* 引用全局样式 */}
 		<GlobalStyle />
-		{/* REACT REDUX */}
-		<Provider store={store}>
-			<App />
-		</Provider>
-	</React.StrictMode>
+		<App />
+	</Provider>
 )
 
 //=> 控制台徽章

@@ -80,7 +80,7 @@ export function useAddPopup(): (
 				//=> DISPATCH !
 				dispatch(
 					addPopup({
-						id: Math.random().toString(36).slice(-8),
+						id: icon ?? Math.random().toString(36).slice(-8),
 						type: type,
 						content: content,
 						timeout: timeout

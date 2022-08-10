@@ -10,22 +10,19 @@ import styled from 'styled-components'
 //[ package ]
 
 import { SiRen } from 'utils/useSirenAn'
-import { isSpider } from 'utils/useTools'
 //[ utils ]
 
 //=> DOM
 export default (props: any) => {
-	const { text: TEXT, className, style } = props
+	const { text: TEXT } = props
 
 	const node = useRef<HTMLDivElement>(null)
 	useEffect(() => {
 		const DOM = node?.current
-		if (DOM)
-			if (!isSpider) setTimeout(() => SiRen(DOM, TEXT), 250)
-			else DOM.innerHTML = TEXT
+		if (DOM) SiRen(DOM, TEXT)
 	}, [''])
 
-	return <TextMain ref={node} className={className} style={style} />
+	return <TextMain ref={node} />
 }
 
 //=> Style

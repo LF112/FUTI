@@ -18,7 +18,7 @@ export default () => {
 
 	const PersonalInfoLastAnMS = 1240 + 100 * PersonalInfo.length
 	return (
-		<Main style={l2dUnfold ? { height: 0 } : {}}>
+		<Main style={l2dUnfold ? { height: 0, opacity: 0 } : {}}>
 			{SocialLink.map(({ name, icon, url }, index: number) => (
 				<Link
 					key={index}
