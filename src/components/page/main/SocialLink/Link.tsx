@@ -8,6 +8,7 @@ export default (props: any) => {
 
 	return (
 		<Link
+			className='An'
 			href={url}
 			target='_blank'
 			rel='external noopener nofollow'

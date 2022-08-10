@@ -26,6 +26,7 @@ export default () => {
 				<SiRenText
 					text={'Copy and paste constant defaulting.'}
 					show={loadStatus}
+					timeout={250}
 				/>
 			</div>
 		</Main>

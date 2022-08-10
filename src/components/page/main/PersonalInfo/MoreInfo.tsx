@@ -19,6 +19,7 @@ export default (props: any) => {
 				index++
 				return (
 					<div
+						className='An'
 						key={index}
 						style={{ animationDelay: `${1240 + 100 * index}ms` }}>
 						{icon}

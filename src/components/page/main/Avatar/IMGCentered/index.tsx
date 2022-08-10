@@ -56,6 +56,5 @@ const Main = styled.main`
 	justify-content: center;
 	> div {
 		position: relative;
-		transition: all 0.2s cubic-bezier(0.22, 0.58, 0.12, 0.98) !important;
 	}
 `

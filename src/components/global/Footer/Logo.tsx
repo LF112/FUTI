@@ -19,6 +19,8 @@ import { isFutiSite } from 'utils/useTools'
 export default () => {
 	return (
 		<Main
+			className='An'
+			data-futi-an='Zoom'
 			href={isFutiSite ? 'https://www.lf112.net' : 'https://www.futiwolf.com'}>
 			<ICON_FUTI />
 			<Thanks className='TIP' data-tooltip='⚡Navigator Kepler'>
@@ -34,8 +36,6 @@ const Main = styled.a`
 	position: relative;
 	display: inline-block;
 	padding: 15px 5px;
-	animation: ScaleIn 250ms forwards;
-	animation-delay: 2316ms;
 	transform: scale(0.8);
 	opacity: 0;
 	> svg {

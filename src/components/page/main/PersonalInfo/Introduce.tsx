@@ -22,11 +22,11 @@ export default (props: any) => {
 	return (
 		<Introduce style={{ opacity: l2dUnfold ? 0 : 1 }}>
 			<div>
-				<nav style={l2dUnfold ? { marginBottom: '-45px' } : {}}>
+				<nav className='An' style={l2dUnfold ? { marginBottom: '-45px' } : {}}>
 					<p>Hi, I'm</p>
 					<p className={isFutiSite ? 'addFont' : 'default'}>LF112</p>
 				</nav>
-				<Ribbon />
+				<Ribbon className='An' data-futi-an='SideIn' />
 			</div>
 		</Introduce>
 	)
@@ -47,9 +47,6 @@ const Introduce = styled.div`
 			margin-top: 2px;
 			padding: 0 25px;
 			user-select: none;
-			opacity: 0;
-			animation: FadeIn_Top 250ms forwards;
-			animation-delay: 1000ms;
 			> p {
 				font-size: 2em;
 				color: hsla(0, 0%, 100%, 0.9);
@@ -76,9 +73,6 @@ const Introduce = styled.div`
 					#636161,
 					#878787
 				); */
-				opacity: 0;
-				animation: FadeIn 250ms forwards;
-				animation-delay: 1240ms;
 			}
 		}
 	}

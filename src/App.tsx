@@ -19,6 +19,9 @@ import GA1 from 'components/global/Background/GA1'
 import Popups from 'components/global/Popups'
 //[ components ]
 
+import { LoadAn } from 'utils/useLoadAn'
+//[ utils ]
+
 //=> DOM
 export default () => {
 	const updateLoadStatus = useUpdateLoadStatus()
@@ -39,7 +42,9 @@ export default () => {
 			})
 		})
 		//=> 更新页面载入状态
-		setTimeout(() => updateLoadStatus(true), 2000)
+		setTimeout(() => {
+			LoadAn(() => updateLoadStatus(true))
+		}, 800)
 	}, [''])
 
 	return (

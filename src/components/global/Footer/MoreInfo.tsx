@@ -5,27 +5,25 @@ import styled from 'styled-components'
 import Ribbon from 'components/reusable/Ribbon'
 //[ components ]
 
-import { useLoadStatus } from 'state/status/hooks'
-//[ state ]
-
 import CONFIG from '_config/index'
 //[ constants ]
 
 //=> DOM
 export default () => {
-	const loadStatus = useLoadStatus()
 	const { FooterInfo } = CONFIG
 
 	const FooterInfoCount = FooterInfo.length
 	return (
-		<Main An={loadStatus}>
+		<Main>
 			<div>
 				<Ribbon />
 				{FooterInfo.map(({ url, context, tips }, index: number) => {
 					index++
 					return (
 						<nav key={index}>
-							<p style={{ animationDelay: `${2416 + 100 * index}ms` }}>
+							<p
+								className='An'
+								style={{ animationDelay: `${2416 + 100 * index}ms` }}>
 								{url ? (
 									<a
 										className='TIP'
@@ -54,15 +52,12 @@ export default () => {
 }
 
 //=> Style
-const Main = styled.main<{ An: boolean }>`
+const Main = styled.main`
 	height: 32px;
 	position: relative;
 	padding-left: 20px;
 	padding-top: 5px;
 	border-left: 1px solid hsla(0, 0%, 76.5%, 0.18);
-	animation: FadeIn 250ms forwards;
-	animation-delay: 2332ms;
-	opacity: 0;
 	> div {
 		display: flex;
 		position: relative;
@@ -95,14 +90,7 @@ const Main = styled.main<{ An: boolean }>`
 			a {
 				font-family: 'REEJI-PinboGB', 'Titillium Web';
 			}
-			> p {
-				opacity: 0;
-				animation: FadeIn_Top 250ms forwards;
-			}
 		}
-	}
-	* {
-		animation-play-state: ${({ An }) => (An ? 'running' : 'paused')};
 	}
 
 	@media screen and (max-width: 780px) {

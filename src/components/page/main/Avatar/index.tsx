@@ -38,6 +38,14 @@ export default () => {
 	const [containerPadding, setContainerPadding] = useState<string>('')
 
 	//=> Main
+	//=> 载入动画
+	useEffect(() => {
+		setTimeout(() => {
+			setContainerWidth('230px')
+			setContainerHeight('230px')
+		}, 1000)
+	}, [''])
+
 	//=> Live2D 载入动画
 	useEffect(() => {
 		//!isBaiduSpider &&
@@ -65,6 +73,8 @@ export default () => {
 
 	return (
 		<Main
+			className='An'
+			data-futi-an='FadeIn'
 			cleanAn={loadStatus}
 			style={l2dUnfold ? { width: '100%', height: '400px' } : {}}
 			onMouseEnter={() => {
@@ -96,6 +106,7 @@ const Main = styled.main<{ cleanAn: boolean }>`
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	cursor: grab;
 	> div {
 		position: relative;
 		width: ${({ cleanAn }) => (cleanAn ? '230px' : 0)};
@@ -108,19 +119,5 @@ const Main = styled.main<{ cleanAn: boolean }>`
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		${({ cleanAn }) =>
-			!cleanAn
-				? `opacity: 0;animation: Init 250ms forwards;animation-delay: 850ms;`
-				: null}
-		@keyframes Init {
-			0% {
-				opacity: 0;
-			}
-			100% {
-				opacity: 1;
-				width: 230px;
-				height: 230px;
-			}
-		}
 	}
 `

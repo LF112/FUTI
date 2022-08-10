@@ -19,6 +19,12 @@ export const AnimationCSS = css`
 		animation-play-state: paused;
 	}
 
+	.An {
+		position: relative;
+		top: -10px;
+		opacity: 0;
+	}
+
 	/* 渐入渐出 */
 	@keyframes FadeIn {
 		0% {

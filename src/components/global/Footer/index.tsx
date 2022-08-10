@@ -16,7 +16,7 @@ import MoreInfo from './MoreInfo'
 //=> DOM
 export default () => {
 	return (
-		<Footer>
+		<Footer className='An'>
 			<div>
 				<Logo />
 				<MoreInfo />

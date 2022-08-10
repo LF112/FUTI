@@ -14,12 +14,12 @@ import { SiRen } from 'utils/useSirenAn'
 
 //=> DOM
 export default (props: any) => {
-	const { text: TEXT } = props
+	const { text: TEXT, timeout = 0 } = props
 
 	const node = useRef<HTMLDivElement>(null)
 	useEffect(() => {
 		const DOM = node?.current
-		if (DOM) SiRen(DOM, TEXT)
+		if (DOM) setTimeout(() => SiRen(DOM, TEXT), timeout)
 	}, [''])
 
 	return <TextMain ref={node} />
