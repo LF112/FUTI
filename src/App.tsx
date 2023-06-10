@@ -1,60 +1,51 @@
+/*
+ * @Author: LF112 (futiwolf) <lf@lf112.net>
+ * @License: GNU Affero General Public License v3.0
+ *
+ * Copyright (c) 2022 LF112 (futiwolf), All Rights Reserved.
+ * 请注意，本项目使用 AGPL v3 开源协议开源，请严格依照开源协议进行不限于编辑、分发等操作。详见 https://www.chinasona.org/gnu/agpl-3.0-cn.html
+ */
 import React, { useEffect } from 'react'
 import fastdom from 'fastdom'
-import { useTranslation } from 'react-i18next'
+//[ package ]
 
-//import Loading from 'page/loading/main'
-import GA1 from 'components/Background/GA1'
-import Header from 'page/header'
-import Main from 'page/main'
-import Footer from 'page/footer'
-import Popups from 'components/Popups'
-//[ Component ]
-
-import { LoadAn } from 'utils/useLoadAn'
-import { isBaiduSpider, isMobile, isFutiSite } from 'utils/useTools'
-//[ utils ]
-
-import { useUpdateLoadStatus } from 'state/animation/hooks'
+import { useUpdateLoadStatus } from 'state/status/hooks'
 //[ store ]
 
-//=> Main Component
-export default () => {
-	const { i18n } = useTranslation()
+import Header from 'components/global/Header'
+import Main from 'page/main'
+import Footer from 'components/global/Footer'
+import GA1 from 'components/global/Background/GA1'
+import Popups from 'components/global/Popups'
+//[ components ]
 
+import { LoadAn } from 'utils/useLoadAn'
+//[ utils ]
+
+//=> DOM
+export default () => {
 	const updateLoadStatus = useUpdateLoadStatus()
 
 	useEffect(() => {
-		if (isFutiSite) {
-			i18n.changeLanguage('cn')
-			document.title = '伏太 - 个人主页 | 诗与兽'
-		}
-		if (isMobile)
-			fastdom.measure(() => {
-				const BODY = document.querySelector('body')
-				fastdom.mutate(() => {
-					BODY.style.overflow = 'auto'
-				})
+		//=> 隐藏页面首屏
+		fastdom.measure(() => {
+			//=> 获取 DOM
+			const { style: LOADING } = document.getElementById('LOADING')
+			const { style: LOADING_SVG } = document.getElementById('LOADING-SVG')
+			//=> 更新样式
+			fastdom.mutate(() => {
+				LOADING_SVG.transition =
+					'all 0.25s cubic-bezier(0.66, 0.09, 0.49, 1.21)'
+				LOADING_SVG.marginTop = '138px'
+				LOADING_SVG.opacity = '0'
+				setTimeout(() => (LOADING.display = 'none'), 250)
 			})
-		if (isBaiduSpider) {
-			document.getElementById('LOADING').style.display = 'none'
-			document.querySelectorAll('.An').forEach(v => v.classList.remove('An'))
-		} else {
-			fastdom.measure(() => {
-				const LOADING = document.getElementById('LOADING').style
-				const LOADING_SVG = document.getElementById('LOADING-SVG').style
-				fastdom.mutate(() => {
-					LOADING_SVG.transition =
-						'all 0.25s cubic-bezier(0.66, 0.09, 0.49, 1.21)'
-					LOADING_SVG.marginTop = '138px'
-					LOADING_SVG.opacity = '0'
-					setTimeout(() => (LOADING.display = 'none'), 250)
-				})
-			})
-			setTimeout(() => {
-				LoadAn(() => updateLoadStatus(true))
-			}, 800)
-		}
-	}, [])
+		})
+		//=> 更新页面载入状态
+		setTimeout(() => {
+			LoadAn(() => updateLoadStatus(true))
+		}, 800)
+	}, [''])
 
 	return (
 		<>
@@ -64,7 +55,7 @@ export default () => {
 			<Main />
 			<Footer />
 
-			{!isBaiduSpider && !isMobile && !isFutiSite ? <GA1 /> : <></>}
+			<GA1 />
 		</>
 	)
 }

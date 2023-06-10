@@ -3,6 +3,8 @@ const RAND_ARR =
 
 /**
  * siren animation
+ * @author LF112
+ * @url https://github.com/LF112/sirenTEXT
  */
 let SlashIndex: number = 0
 let CONTENT: string[] = []

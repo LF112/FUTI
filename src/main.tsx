@@ -1,50 +1,42 @@
-import React, { Suspense } from 'react'
-import ReactDOM from 'react-dom'
+/*
+ * @Author: LF112 (futiwolf) <lf@lf112.net>
+ * @License: GNU Affero General Public License v3.0
+ *
+ * Copyright (c) 2022 LF112 (futiwolf), All Rights Reserved.
+ * 请注意，本项目使用 AGPL v3 开源协议开源，请严格依照开源协议进行不限于编辑、分发等操作。详见 https://www.chinasona.org/gnu/agpl-3.0-cn.html
+ */
+import React from 'react'
+import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
-import { Buffer } from 'buffer'
 //[ package ]
 
-import './index.less'
-import 'assets/element-ui-icon/index.less'
+import 'assets/element-ui-icon/index.css'
+import { GlobalStyle } from './_html/style'
 //[ style ]
 
 import store from 'state'
 //[ store ]
 
-import { isSite } from 'utils/useTools'
-//[ utils ]
+import App from './App'
+//[ pages ]
 
-//=> 防镜像站
-if (isSite.length <= 0)
-	window.location.href = `https://${Buffer.from(
-		'7777772e6c663131322e6e6574',
-		'hex'
-	).toString()}`
-
-//=> 懒加载 Main | '后期装载嵌入式博客可用'
-const mainModule = import.meta.glob('./App.tsx')
-const LazyMain = React.lazy(mainModule['./App.tsx'] as any)
-
-//=> Render
-ReactDOM.render(
-	<React.StrictMode>
-		<Provider store={store}>
-			<Suspense fallback={<></>}>
-				<LazyMain />
-			</Suspense>
-			{/* <Loading /> */}
-		</Provider>
-	</React.StrictMode>,
-	document.getElementById('FUTIWOLF')
+//=> Render | 渲染页面
+//=> 绑定渲染组件↓
+createRoot(document.getElementById('FUTIWOLF')).render(
+	<Provider store={store}>
+		{/* REACT REDUX */}
+		{/* 引用全局样式 */}
+		<GlobalStyle />
+		<App />
+	</Provider>
 )
 
-if (process.env.NODE_ENV === 'production') {
-	console.clear()
-	console.log(
-		'\n %c \u26a1futiwolf %c https://www.futiwolf.com %c BY%c LF112  \n\n',
-		'color: #ffffff; background: rgb(0, 145, 228); padding:5px 0;',
-		'background:rgba(197, 197, 197, 0.89); padding:5px 0;',
-		'color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;',
-		'color: rgb(0, 145, 228); background: rgba(49, 49, 49, 0.85); padding:5px 0;'
-	)
-}
+//=> 控制台徽章
+if (process.env.NODE_ENV === 'production') console.clear()
+console.log(
+	'\n %c \u26a1FUTIWOLF  %c https://www.lf112.net %c  BY %cLF112 \n\n',
+	'color: #fff; background: rgb(0, 145, 228); padding:5px 0;border-radius: 4px 0 0 4px',
+	'background:#323842; padding:5px 0;',
+	'color: #ffffff; background: rgba(49, 49, 49, 0.85); padding:5px 0;',
+	'color: rgb(0, 145, 228); background: rgba(49, 49, 49, 0.85); padding:5px 0;border-radius: 0 4px 4px 0'
+)
