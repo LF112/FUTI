@@ -143,14 +143,16 @@ export default memo((props: any) => {
 								onClick={() => {
 									updateChooseState(true)
 									triggerChoose(popupId, true, Close)
-								}}>
+								}}
+							>
 								<i className='el-icon-check' />
 							</div>
 							<div
 								onClick={() => {
 									updateChooseState(false)
 									triggerChoose(popupId, false, Close)
-								}}>
+								}}
+							>
 								<i className='el-icon-close' />
 							</div>
 						</ChooseButtom>
@@ -158,7 +160,8 @@ export default memo((props: any) => {
 						<></>
 					)}
 					<StateMask
-						style={chooseState !== null ? { opacity: 1, zIndex: 10 } : {}}>
+						style={chooseState !== null ? { opacity: 1, zIndex: 10 } : {}}
+					>
 						<div
 							style={
 								chooseOk
@@ -168,7 +171,8 @@ export default memo((props: any) => {
 						/>
 						<i
 							style={chooseOk ? {} : { opacity: 0 }}
-							className={`el-icon-${chooseState ? 'check' : 'close'}`}></i>
+							className={`el-icon-${chooseState ? 'check' : 'close'}`}
+						></i>
 					</StateMask>
 				</Main>
 			</div>
@@ -189,9 +193,10 @@ const PopupItem = styled.div`
 		position: relative;
 		width: 100%;
 		min-height: 48px;
-		background: #252a2e;
+		background: hsla(0, 0%, 76.5%, 0.18);
 		border-radius: 4px 0 0 4px;
 		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+		backdrop-filter: blur(4px);
 	}
 	> div + div {
 		margin-top: 20px;
@@ -264,7 +269,7 @@ const FrameStrip = styled.div`
 	width: 4px;
 	height: 75%;
 	border-radius: 0 5px 5px 0;
-	background: #444b58;
+	background: #53b6eb;
 `
 
 const StateMask = styled.div`

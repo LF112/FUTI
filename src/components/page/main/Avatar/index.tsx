@@ -23,6 +23,8 @@ import {
 } from 'state/status/hooks'
 //[ state ]
 
+import { isMobile } from 'react-device-detect'
+
 //=> DOM
 export default () => {
 	const loadStatus = useLoadStatus()
@@ -76,19 +78,23 @@ export default () => {
 			className='An'
 			data-futi-an='FadeIn'
 			cleanAn={loadStatus}
-			style={l2dUnfold ? { width: '100%', height: '400px' } : {}}
+			style={
+				l2dUnfold ? { width: isMobile ? '75%' : '100%', height: '400px' } : {}
+			}
 			onMouseEnter={() => {
 				if (l2dInitStatus) updateL2dUnfoldStatus(true)
 			}}
 			onMouseLeave={() => {
 				if (l2dInitStatus) updateL2dUnfoldStatus(false)
-			}}>
+			}}
+		>
 			<div
 				style={{
 					width: containerWidth,
 					height: containerHeight,
 					padding: containerPadding
-				}}>
+				}}
+			>
 				<IMGCentered />
 				<TouchMe l2dInitStatus={l2dInitStatus} l2dUnfold={l2dUnfold} />
 				<Frame />

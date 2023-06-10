@@ -44,7 +44,7 @@ export default (props: any) => {
 		//=> Main
 
 		const popupId = Math.random().toString(36).slice(-8)
-		addPopup('load', '正在加载模型', 0, popupId)
+		addPopup('正在加载模型', 'load', 0, popupId)
 
 		//=> 装载 Cubism SDK
 		// 配置 Cubism SDK
@@ -88,7 +88,8 @@ export default (props: any) => {
 							marginLeft: l2dUnfold ? (!isMobile ? '-412px' : '0') : '',
 							top: l2dUnfold ? '72px' : ''
 					  }
-			}>
+			}
+		>
 			<canvas ref={node}></canvas>
 		</Main>
 	)

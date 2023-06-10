@@ -14,14 +14,16 @@ export default (props: any) => {
 	return (
 		<Info
 			ItemCount={Math.floor(PersonalInfoCount / 3)}
-			style={{ opacity: l2dUnfold ? 0 : 1 }}>
+			style={{ opacity: l2dUnfold ? 0 : 1 }}
+		>
 			{PersonalInfo.map(({ icon, name }, index: number) => {
 				index++
 				return (
 					<div
 						className='An'
 						key={index}
-						style={{ animationDelay: `${1240 + 100 * index}ms` }}>
+						style={{ animationDelay: `${1240 + 100 * index}ms` }}
+					>
 						{icon}
 						<p>{name}</p>
 						{index < PersonalInfoCount ? (
@@ -72,13 +74,21 @@ const Info = styled.div<{ ItemCount: number }>`
 		}
 	}
 	@media screen and (max-width: 780px) {
-		height: ${({ ItemCount }) => ItemCount * 25}px;
+		height: ${({ ItemCount }) => ItemCount * 35}px;
 		display: grid;
 		grid-template-columns: 1fr 1fr 1fr;
 		grid-template-rows: repeat(2, 20px);
 		grid-column-gap: 0px;
-		grid-row-gap: 5px;
+		grid-row-gap: 10px;
 		justify-items: center;
+		nav {
+			display: none;
+		}
+		> div:nth-child(4) {
+			grid-column-start: 1;
+			grid-column-end: 4;
+			justify-self: center;
+		}
 	}
 `
 

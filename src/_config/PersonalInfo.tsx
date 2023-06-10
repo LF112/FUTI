@@ -12,6 +12,8 @@ import { ReactComponent as Code } from 'assets/svg/info_Code.svg'
 import { ReactComponent as Design } from 'assets/svg/info_Design.svg'
 //[ assets ]
 
+import { isMobile } from 'react-device-detect'
+
 export interface AuoutItem {
 	icon: ReactComponentElement<any>
 	name: string
@@ -26,16 +28,16 @@ export const AuoutMe: AuoutItem[] = [
 		icon: <i className='el-icon-aim' />,
 		name: 'Furry'
 	},
-	{
-		icon: <i className='el-icon-collection' />,
-		name: 'Student'
-	},
-	{
-		icon: <Code />,
-		name: 'WebDev'
-	},
+	// {
+	// 	icon: <i className='el-icon-collection' />,
+	// 	name: 'Student'
+	// },
 	{
 		icon: <Design />,
 		name: 'UI/UX'
+	},
+	{
+		icon: <Code />,
+		name: isMobile ? 'Engineer' : 'Full Stack Engineer'
 	}
 ]
