@@ -55,7 +55,7 @@ jobs:
         uses: garygrossgarten/github-action-scp@release
         with:
           local: dist
-          remote: /LF/site/LF/index
+          remote: /opt/1panel/apps/openresty/openresty/www/sites/LF112/index
           host: ${{ secrets.SERVERIP }}
           port: ${{ secrets.SERVERPORT }}
           username: ${{ secrets.SERVERUSERNAME }}
@@ -65,7 +65,7 @@ jobs:
         uses: garygrossgarten/github-action-scp@release
         with:
           local: dist
-          remote: /LF/site/LF/futi
+          remote: /opt/1panel/apps/openresty/openresty/www/sites/futiwolf/index
           host: ${{ secrets.SERVERIP }}
           port: ${{ secrets.SERVERPORT }}
           username: ${{ secrets.SERVERUSERNAME }}
