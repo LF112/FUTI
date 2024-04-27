@@ -1,6 +1,6 @@
 {
     "name": "futi-detroit-profile",
-    "version": "4.1.1-9daa7a6",
+    "version": "4.1.2-80f9332",
     "description": "⚡️Based on Detroit sci-fi style personal homepage.",
     "scripts": {
         "dev": "vite",
