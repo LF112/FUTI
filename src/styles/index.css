@@ -3,6 +3,9 @@
 
 @theme {
   --color-futi: oklch(0.63 0.15 252.19);
+
+  --font-geometos: 'Geometos', sans-serif;
+  --font-monaspace-neon: 'MonaspaceNeon', monospace;
 }
 
 @layer base {
@@ -15,4 +18,18 @@
     background-blend-mode: overlay, normal;
     @apply font-sans text-foreground;
   }
+}
+
+.futi-text-lyrics {
+  text-shadow: rgba(6, 7, 25, 0.32) 0.05em 0.05em 0;
+}
+
+@font-face {
+  font-family: Geometos;
+  src: url('@/assets/font/Geometos.woff') format('woff');
+}
+
+@font-face {
+  font-family: MonaspaceNeon;
+    src: url('@/assets/font/MonaspaceNeon.woff') format('woff');
 }
