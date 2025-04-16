@@ -52,7 +52,7 @@ export const Footer: React.FC<IFooterProps> = ({ className, style }) => {
           <p className="max-sm:hidden">/</p>
           <Tooltip>
             <TooltipTrigger asChild>
-              <a href="https://github.com/LF112/futi-detroit" target="_blank" rel="noreferrer">
+              <a href="https://github.com/LF112/FUTI" target="_blank" rel="noreferrer">
                 Github Open Source
               </a>
             </TooltipTrigger>
