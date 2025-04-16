@@ -1,0 +1,52 @@
+name: Auto Version Patch
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  auto-version-patch:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Patch version
+        id: patch_version
+        run: |
+          PKG_VER=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | xargs)
+          major=$(echo $PKG_VER | cut -d. -f1)
+          minor=$(echo $PKG_VER | cut -d. -f2)
+          build=$(echo $PKG_VER | cut -d. -f3)
+
+          if [ $build -lt 50 ]; then
+              build=$((build + 1))
+          else
+              build=0
+              if [ $minor -lt 50 ]; then
+                  minor=$((minor + 1))
+              else
+                  minor=0
+                  major=$((major + 1))
+              fi
+          fi
+
+          NEW_VER="$major.$minor.$build"
+
+          npm --no-git-tag-version version $NEW_VER
+          # We don't need a .lock file other than bun.lockb.
+          rm -rf package-lock.json yarn.lock pnpm-lock.yaml
+
+          echo "package_version=$NEW_VER" >> $GITHUB_OUTPUT
+
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'feat: auto update version ${{ steps.patch_version.outputs.package_version }} ↑'
