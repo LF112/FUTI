@@ -16,7 +16,7 @@ export default defineConfig({
   html: {
     title: 'LF112「@futiwolf」- 伏科一',
     meta: {
-      description: "futiowlf's personal website, A NodeJS Fullstack Developer. | Front-end Developer",
+      description: "futiowlf's personal website, A NodeJS Fullstack Developer. | 一位正在努力钻研前端开发的开发者，趁年轻，做爱做的事。",
     },
   },
 });

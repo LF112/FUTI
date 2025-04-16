@@ -1,28 +1,18 @@
 @import 'tailwindcss';
+@import './shadcn.css';
 
-body {
-  margin: 0;
-  color: #fff;
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  background-image: linear-gradient(to bottom, #020917, #101725);
+@theme {
+  --color-futi: oklch(0.63 0.15 252.19);
 }
 
-.content {
-  display: flex;
-  min-height: 100vh;
-  line-height: 1.1;
-  text-align: center;
-  flex-direction: column;
-  justify-content: center;
-}
+@layer base {
+  .futi-ui * {
+    @apply transition-colors;
+  }
 
-.content h1 {
-  font-size: 3.6rem;
-  font-weight: 700;
-}
-
-.content p {
-  font-size: 1.2rem;
-  font-weight: 400;
-  opacity: 0.5;
+  body {
+    background-image: radial-gradient(23rem 23rem at 70% 30%,hsla(0,0%,100%,.2),hsla(0,0%,100%,0)),linear-gradient(#22252b 20rem,#15161a 62rem);
+    background-blend-mode: overlay, normal;
+    @apply font-sans text-foreground;
+  }
 }
