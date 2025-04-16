@@ -20,6 +20,14 @@
   }
 }
 
+.futi-footer-line {
+  background-image: linear-gradient(90deg, rgba(119, 119, 119, 0.2), rgba(72, 72, 72, 0.2), rgba(103, 103, 103, 0.2), rgba(60, 60, 60, 0.2));
+}
+
+.futi-center {
+  @apply flex items-center justify-center;
+}
+
 .futi-text-lyrics {
   text-shadow: rgba(6, 7, 25, 0.32) 0.05em 0.05em 0;
 }
