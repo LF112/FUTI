@@ -1,4 +1,3 @@
-'use client';
 import React, { memo } from 'react';
 
 import { languageMap, useHighlight } from '@/components/ui/highlighter/use-highlighter.ts';

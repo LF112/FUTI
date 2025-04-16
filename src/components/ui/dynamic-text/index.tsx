@@ -1,4 +1,3 @@
-'use client';
 import React, { memo, useEffect, useRef, useState } from 'react';
 
 import { DOMMotionComponents, motion, MotionProps } from 'motion/react';

@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+/* eslint-disable react-compiler/react-compiler */
+import React, { useEffect, useState } from 'react';
 
 import { AnimatePresence, motion } from 'framer-motion';
 
+import { Live2D, Live2DEvent } from '@/components/ui/live2d';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
 import { DetroitBackground } from '@/components/page/background.tsx';
@@ -13,9 +15,28 @@ import { Name } from '@/components/page/profile/introduction/name.tsx';
 import { ProfileWrapper } from '@/components/page/profile/wrapper.tsx';
 
 import profileImage from '@/assets/webp/futiwolf.webp';
+import useEventEmitter from '@/hooks/use-event-emitter.ts';
 
 export const App: React.FC = () => {
-  const [profileImageVisible] = useState(true);
+  const [live2dVisible, setLive2dVisible] = useState(false);
+  const [profileImageVisible, setProfileImageVisible] = useState(true);
+
+  const live2dEvent$ = useEventEmitter<Live2DEvent>();
+  live2dEvent$.useSubscription((target) => {
+    switch (target) {
+      case Live2DEvent.SHOW: {
+        setProfileImageVisible(false);
+        break;
+      }
+    }
+  });
+
+  useEffect(() => {
+    if (!live2dVisible) {
+      setTimeout(() => setLive2dVisible(true), 1500);
+    }
+  }, []);
+
   const [nameVisible, setNameVisible] = useState(false);
 
   return (
@@ -37,6 +58,7 @@ export const App: React.FC = () => {
                 </motion.div>
               )}
             </AnimatePresence>
+            {live2dVisible && <Live2D event$={live2dEvent$} />}
           </ProfileWrapper>
           <Name initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0, transition: { delay: 0.2 } }} transition={{ duration: 0.2 }} onAnimationComplete={() => setNameVisible(true)} />
           <div className="h-7">{nameVisible && <Description />}</div>
