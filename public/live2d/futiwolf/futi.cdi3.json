@@ -1,0 +1,206 @@
+{
+  "Version": 3,
+  "Parameters": [
+    {
+      "Id": "ParamAngleX",
+      "GroupId": "ParamGroup",
+      "Name": "角度 X"
+    },
+    {
+      "Id": "ParamAngleY",
+      "GroupId": "ParamGroup",
+      "Name": "角度 Y"
+    },
+    {
+      "Id": "ParamAngleZ",
+      "GroupId": "ParamGroup",
+      "Name": "角度 Z"
+    },
+    {
+      "Id": "ParamEyeRSmile",
+      "GroupId": "ParamGroup",
+      "Name": "右眼　微笑"
+    },
+    {
+      "Id": "ParamEyeLSmile",
+      "GroupId": "ParamGroup",
+      "Name": "左眼　微笑"
+    },
+    {
+      "Id": "ParamBrowLY",
+      "GroupId": "ParamGroup",
+      "Name": "左眉上下"
+    },
+    {
+      "Id": "ParamBrowRY",
+      "GroupId": "ParamGroup",
+      "Name": "右眉　上下"
+    },
+    {
+      "Id": "ParamBrowLX",
+      "GroupId": "ParamGroup",
+      "Name": "左眉　左右"
+    },
+    {
+      "Id": "ParamBrowRX",
+      "GroupId": "ParamGroup",
+      "Name": "右眉　左右"
+    },
+    {
+      "Id": "ParamBrowLAngle",
+      "GroupId": "ParamGroup",
+      "Name": "左眉　角度"
+    },
+    {
+      "Id": "ParamBrowRAngle",
+      "GroupId": "ParamGroup",
+      "Name": "右眉　角度"
+    },
+    {
+      "Id": "ParamBrowRForm",
+      "GroupId": "ParamGroup",
+      "Name": "右眉　変形"
+    },
+    {
+      "Id": "ParamBrowLForm",
+      "GroupId": "ParamGroup",
+      "Name": "左眉　変形"
+    },
+    {
+      "Id": "ParamMouthOpenY",
+      "GroupId": "ParamGroup",
+      "Name": "嘴巴　张开和闭合"
+    },
+    {
+      "Id": "ParamCheek",
+      "GroupId": "ParamGroup",
+      "Name": "脸颊"
+    },
+    {
+      "Id": "ParamBodyAngleY",
+      "GroupId": "ParamGroup",
+      "Name": "身体旋转　Y"
+    },
+    {
+      "Id": "ParamBodyAngleZ",
+      "GroupId": "ParamGroup",
+      "Name": "身体旋转　Z"
+    },
+    {
+      "Id": "ParamBodyAngleX",
+      "GroupId": "ParamGroup",
+      "Name": "身体旋转　X"
+    },
+    {
+      "Id": "Param3",
+      "GroupId": "ParamGroup",
+      "Name": "test"
+    },
+    {
+      "Id": "ParamHairBack",
+      "GroupId": "ParamGroup",
+      "Name": "摇动　后发"
+    },
+    {
+      "Id": "ParamEyeLOpen",
+      "GroupId": "",
+      "Name": "左眼　开闭"
+    },
+    {
+      "Id": "ParamEyeROpen",
+      "GroupId": "",
+      "Name": "右眼"
+    },
+    {
+      "Id": "ParamEyeBallX",
+      "GroupId": "",
+      "Name": "眼球 X"
+    },
+    {
+      "Id": "ParamEyeBallY",
+      "GroupId": "",
+      "Name": "眼球 Y"
+    },
+    {
+      "Id": "ParamMouthForm",
+      "GroupId": "",
+      "Name": "嘴部　变形"
+    },
+    {
+      "Id": "ParamBreath",
+      "GroupId": "",
+      "Name": "呼吸"
+    },
+    {
+      "Id": "Param",
+      "GroupId": "",
+      "Name": "pysim"
+    },
+    {
+      "Id": "Param4",
+      "GroupId": "",
+      "Name": "flash"
+    },
+    {
+      "Id": "Param_Angle_Rotation_1_tail2",
+      "GroupId": "ParamGroup3",
+      "Name": "[0]tail"
+    },
+    {
+      "Id": "Param_Angle_Rotation_2_tail2",
+      "GroupId": "ParamGroup3",
+      "Name": "[1]tail"
+    },
+    {
+      "Id": "Param_Angle_Rotation_5_tail2",
+      "GroupId": "ParamGroup3",
+      "Name": "[4]tail"
+    }
+  ],
+  "ParameterGroups": [
+    {
+      "Id": "ParamGroup",
+      "GroupId": "",
+      "Name": "unused"
+    },
+    {
+      "Id": "ParamGroup3",
+      "GroupId": "",
+      "Name": "tail"
+    }
+  ],
+  "Parts": [
+    {
+      "Id": "headset1",
+      "Name": "headset1"
+    },
+    {
+      "Id": "tail_Skinning",
+      "Name": "tail(蒙皮)"
+    },
+    {
+      "Id": "Part2",
+      "Name": "tail(回转)"
+    },
+    {
+      "Id": "Part",
+      "Name": "tail(回转)"
+    },
+    {
+      "Id": "headset2",
+      "Name": "headset2"
+    },
+    {
+      "Id": "flashset",
+      "Name": "flashset"
+    },
+    {
+      "Id": "eyeR",
+      "Name": "eyeR"
+    },
+    {
+      "Id": "eyeL",
+      "Name": "eyeL"
+    }
+  ]
+}

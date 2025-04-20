@@ -1,0 +1,88 @@
+@import 'tailwindcss';
+@import './shadcn.css';
+
+@theme {
+  --color-futi: oklch(0.63 0.15 252.19);
+
+  --font-geometos: 'Geometos', sans-serif;
+  --font-monaspace-neon: 'MonaspaceNeon', monospace;
+  --font-kanit: 'Kanit', sans-serif;
+  --font-ubuntu: 'Ubuntu', sans-serif;
+}
+
+@layer base {
+  .futi-ui * {
+    @apply transition-colors;
+  }
+
+  body {
+    background-image: radial-gradient(23rem 23rem at 70% 30%,hsla(0,0%,100%,.2),hsla(0,0%,100%,0)),linear-gradient(#22252b 20rem,#15161a 62rem);
+    background-blend-mode: overlay, normal;
+    @apply font-sans text-foreground;
+  }
+}
+
+.futi-footer-line {
+  background-image: linear-gradient(90deg, rgba(119, 119, 119, 0.2), rgba(72, 72, 72, 0.2), rgba(103, 103, 103, 0.2), rgba(60, 60, 60, 0.2));
+}
+
+.futi-profile-line {
+  background-image: linear-gradient(to right, rgb(55, 239, 249), rgb(0, 145, 228), rgb(100, 198, 244), rgb(100, 192, 236));
+}
+
+.futi-center {
+  @apply flex items-center justify-center;
+}
+
+.futi-text-lyrics {
+  text-shadow: rgba(6, 7, 25, 0.32) 0.05em 0.05em 0;
+}
+
+.futi-cursor::after {
+  animation: cursor-fade-out 0.3s ease infinite alternate-reverse;
+
+  @apply block h-full w-[1.67px] border-[#528bff] bg-[#528bff] content-[''];
+}
+
+@keyframes cursor-fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@font-face {
+  font-family: Geometos;
+  src: url('@/assets/font/Geometos.woff') format('woff');
+}
+
+@font-face {
+  font-family: MonaspaceNeon;
+  src: url('@/assets/font/MonaspaceNeon.woff') format('woff');
+}
+
+@font-face {
+  font-family: Kanit;
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('@/assets/font/Kanit-300.woff2') format("woff2");
+}
+
+@font-face {
+  font-family: Kanit;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('@/assets/font/Kanit-400.woff2') format("woff2");
+}
+
+@font-face {
+  font-family: Ubuntu;
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('@/assets/font/Ubuntu.woff2') format("woff2");
+}
